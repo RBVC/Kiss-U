@@ -17,7 +17,7 @@
 
         body {
             margin: 0;
-            background-color: #1b1111; /* ダークチョコレート */
+            background-color: #241818; /* より茶色感の強いダークチョコレート */
             color: #d8c8c8;
             font-family: 'Shippori Mincho', serif;
             -webkit-font-smoothing: antialiased;
@@ -32,7 +32,7 @@
             align-items: center;
             padding: 20px 50px;
             box-sizing: border-box;
-            background: rgba(27, 17, 17, 0.85);
+            background: rgba(36, 24, 24, 0.85); /* 背景色に合わせた透過 */
             z-index: 1000;
             backdrop-filter: blur(10px);
         }
@@ -44,7 +44,6 @@
             color: #fff; 
             letter-spacing: 2px;
         }
-        .heart { color: #d0454f; font-size: 0.9em; margin: 0 2px; }
 
         nav a {
             color: #fff;
@@ -54,9 +53,9 @@
             font-family: 'Aprila';
             transition: 0.3s;
         }
-        nav a:hover { color: #d0454f; }
+        nav a:hover { color: #8a5a5a; }
 
-        /* メインビジュアル */
+        /* メインビジュアル (Hero Section) */
         .hero {
             width: 100%;
             height: 100vh;
@@ -64,21 +63,42 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: radial-gradient(circle, #2a1a1a 0%, #1b1111 100%);
+            position: relative;
+            background-image: url('./images/main.jpg'); /* main.jpgを反映 */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
+
+        /* 画像の上に重なる暗いフィルター */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.3); /* 画像を少しだけ暗くして文字を見やすくする */
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
         .hero h1 { 
             font-size: clamp(4rem, 15vw, 9rem); 
             font-family: 'Aprila'; 
             margin: 0; 
             color: #fff;
-            filter: drop-shadow(0 0 20px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 0 20px rgba(0,0,0,0.8));
+            letter-spacing: 5px;
         }
         .hero p {
             font-family: 'Aprila';
             font-size: 1.2rem;
             margin-top: 10px;
             letter-spacing: 0.5em;
-            color: #7a6a6a;
+            color: rgba(255,255,255,0.8);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
         /* セクション共通 */
@@ -86,7 +106,7 @@
         .section-title {
             font-family: 'Aprila';
             font-size: 2.8rem;
-            border-bottom: 1px solid #3a2a2a;
+            border-bottom: 1px solid #4a3a3a;
             padding-bottom: 20px;
             margin-bottom: 60px;
             color: #fff;
@@ -96,15 +116,15 @@
         .news-item {
             display: flex;
             padding: 25px 0;
-            border-bottom: 1px solid #2a1a1a;
+            border-bottom: 1px solid #3a2a2a;
             text-decoration: none;
             color: #b8a8a8;
             transition: 0.3s;
         }
-        .news-item:hover { color: #fff; padding-left: 10px; }
-        .news-date { font-family: 'Aprila'; width: 140px; color: #7a6a6a; }
+        .news-item:hover { color: #fff; background: rgba(255,255,255,0.03); padding-left: 10px; }
+        .news-date { font-family: 'Aprila'; width: 140px; color: #8a6a6a; }
 
-        /* Biography (奇数コンセプト反映) */
+        /* Biography */
         .member-nav {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -118,23 +138,23 @@
         .photo-box { 
             width: 100%;
             aspect-ratio: 3/4; 
-            background: #2a1a1a; 
+            background: #3a2a2a; 
             margin-bottom: 15px; 
             transition: 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-            border: 1px solid #3a2a2a;
+            border: 1px solid #4a3a3a;
             overflow: hidden;
         }
         .photo-box img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* 画像の比率を保って収める */
-            filter: grayscale(0.3) contrast(1.1);
+            object-fit: cover;
+            filter: grayscale(0.2) contrast(1.1);
             transition: 0.5s;
         }
         .member-thumb:hover .photo-box { 
             transform: translateY(-10px); 
-            border-color: #d0454f;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.7);
+            border-color: #8a6a6a;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
         }
         .member-thumb:hover img {
             filter: grayscale(0) contrast(1.2);
@@ -147,25 +167,35 @@
             letter-spacing: 2px;
         }
 
+        /* Discography */
+        .disco-section {
+            opacity: 0.5;
+            font-family: 'Aprila';
+            letter-spacing: 2px;
+        }
+
         footer { 
             text-align: center; 
             padding: 100px 0 60px; 
             font-size: 0.7rem; 
-            color: #5a4a4a; 
+            color: #6a5a5a; 
             font-family: 'Aprila';
+            letter-spacing: 1px;
         }
 
+        /* スマホ対応 */
         @media (max-width: 768px) {
             header { padding: 15px 20px; }
             .section { padding: 80px 20px; }
             nav a { margin-left: 15px; font-size: 0.8rem; }
+            .hero h1 { font-size: 4rem; }
         }
     </style>
 </head>
 <body id="top">
 
 <header>
-    <a href="#top" class="logo">Kiss<span class="heart">❤︎</span>U</a>
+    <a href="#top" class="logo">Kiss-U</a>
     <nav>
         <a href="#news">News</a>
         <a href="#biography">Biography</a>
@@ -174,8 +204,10 @@
 </header>
 
 <div class="hero">
-    <h1>Kiss<span class="heart">❤︎</span>U</h1>
-    <p>Kisuu / Project-U</p>
+    <div class="hero-content">
+        <h1>Kiss-U</h1>
+        <p>Kisuu / Project-U</p>
+    </div>
 </div>
 
 <!-- News Section -->
@@ -184,7 +216,7 @@
     <div class="news-list">
         <a href="#" class="news-item">
             <span class="news-date">2026.06.08</span>
-            <span class="news-text">Kiss❤︎U Official Site Open</span>
+            <span class="news-text">Kiss-U Official Site Open</span>
         </a>
         <a href="#" class="news-item">
             <span class="news-date">2026.07.01</span>
@@ -197,39 +229,24 @@
 <section id="biography" class="section">
     <h2 class="section-title">Biography</h2>
     <div class="member-nav">
-        <!-- 1chika -->
         <a href="#profile-1chika" class="member-thumb">
-            <div class="photo-box">
-                <img src="./images/1chika.png" alt="1chika">
-            </div>
+            <div class="photo-box"><img src="./images/1chika.png" alt="1chika"></div>
             <span>1chika</span>
         </a>
-        <!-- 3tuba -->
         <a href="#profile-3tuba" class="member-thumb">
-            <div class="photo-box">
-                <img src="./images/3tuba.png" alt="3tuba">
-            </div>
+            <div class="photo-box"><img src="./images/3tuba.png" alt="3tuba"></div>
             <span>3tuba</span>
         </a>
-        <!-- 5ma -->
         <a href="#profile-5ma" class="member-thumb">
-            <div class="photo-box">
-                <img src="./images/5ma.png" alt="5ma">
-            </div>
+            <div class="photo-box"><img src="./images/5ma.png" alt="5ma"></div>
             <span>5ma</span>
         </a>
-        <!-- na7o -->
         <a href="#profile-na7o" class="member-thumb">
-            <div class="photo-box">
-                <img src="./images/na7o.png" alt="na7o">
-            </div>
+            <div class="photo-box"><img src="./images/na7o.png" alt="na7o"></div>
             <span>na7o</span>
         </a>
-        <!-- ku9 -->
         <a href="#profile-ku9" class="member-thumb">
-            <div class="photo-box">
-                <img src="./images/ku9.png" alt="ku9">
-            </div>
+            <div class="photo-box"><img src="./images/ku9.png" alt="ku9"></div>
             <span>ku9</span>
         </a>
     </div>
@@ -238,13 +255,13 @@
 <!-- Discography Section -->
 <section id="discography" class="section">
     <h2 class="section-title">Discography</h2>
-    <div style="opacity: 0.4; font-family: 'Aprila'; letter-spacing: 2px;">
+    <div class="disco-section">
         Coming soon...
     </div>
 </section>
 
 <footer>
-    &copy; Kiss❤︎U / Project-U ANYCOLOR Inc. (Fictional)
+    &copy; Kiss-U / Project-U ANYCOLOR Inc. (Fictional)
 </footer>
 
 </body>
