@@ -5,9 +5,8 @@
     <title>Discography - Kiss-U</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
-    <!-- アイコン素材 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=8.0">
+    <link rel="stylesheet" href="style.css?v=9.0">
 </head>
 <body>
 <header>
@@ -28,27 +27,35 @@
             <div class="player-box">
                 <div class="player-top-controls">
                     <div class="p-meta">
-                        <h2 id="p-title">Select Track</h2>
-                        <p id="p-album">Album Name</p>
+                        <h2 id="p-title">読み込み中...</h2>
+                        <p id="p-album"></p>
                     </div>
                     <div class="seek-bar-container">
                         <div class="time-info"><span id="curr-time">0:00</span><span id="dur-time">0:00</span></div>
                         <input type="range" id="seek-bar" value="0">
                     </div>
-                    <!-- 操作ボタン列 -->
-                    <div class="player-btns-row">
-                        <i class="fa-solid fa-shuffle ctrl-icon" id="shuffle-btn" title="Shuffle"></i>
-                        <i class="fa-solid fa-backward-step ctrl-icon" id="prev-btn"></i>
-                        <i class="fa-solid fa-play ctrl-icon play-btn-main" id="play-btn"></i>
-                        <i class="fa-solid fa-forward-step ctrl-icon" id="next-btn"></i>
-                        <i class="fa-solid fa-repeat ctrl-icon" id="repeat-btn" title="Repeat"></i>
-                    </div>
-                    <!-- 音量調節 -->
-                    <div class="volume-row">
-                        <i class="fa-solid fa-volume-low" id="mute-btn" style="cursor:pointer;"></i>
-                        <input type="range" id="volume-bar" min="0" max="1" step="0.1" value="0.7">
+
+                    <!-- 3ブロック構成のコントロール -->
+                    <div class="player-controls-grid">
+                        <!-- 左：音量 -->
+                        <div class="grid-left">
+                            <i class="fa-solid fa-volume-low" id="mute-btn"></i>
+                            <input type="range" id="volume-bar" min="0" max="1" step="0.1" value="0.7">
+                        </div>
+                        <!-- 中：再生系 -->
+                        <div class="grid-center">
+                            <i class="fa-solid fa-backward-step ctrl-icon" id="prev-btn"></i>
+                            <i class="fa-solid fa-play ctrl-icon play-btn-main" id="play-btn"></i>
+                            <i class="fa-solid fa-forward-step ctrl-icon" id="next-btn"></i>
+                        </div>
+                        <!-- 右：特殊系 -->
+                        <div class="grid-right">
+                            <i class="fa-solid fa-shuffle ctrl-icon" id="shuffle-btn"></i>
+                            <i class="fa-solid fa-repeat ctrl-icon" id="repeat-btn"></i>
+                        </div>
                     </div>
                 </div>
+                <!-- 曲リスト（三を削除） -->
                 <div class="player-track-list" id="track-container"></div>
             </div>
         </div>
@@ -70,7 +77,7 @@
 
     let currentIdx = 0;
     let isShuffle = false;
-    let repeatMode = 0; // 0: None, 1: All, 2: One
+    let repeatMode = 0; // 0:None, 1:All, 2:One
 
     if (data) {
         document.getElementById('p-album').innerText = data.title;
@@ -80,7 +87,7 @@
             const row = document.createElement('div');
             row.className = 'track-row';
             row.id = `t-${i}`;
-            row.innerHTML = `<span>${t.num}. ${t.name}</span><i class="fa-solid fa-bars" style="opacity:0.2; font-size:0.7rem;"></i>`;
+            row.innerHTML = `<span>${t.num}. ${t.name}</span>`; // 三を削除
             row.onclick = () => loadTrack(i, true);
             container.appendChild(row);
         });
@@ -102,46 +109,29 @@
         else { audio.pause(); playBtn.className = 'fa-solid fa-play ctrl-icon play-btn-main'; }
     };
 
-    // シャッフル切り替え
-    shuffleBtn.onclick = () => {
-        isShuffle = !isShuffle;
-        shuffleBtn.classList.toggle('active', isShuffle);
-    };
-
-    // リピート切り替え (None -> All -> One)
+    shuffleBtn.onclick = () => { isShuffle = !isShuffle; shuffleBtn.classList.toggle('active', isShuffle); };
     repeatBtn.onclick = () => {
         repeatMode = (repeatMode + 1) % 3;
-        if (repeatMode === 0) { repeatBtn.className = 'fa-solid fa-repeat ctrl-icon'; repeatBtn.innerHTML = ''; repeatBtn.classList.remove('active'); }
-        else if (repeatMode === 1) { repeatBtn.classList.add('active'); repeatBtn.innerHTML = ''; }
-        else if (repeatMode === 2) { repeatBtn.innerHTML = '<span style="font-size:10px; position:absolute; margin-top:12px; margin-left:-8px;">1</span>'; }
+        repeatBtn.classList.toggle('active', repeatMode > 0);
+        repeatBtn.innerHTML = repeatMode === 2 ? '<span style="font-size:9px; position:absolute; margin-top:10px; margin-left:-7px; font-weight:bold;">1</span>' : '';
     };
 
     document.getElementById('next-btn').onclick = () => {
-        let next;
-        if (isShuffle) { next = Math.floor(Math.random() * data.tracks.length); }
-        else { next = (currentIdx + 1) % data.tracks.length; }
+        let next = isShuffle ? Math.floor(Math.random() * data.tracks.length) : (currentIdx + 1) % data.tracks.length;
         loadTrack(next, true);
     };
-
     document.getElementById('prev-btn').onclick = () => {
         let prev = (currentIdx - 1 + data.tracks.length) % data.tracks.length;
         loadTrack(prev, true);
     };
 
-    // 音量・ミュート
-    volBar.oninput = () => { audio.volume = volBar.value; audio.muted = false; muteBtn.className = audio.volume === 0 ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-low'; };
+    volBar.oninput = () => { audio.volume = volBar.value; muteBtn.className = audio.volume === 0 ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-low'; };
     muteBtn.onclick = () => { audio.muted = !audio.muted; muteBtn.className = audio.muted ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-low'; };
 
-    // シークバー
     audio.ontimeupdate = () => { if(!isNaN(audio.duration)) { seekBar.value = (audio.currentTime / audio.duration) * 100; document.getElementById('curr-time').innerText = formatTime(audio.currentTime); document.getElementById('dur-time').innerText = formatTime(audio.duration); } };
     seekBar.oninput = () => audio.currentTime = (seekBar.value / 100) * audio.duration;
     function formatTime(s) { const m = Math.floor(s/60); const sec = Math.floor(s%60); return m + ":" + (sec < 10 ? "0" : "") + sec; }
-
-    // 曲終了時の処理
-    audio.onended = () => {
-        if (repeatMode === 2) { loadTrack(currentIdx, true); } // 1曲リピート
-        else if (repeatMode === 1 || currentIdx < data.tracks.length - 1) { document.getElementById('next-btn').click(); } // 全曲リピート または 次の曲へ
-    };
+    audio.onended = () => { if (repeatMode === 2) loadTrack(currentIdx, true); else if (repeatMode === 1 || currentIdx < data.tracks.length - 1) document.getElementById('next-btn').click(); };
 </script>
 </body>
 </html>
