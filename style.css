@@ -3,8 +3,8 @@
 html { scroll-behavior: smooth; }
 
 body {
-    margin: 0; background-color: #2b1a1a !important; color: #d8c8c8;
-    font-family: 'Shippori Mincho', serif; -webkit-font-smoothing: antialiased;
+    margin: 0 !important; background-color: #2b1a1a !important; color: #d8c8c8 !important;
+    font-family: 'Shippori Mincho', serif !important; -webkit-font-smoothing: antialiased;
     display: flex; flex-direction: column; min-height: 100vh;
 }
 
@@ -13,77 +13,94 @@ header {
     position: fixed; top: 0; width: 100%; height: 70px;
     display: flex; justify-content: space-between; align-items: center;
     padding: 0 25px; box-sizing: border-box;
-    background: rgba(43, 26, 26, 0.95); z-index: 1000; border-bottom: 1px solid #3a2a2a;
+    background: rgba(43, 26, 26, 0.98) !important; z-index: 1000; border-bottom: 1px solid #3a2a2a;
 }
-.logo { font-family: 'Aprila'; font-size: 1.5rem; text-decoration: none; color: #fff; padding-top: 8px; }
+.logo { font-family: 'Aprila' !important; font-size: 1.5rem; text-decoration: none; color: #fff !important; padding-top: 8px; }
 .nav-links { display: flex; list-style: none; margin: 0; padding: 0; }
 .nav-links li { margin-left: 20px; }
-.nav-links a { color: #fff; text-decoration: none; font-family: 'Aprila'; font-size: 0.85rem; }
+.nav-links a { color: #fff !important; text-decoration: none; font-family: 'Aprila' !important; font-size: 0.85rem; }
+
+/* --- TOPメインビジュアル：絶対に消えないよう設定 --- */
+.hero {
+    width: 100% !important; height: 85vh !important; position: relative !important;
+    background-color: #ffffff !important;
+    background-image: url('./images/main.jpg') !important;
+    background-size: contain !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    margin-top: 70px !important;
+    display: block !important;
+}
+.hero::after {
+    content: '' !important; position: absolute; bottom: 0; left: 0; width: 100%; height: 200px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), #2b1a1a) !important;
+}
 
 /* 共通セクション */
-.section { padding: 120px 20px 60px; max-width: 1100px; margin: 0 auto; width: 100%; box-sizing: border-box; }
-.section-title { font-family: 'Aprila'; font-size: 2.5rem; border-bottom: 1px solid #4a3a3a; padding-bottom: 15px; margin: 0 0 40px; color: #fff; text-align: center; }
+.section { padding: 120px 20px 60px !important; max-width: 1100px; margin: 0 auto; width: 100%; box-sizing: border-box; }
+.section-title { font-family: 'Aprila' !important; font-size: 2.5rem; border-bottom: 1px solid #4a3a3a; padding-bottom: 15px; margin: 0 0 40px !important; color: #fff !important; text-align: center; }
+
+/* ニュース（青色を防止） */
+.news-item { display: flex; align-items: center; padding: 25px 10px; border-bottom: 1px solid #3a2a2a; text-decoration: none !important; color: #d8c8c8 !important; }
+.news-date { font-family: 'Aprila' !important; width: 140px; color: #8a6a6a !important; flex-shrink: 0; }
+.news-text { color: #d8c8c8 !important; text-decoration: none !important; }
+
+/* グリッド並び */
+.grid-nav { display: grid !important; grid-template-columns: repeat(5, 1fr) !important; gap: 15px; margin-top: 20px; }
+.grid-item { text-decoration: none; color: #fff !important; text-align: center; }
+.photo-box { width: 100%; aspect-ratio: 3/4; background: #3a2a2a; border: 1px solid #4a3a3a; overflow: hidden; }
+.photo-box.square { aspect-ratio: 1/1 !important; }
+.photo-box img { width: 100%; height: 100%; object-fit: cover; }
+.grid-item span { font-family: 'Aprila' !important; font-size: 0.8rem; display: block; margin-top: 10px; }
 
 /* 詳細レイアウト */
-.detail-flex { display: flex; gap: 30px; align-items: stretch; margin-top: 20px; }
+.detail-flex { display: flex; gap: 40px; align-items: stretch; margin-top: 40px; }
 .detail-left { width: 45%; flex-shrink: 0; }
 .detail-left img { width: 100%; height: 100%; object-fit: cover; border: 1px solid #4a3a3a; }
 .detail-right { width: 55%; display: flex; flex-direction: column; }
 
-/* --- 改良版プレーヤー：PC・スマホ共通レイアウト --- */
-.player-box {
-    background: #1b1111; border: 1px solid #3a2a2a;
-    display: flex; flex-direction: column; height: 100%; border-radius: 8px; overflow: hidden;
-}
+/* プロフィール */
+.profile-info h2 { font-family: 'Aprila' !important; font-size: 3.5rem; margin: 0 0 10px; color: #fff !important; line-height: 1.1; }
+.profile-table { list-style: none; padding: 0; border-top: 1px solid #3a2a2a; }
+.profile-table li { display: flex; padding: 15px 0; border-bottom: 1px solid #3a2a2a; align-items: center; }
+.label { width: 100px; color: #8a6a6a !important; font-family: 'Aprila' !important; font-size: 0.8rem; }
+.value { flex: 1; color: #fff !important; font-size: 1rem; }
+
+/* --- 改良版プレーヤー --- */
+.player-box { background: #1b1111; border: 1px solid #3a2a2a; display: flex; flex-direction: column; height: 100%; border-radius: 8px; overflow: hidden; }
 .player-top-controls { padding: 25px; background: linear-gradient(to bottom, #2b1a1a, #1b1111); }
 
-/* プレーヤー内はすべて「しっぽり明朝」 */
-.p-meta h2 { font-family: 'Shippori Mincho', serif; font-size: 1.4rem; color: #fff; margin: 0; font-weight: bold; line-height: 1.2; }
-.p-meta p { font-family: 'Shippori Mincho', serif; font-size: 0.8rem; color: #8a6a6a; margin: 5px 0 20px; }
+/* 曲名の2行表示対応 */
+.p-meta h2 { font-size: 1.3rem; color: #fff !important; margin: 0; font-weight: bold; line-height: 1.4; word-break: break-all; }
+.p-meta p { font-size: 0.8rem; color: #8a6a6a !important; margin: 5px 0 20px; }
 
-.seek-bar-container { margin-bottom: 20px; }
-.time-info { display: flex; justify-content: space-between; font-size: 0.7rem; color: #8a6a6a; margin-bottom: 5px; font-family: 'Shippori Mincho', serif; }
-input[type="range"] { -webkit-appearance: none; width: 100%; background: #3a2a2a; height: 3px; outline: none; cursor: pointer; }
-input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 10px; height: 10px; background: #8a6a6a; border-radius: 50%; }
-
-/* 三段構成コントロール行 */
-.player-controls-grid {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-/* 左：音量 */
-.grid-left { width: 25%; display: flex; align-items: center; gap: 8px; }
-.grid-left input { width: 60px; }
-.grid-left i { font-size: 0.8rem; color: #8a6a6a; cursor: pointer; }
-
-/* 中：再生系 */
-.grid-center { width: 50%; display: flex; justify-content: center; align-items: center; gap: 20px; color: #fff; }
-.play-btn-main { font-size: 2.5rem !important; }
-
-/* 右：シャッフル・リピート */
+/* 3段構成コントロール */
+.player-controls-grid { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 10px; }
+.grid-left { width: 25%; display: flex; align-items: center; gap: 5px; }
+.grid-left input { width: 50px; }
+.grid-center { width: 50%; display: flex; justify-content: center; align-items: center; gap: 20px; color: #fff !important; }
 .grid-right { width: 25%; display: flex; justify-content: flex-end; align-items: center; gap: 15px; }
 
-.ctrl-icon { cursor: pointer; transition: 0.3s; opacity: 0.5; font-size: 1rem; }
+.play-btn-main { font-size: 2.2rem !important; }
+.ctrl-icon { cursor: pointer; transition: 0.3s; opacity: 0.5; font-size: 1rem; position: relative; }
 .ctrl-icon:hover { opacity: 1; }
-.ctrl-icon.active { opacity: 1; color: #eb7992; }
+.ctrl-icon.active { opacity: 1; color: #eb7992 !important; }
 
 /* 曲リスト */
 .player-track-list { flex-grow: 1; overflow-y: auto; background: #241818; max-height: 250px; }
-.track-row {
-    padding: 12px 20px; border-bottom: 1px solid #1b1111; cursor: pointer;
-    font-size: 0.85rem; font-family: 'Shippori Mincho', serif; transition: 0.2s;
-}
-.track-row:hover { background: rgba(255,255,255,0.03); }
-.track-row.active { background: rgba(235, 121, 146, 0.1); border-left: 3px solid #eb7992; color: #fff; }
+.track-row { padding: 12px 20px; border-bottom: 1px solid #1b1111; cursor: pointer; font-size: 0.85rem; line-height: 1.3; }
+.track-row.active { background: rgba(235, 121, 146, 0.1); border-left: 3px solid #eb7992; color: #fff !important; }
+
+/* アニメーション */
+.fade-in { animation: fadeIn 1s ease forwards; opacity: 0; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
 footer { background: #1b1111; text-align: center; padding: 40px 20px; border-top: 1px solid #3a2a2a; margin-top: auto; }
-.copyright { font-size: 0.7rem; color: #8a6a6a; }
+.copyright { font-size: 0.7rem; color: #8a6a6a !important; }
 
 @media (max-width: 768px) {
+    .grid-nav { grid-template-columns: repeat(2, 1fr) !important; }
+    .quick-nav { grid-template-columns: repeat(5, 1fr) !important; }
     .detail-flex { flex-direction: column; }
     .detail-left, .detail-right { width: 100%; }
-    .grid-left input { width: 45px; } /* スマホで音量バーを少し短く */
 }
