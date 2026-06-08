@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* --- フォント設定 --- */
         @font-face {
             font-family: 'Aprila';
             src: url('./fonts/Aprila-Bold.otf') format('opentype');
@@ -17,7 +16,7 @@
 
         body {
             margin: 0;
-            background-color: #241818; /* より茶色感の強いダークチョコレート */
+            background-color: #2b1a1a; /* チョコ感を強めた濃い茶色 */
             color: #d8c8c8;
             font-family: 'Shippori Mincho', serif;
             -webkit-font-smoothing: antialiased;
@@ -32,14 +31,13 @@
             align-items: center;
             padding: 20px 50px;
             box-sizing: border-box;
-            background: rgba(36, 24, 24, 0.85); /* 背景色に合わせた透過 */
+            background: rgba(43, 26, 26, 0.9); /* 背景色に合わせる */
             z-index: 1000;
-            backdrop-filter: blur(10px);
         }
 
         .logo { 
             font-family: 'Aprila'; 
-            font-size: 1.8rem; 
+            font-size: 1.6rem; 
             text-decoration: none; 
             color: #fff; 
             letter-spacing: 2px;
@@ -53,56 +51,30 @@
             font-family: 'Aprila';
             transition: 0.3s;
         }
-        nav a:hover { color: #8a5a5a; }
+        nav a:hover { opacity: 0.5; }
 
         /* メインビジュアル (Hero Section) */
         .hero {
             width: 100%;
             height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             position: relative;
-            background-image: url('./images/main.jpg'); /* main.jpgを反映 */
-            background-size: cover;
+            background-color: #d6d6d6; /* main.jpgの背景色（グレー）に合わせる */
+            background-image: url('./images/main.jpg');
+            background-size: contain; /* ロゴが切れないように全体を表示 */
             background-position: center;
             background-repeat: no-repeat;
         }
 
-        /* 画像の上に重なる暗いフィルター */
-        .hero::before {
+        /* 画像の下をチョコ色にじわっと溶け込ませるグラデーション */
+        .hero::after {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.3); /* 画像を少しだけ暗くして文字を見やすくする */
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-        }
-
-        .hero h1 { 
-            font-size: clamp(4rem, 15vw, 9rem); 
-            font-family: 'Aprila'; 
-            margin: 0; 
-            color: #fff;
-            filter: drop-shadow(0 0 20px rgba(0,0,0,0.8));
-            letter-spacing: 5px;
-        }
-        .hero p {
-            font-family: 'Aprila';
-            font-size: 1.2rem;
-            margin-top: 10px;
-            letter-spacing: 0.5em;
-            color: rgba(255,255,255,0.8);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            bottom: 0; left: 0; width: 100%; height: 30%;
+            background: linear-gradient(to bottom, transparent, #2b1a1a);
         }
 
         /* セクション共通 */
-        .section { padding: 120px 50px; max-width: 1100px; margin: 0 auto; }
+        .section { padding: 100px 50px; max-width: 1100px; margin: 0 auto; }
         .section-title {
             font-family: 'Aprila';
             font-size: 2.8rem;
@@ -121,7 +93,7 @@
             color: #b8a8a8;
             transition: 0.3s;
         }
-        .news-item:hover { color: #fff; background: rgba(255,255,255,0.03); padding-left: 10px; }
+        .news-item:hover { color: #fff; padding-left: 10px; }
         .news-date { font-family: 'Aprila'; width: 140px; color: #8a6a6a; }
 
         /* Biography */
@@ -140,55 +112,29 @@
             aspect-ratio: 3/4; 
             background: #3a2a2a; 
             margin-bottom: 15px; 
-            transition: 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: 0.5s;
             border: 1px solid #4a3a3a;
             overflow: hidden;
         }
         .photo-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(0.2) contrast(1.1);
-            transition: 0.5s;
+            width: 100%; height: 100%; object-fit: cover;
+            filter: grayscale(0.2); transition: 0.5s;
         }
-        .member-thumb:hover .photo-box { 
-            transform: translateY(-10px); 
-            border-color: #8a6a6a;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-        }
-        .member-thumb:hover img {
-            filter: grayscale(0) contrast(1.2);
-            transform: scale(1.05);
-        }
-        .member-thumb span { 
-            display: block; 
-            font-family: 'Aprila'; 
-            font-size: 1.2rem; 
-            letter-spacing: 2px;
-        }
-
-        /* Discography */
-        .disco-section {
-            opacity: 0.5;
-            font-family: 'Aprila';
-            letter-spacing: 2px;
-        }
+        .member-thumb:hover .photo-box { transform: translateY(-10px); border-color: #8a6a6a; }
+        .member-thumb span { display: block; font-family: 'Aprila'; font-size: 1.2rem; letter-spacing: 2px; }
 
         footer { 
             text-align: center; 
-            padding: 100px 0 60px; 
+            padding: 80px 0; 
             font-size: 0.7rem; 
             color: #6a5a5a; 
             font-family: 'Aprila';
-            letter-spacing: 1px;
         }
 
-        /* スマホ対応 */
         @media (max-width: 768px) {
             header { padding: 15px 20px; }
-            .section { padding: 80px 20px; }
             nav a { margin-left: 15px; font-size: 0.8rem; }
-            .hero h1 { font-size: 4rem; }
+            .hero { height: 60vh; } /* スマホでは少し高さを抑える */
         }
     </style>
 </head>
@@ -203,14 +149,9 @@
     </nav>
 </header>
 
-<div class="hero">
-    <div class="hero-content">
-        <h1>Kiss-U</h1>
-        <p>Kisuu / Project-U</p>
-    </div>
-</div>
+<!-- 文字を消して画像だけのHeroセクション -->
+<div class="hero"></div>
 
-<!-- News Section -->
 <section id="news" class="section">
     <h2 class="section-title">News</h2>
     <div class="news-list">
@@ -225,7 +166,6 @@
     </div>
 </section>
 
-<!-- Biography Section -->
 <section id="biography" class="section">
     <h2 class="section-title">Biography</h2>
     <div class="member-nav">
@@ -252,10 +192,9 @@
     </div>
 </section>
 
-<!-- Discography Section -->
 <section id="discography" class="section">
     <h2 class="section-title">Discography</h2>
-    <div class="disco-section">
+    <div style="opacity: 0.4; font-family: 'Aprila'; letter-spacing: 2px;">
         Coming soon...
     </div>
 </section>
