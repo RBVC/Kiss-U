@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <title>Discography - Kiss-U</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <a href="index.html" class="logo">Kiss-U</a>
+    <nav><ul class="nav-links">
+        <li><a href="index.html#news">News</a></li>
+        <li><a href="index.html#biography">Biography</a></li>
+        <li><a href="index.html#discography">Discography</a></li>
+    </ul></nav>
+</header>
+<div class="section" style="margin-top: 70px;">
+    <div class="detail-container">
+        <div class="detail-photo"><img id="d-jacket" src=""></div>
+        <div class="detail-info">
+            <h2 id="d-title"></h2>
+            <p id="d-release" style="font-family: 'Aprila'; color: #8a6a6a;"></p>
+            
+            <!-- カスタムプレーヤー本体 -->
+            <div class="custom-audio-player">
+                <span id="player-track-name" style="font-family: 'Aprila'; font-size: 1rem; display: block; margin-bottom: 15px;">Select Track</span>
+                <div class="player-controls">
+                    <button class="play-pause-btn" id="play-btn">▶</button>
+                    <div class="progress-container" id="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
+                    <div class="time-display"><span id="curr-time">0:00</span> / <span id="dur-time">0:00</span></div>
+                </div>
+                <audio id="hidden-audio"></audio>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: 60px;">
+        <h3 style="font-family: 'Aprila'; border-bottom: 1px solid #3a2a2a; padding-bottom: 10px;">Track List</h3>
+        <div id="track-list-container"></div>
+    </div>
+</div>
+<footer><div class="copyright">Copyright &copy; Kiss-U JAPAN. All Rights Reserved.</div></footer>
+
+<script src="data.js"></script>
+<script>
+    const data = discoData[new URLSearchParams(window.location.search).get('id')];
+    const audio = document.getElementById('hidden-audio');
+    const playBtn = document.getElementById('play-btn');
+    const progressBar = document.getElementById('progress-bar');
+    const progressContainer = document.getElementById('progress-container');
+
+    if (data) {
+        document.getElementById('d-title').innerText = data.title;
+        document.getElementById('d-release').innerText = data.release;
+        document.getElementById('d-jacket').src = data.jacket;
+
+        data.tracks.forEach((track, i) => {
+            const item = document.createElement('div');
+            item.className = 'track-list-item';
+            item.innerHTML = `<span>${track.num}. ${track.name}</span><span>PLAY</span>`;
+            item.onclick = () => {
+                audio.src = track.file;
+                audio.play();
+                playBtn.innerText = 'II';
+                document.getElementById('player-track-name').innerText = track.name;
+            };
+            document.getElementById('track-list-container').appendChild(item);
+            if(i===0) { audio.src = track.file; document.getElementById('player-track-name').innerText = track.name; }
+        });
+    }
+
+    playBtn.onclick = () => { if(audio.paused) { audio.play(); playBtn.innerText = 'II'; } else { audio.pause(); playBtn.innerText = '▶'; } };
+    audio.ontimeupdate = () => {
+        const percent = (audio.currentTime / audio.duration) * 100;
+        progressBar.style.width = percent + '%';
+        document.getElementById('curr-time').innerText = formatTime(audio.currentTime);
+        document.getElementById('dur-time').innerText = formatTime(audio.duration);
+    };
+    progressContainer.onclick = (e) => { audio.currentTime = (e.offsetX / progressContainer.clientWidth) * audio.duration; };
+    function formatTime(s) { if(isNaN(s)) return "0:00"; const m = Math.floor(s/60); const sec = Math.floor(s%60); return m + ":" + (sec < 10 ? "0" : "") + sec; }
+</script>
+</body>
+</html>
