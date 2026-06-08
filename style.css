@@ -1,80 +1,109 @@
-/* --- プロフィール詳細エリア --- */
-.profile-details {
-    margin-top: 100px;
-}
-
-.member-detail-block {
-    display: none; /* 最初は全部隠しておく */
-    padding: 60px 0;
-    border-top: 1px solid #3a2a2a;
-    animation: fadeIn 0.8s ease; /* ふわっと表示 */
-}
-
-/* ターゲットになった時（クリックされた時）だけ表示する魔法のCSS */
-.member-detail-block:target {
-    display: block;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.detail-container {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-}
-
-.detail-photo img {
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-    display: block;
-    border: 1px solid #4a3a3a;
-}
-
-.detail-info {
-    flex: 1;
-}
-
-.detail-info h3 {
+@font-face {
     font-family: 'Aprila';
-    font-size: 3rem;
-    margin: 0 0 30px;
-    color: #fff;
-}
-
-.info-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.info-list li {
-    display: flex;
-    border-bottom: 1px solid #3a2a2a;
-    padding: 15px 0;
-}
-
-.info-label {
-    width: 120px;
+    src: url('./fonts/Aprila-Bold.otf') format('opentype');
     font-weight: bold;
-    color: #8a6a6a;
 }
 
-.info-value {
-    flex: 1;
-    color: #fff;
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    background-color: #2b1a1a;
+    color: #d8c8c8;
+    font-family: 'Shippori Mincho', serif;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* PCでは横並びにする（キオプ風） */
+/* --- ヘッダー（配置修正済み） --- */
+header {
+    position: fixed;
+    top: 0; width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px;
+    box-sizing: border-box;
+    background: rgba(43, 26, 26, 0.98); 
+    z-index: 1000;
+}
+
+.logo { 
+    font-family: 'Aprila'; 
+    font-size: 1.6rem; 
+    text-decoration: none; 
+    color: #fff; 
+    display: flex;
+    align-items: center;
+    padding-top: 10px; /* 垂直中央調整 */
+}
+
+.header-right { display: flex; align-items: center; }
+
+.nav-links { display: flex; list-style: none; margin: 0; padding: 0; }
+.nav-links li { margin-left: 30px; }
+.nav-links a { color: #fff; text-decoration: none; font-family: 'Aprila'; font-size: 0.9rem; }
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    background: none; border: none;
+    padding: 10px;
+    margin-right: -10px;
+}
+.hamburger span { display: block; width: 25px; height: 2px; background: #fff; margin: 5px 0; transition: 0.3s; }
+
+/* --- メインビジュアル --- */
+.hero {
+    width: 100%; height: 85vh;
+    position: relative;
+    background: #fff url('./images/main.jpg') no-repeat center center;
+    background-size: contain;
+    margin-top: 70px;
+}
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 200px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), #2b1a1a);
+}
+
+/* --- セクション共通 --- */
+.section { padding: 80px 20px; max-width: 1000px; margin: 0 auto; }
+.section-title {
+    font-family: 'Aprila';
+    font-size: clamp(2.2rem, 8vw, 3rem);
+    border-bottom: 1px solid #4a3a3a;
+    padding-bottom: 15px; margin-bottom: 50px;
+    color: #fff; text-align: center;
+}
+
+/* --- Biography詳細用追加スタイル --- */
+.bio-container { display: flex; flex-direction: column; gap: 40px; margin-top: 100px; }
+.bio-photo img { width: 100%; max-width: 500px; display: block; margin: 0 auto; border: 1px solid #4a3a3a; }
+.bio-info h2 { font-family: 'Aprila'; font-size: 3rem; color: #fff; margin: 0 0 20px; }
+.bio-list { list-style: none; padding: 0; border-top: 1px solid #3a2a2a; }
+.bio-list li { display: flex; padding: 20px 0; border-bottom: 1px solid #3a2a2a; }
+.bio-label { width: 120px; color: #8a6a6a; font-weight: bold; }
+.bio-value { flex: 1; color: #fff; }
+
+/* --- スマホ設定 --- */
+@media (max-width: 768px) {
+    .hamburger { display: block; }
+    .nav-links {
+        position: fixed; top: 0; right: -100%; width: 80%; height: 100vh;
+        background: #1b1111; flex-direction: column; justify-content: center; align-items: center; transition: 0.4s;
+    }
+    .nav-links.active { right: 0; }
+    .nav-links li { margin: 20px 0; margin-left: 0; }
+    .nav-links a { font-size: 1.8rem; }
+    .member-nav { grid-template-columns: repeat(2, 1fr); }
+    .bio-container { flex-direction: column; }
+}
+
 @media (min-width: 769px) {
-    .detail-container {
-        flex-direction: row;
-        align-items: flex-start;
-    }
-    .detail-photo {
-        width: 40%;
-    }
+    .member-nav { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+    .bio-container { flex-direction: row; align-items: flex-start; }
+    .bio-photo { width: 45%; }
+    .bio-info { width: 55%; }
 }

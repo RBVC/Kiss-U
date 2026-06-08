@@ -1,65 +1,54 @@
-<!-- Biography Section -->
-<section id="biography" class="section">
-    <h2 class="section-title">Biography</h2>
-    
-    <!-- サムネイル（クリックすると下の詳細に飛ぶ） -->
-    <div class="member-nav">
-        <a href="#pro-1chika" class="member-thumb">
-            <div class="photo-box"><img src="./images/1chika.png" alt="1chika"></div>
-            <span>1chika</span>
-        </a>
-        <a href="#pro-3tuba" class="member-thumb">
-            <div class="photo-box"><img src="./images/3tuba.png" alt="3tuba"></div>
-            <span>3tuba</span>
-        </a>
-        <a href="#pro-5ma" class="member-thumb">
-            <div class="photo-box"><img src="./images/5ma.png" alt="5ma"></div>
-            <span>5ma</span>
-        </a>
-        <a href="#pro-na7o" class="member-thumb">
-            <div class="photo-box"><img src="./images/na7o.png" alt="na7o"></div>
-            <span>na7o</span>
-        </a>
-        <a href="#pro-ku9" class="member-thumb">
-            <div class="photo-box"><img src="./images/ku9.png" alt="ku9"></div>
-            <span>ku9</span>
-        </a>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <title>Kiss-U Japan Official Site</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="top">
+<header>
+    <a href="#top" class="logo">Kiss-U</a>
+    <div class="header-right">
+        <button class="hamburger" id="js-hamburger"><span></span><span></span><span></span></button>
+        <nav id="js-nav"><ul class="nav-links">
+            <li><a href="#news">News</a></li>
+            <li><a href="#biography">Biography</a></li>
+            <li><a href="#discography">Discography</a></li>
+        </ul></nav>
     </div>
+</header>
 
-    <!-- 詳細表示エリア -->
-    <div class="profile-details">
-        
-        <!-- 1chikaの詳細 -->
-        <div id="pro-1chika" class="member-detail-block">
-            <div class="detail-container">
-                <div class="detail-photo"><img src="./images/1chika.png" alt="1chika"></div>
-                <div class="detail-info">
-                    <h3>1chika</h3>
-                    <ul class="info-list">
-                        <li><span class="info-label">Birthday</span><span class="info-value">1月5日 (22歳)</span></li>
-                        <li><span class="info-label">Position</span><span class="info-value">メインボーカル</span></li>
-                        <li><span class="info-label">Nickname</span><span class="info-value">いーちゃん</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+<div class="hero"></div>
 
-        <!-- 3tubaの詳細 -->
-        <div id="pro-3tuba" class="member-detail-block">
-            <div class="detail-container">
-                <div class="detail-photo"><img src="./images/3tuba.png" alt="3tuba"></div>
-                <div class="detail-info">
-                    <h3>3tuba</h3>
-                    <ul class="info-list">
-                        <li><span class="info-label">Birthday</span><span class="info-value">3月8日 (18歳)</span></li>
-                        <li><span class="info-label">Position</span><span class="info-value">マンネ / メインダンサー / メインラッパー</span></li>
-                        <li><span class="info-label">Nickname</span><span class="info-value">みっちゃん</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- 同様に他のメンバー分(5ma, na7o, ku9)も作成 -->
-
+<section id="news" class="section">
+    <h2 class="section-title">News</h2>
+    <div class="news-list">
+        <a href="#" class="news-item"><span class="news-date">2026.06.08</span><span class="news-text">Kiss-U Official Site Open</span></a>
     </div>
 </section>
+
+<section id="biography" class="section">
+    <h2 class="section-title">Biography</h2>
+    <div class="member-nav">
+        <a href="biography.html?id=1chika" class="member-thumb"><div class="photo-box"><img src="./images/1chika.png"></div><span>1chika</span></a>
+        <a href="biography.html?id=3tuba" class="member-thumb"><div class="photo-box"><img src="./images/3tuba.png"></div><span>3tuba</span></a>
+        <a href="biography.html?id=5ma" class="member-thumb"><div class="photo-box"><img src="./images/5ma.png"></div><span>5ma</span></a>
+        <a href="biography.html?id=na7o" class="member-thumb"><div class="photo-box"><img src="./images/na7o.png"></div><span>na7o</span></a>
+        <a href="biography.html?id=ku9" class="member-thumb"><div class="photo-box"><img src="./images/ku9.png"></div><span>ku9</span></a>
+    </div>
+</section>
+
+<footer><p>Copyright &copy; Kiss-U JAPAN. All Rights Reserved.</p></footer>
+
+<script>
+    const hamburger = document.getElementById('js-hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+</script>
+</body>
+</html>
