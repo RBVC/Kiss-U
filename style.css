@@ -9,13 +9,16 @@ html { scroll-behavior: smooth; }
 
 body {
     margin: 0;
-    background-color: #2b1a1a; /* チョコブラウン */
+    background-color: #2b1a1a;
     color: #d8c8c8;
     font-family: 'Shippori Mincho', serif;
     -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-/* --- ヘッダー（共通設定で安定化） --- */
+/* --- ヘッダー --- */
 header {
     position: fixed;
     top: 0; width: 100%;
@@ -23,122 +26,86 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 25px;
     box-sizing: border-box;
     background: rgba(43, 26, 26, 0.95); 
     z-index: 1000;
-    border-bottom: 1px solid #3a2a2a;
 }
 
-.logo { 
-    font-family: 'Aprila'; 
-    font-size: 1.5rem; 
-    text-decoration: none; 
-    color: #fff; 
-    padding-top: 5px;
-}
+.logo { font-family: 'Aprila'; font-size: 1.5rem; text-decoration: none; color: #fff; padding-top: 5px; }
 
-/* ナビゲーション */
-.nav-links {
-    display: flex;
-    list-style: none;
-    margin: 0; padding: 0;
-}
+.nav-links { display: flex; list-style: none; margin: 0; padding: 0; }
 .nav-links li { margin-left: 20px; }
-.nav-links a {
-    color: #fff;
-    text-decoration: none;
-    font-family: 'Aprila';
-    font-size: 0.85rem;
-}
+.nav-links a { color: #fff; text-decoration: none; font-family: 'Aprila'; font-size: 0.85rem; }
 
 /* --- メインビジュアル --- */
 .hero {
-    width: 100%;
-    height: 80vh;
-    position: relative;
+    width: 100%; height: 80vh;
     background: #fff url('./images/main.jpg') no-repeat center center;
     background-size: contain;
     margin-top: 70px;
+    position: relative;
 }
 .hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; width: 100%; height: 150px;
+    content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 150px;
     background: linear-gradient(to bottom, rgba(255,255,255,0), #2b1a1a);
 }
 
 /* --- セクション共通 --- */
-.section { padding: 60px 20px; max-width: 1000px; margin: 0 auto; }
-.section-title {
-    font-family: 'Aprila';
-    font-size: 2.2rem;
-    border-bottom: 1px solid #4a3a3a;
-    padding-bottom: 15px;
-    margin-bottom: 40px;
-    color: #fff;
-    text-align: center;
-}
+.section { padding: 80px 20px; max-width: 1000px; margin: 0 auto; width: 100%; box-sizing: border-box; }
+.section-title { font-family: 'Aprila'; font-size: 2.5rem; border-bottom: 1px solid #4a3a3a; padding-bottom: 15px; margin-bottom: 50px; color: #fff; text-align: center; }
 
-/* --- News --- */
+/* --- News：ガタつきを修正 --- */
 .news-list { border-top: 1px solid #3a2a2a; }
 .news-item {
-    display: flex;
-    padding: 20px 10px;
+    display: flex; /* 横並び */
+    align-items: center; /* 垂直方向の中央揃え */
+    padding: 25px 10px;
     border-bottom: 1px solid #3a2a2a;
     text-decoration: none;
     color: #b8a8a8;
 }
-.news-date { font-family: 'Aprila'; width: 120px; color: #8a6a6a; flex-shrink: 0; }
-
-/* --- Biography（メンバー欄：元に戻しました） --- */
-.member-nav {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* PCは5列 */
-    gap: 15px;
-}
-.member-thumb {
-    text-decoration: none;
-    color: #fff;
-    text-align: center;
-}
-.photo-box { 
-    width: 100%;
-    aspect-ratio: 3/4; 
-    background: #3a2a2a;
-    margin-bottom: 10px;
-    overflow: hidden;
-    border: 1px solid #4a3a3a;
-}
-.photo-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.member-thumb span {
+.news-date {
     font-family: 'Aprila';
-    font-size: 1rem;
+    width: 150px; /* 日付の幅を固定してガタつきを防止 */
+    color: #8a6a6a;
+    flex-shrink: 0;
 }
+.news-text { flex-grow: 1; line-height: 1.5; }
 
-/* --- フッター（コピーライト用） --- */
+/* --- Biography --- */
+.member-nav { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; }
+.member-thumb { text-decoration: none; color: #fff; text-align: center; }
+.photo-box { width: 100%; aspect-ratio: 3/4; background: #3a2a2a; margin-bottom: 10px; overflow: hidden; border: 1px solid #4a3a3a; }
+.photo-box img { width: 100%; height: 100%; object-fit: cover; }
+.member-thumb span { font-family: 'Aprila'; font-size: 1rem; }
+
+/* --- Biography詳細（biography.html）用 --- */
+.bio-detail-container { display: flex; gap: 40px; margin-top: 40px; }
+.bio-detail-photo { width: 45%; }
+.bio-detail-photo img { width: 100%; border: 1px solid #4a3a3a; }
+.bio-detail-info { width: 55%; }
+.bio-detail-info h2 { font-family: 'Aprila'; font-size: 3.5rem; margin: 0 0 20px; color: #fff; }
+.bio-table { list-style: none; padding: 0; border-top: 1px solid #3a2a2a; }
+.bio-table li { display: flex; padding: 20px 0; border-bottom: 1px solid #3a2a2a; }
+.bio-table .label { width: 120px; color: #8a6a6a; font-weight: bold; }
+.bio-table .value { flex: 1; color: #fff; }
+
+/* --- フッター --- */
 footer {
-    background-color: #1b1111; /* 背景より少し濃い色 */
+    background-color: #1b1111;
     text-align: center;
     padding: 40px 20px;
-    margin-top: 60px;
+    margin-top: auto; /* 常に最下部へ */
     border-top: 1px solid #3a2a2a;
 }
-.copyright {
-    font-size: 0.75rem;
-    color: #8a6a6a;
-    letter-spacing: 1px;
-}
+.copyright { font-size: 0.75rem; color: #8a6a6a; letter-spacing: 1px; }
 
-/* --- スマホ用調整 --- */
+/* --- スマホ対応 --- */
 @media (max-width: 768px) {
-    .nav-links li { margin-left: 10px; }
-    .nav-links a { font-size: 0.7rem; }
-    .member-nav { grid-template-columns: repeat(2, 1fr); } /* スマホは2列 */
-    .news-item { flex-direction: column; }
+    .member-nav { grid-template-columns: repeat(2, 1fr); }
+    .news-item { flex-direction: column; align-items: flex-start; }
     .news-date { margin-bottom: 5px; }
+    .bio-detail-container { flex-direction: column; }
+    .bio-detail-photo, .bio-detail-info { width: 100%; }
 }

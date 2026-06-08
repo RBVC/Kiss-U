@@ -8,43 +8,53 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <header>
     <a href="index.html" class="logo">Kiss-U</a>
-    <div class="header-right">
-        <nav><ul class="nav-links">
+    <nav>
+        <ul class="nav-links">
             <li><a href="index.html#news">News</a></li>
             <li><a href="index.html#biography">Biography</a></li>
             <li><a href="index.html#discography">Discography</a></li>
-        </ul></nav>
-    </div>
+        </ul>
+    </nav>
 </header>
 
-<div class="section">
-    <div class="bio-container" id="bio-content">
-        <div class="bio-photo"><img id="m-image" src="" alt=""></div>
-        <div class="bio-info">
-            <h2 id="m-name"></h2>
-            <ul class="bio-list">
-                <li><span class="bio-label">Birthday</span><span class="bio-value" id="m-birthday"></span></li>
-                <li><span class="bio-label">Position</span><span class="bio-value" id="m-position"></span></li>
+<div class="section" style="margin-top: 70px;">
+    <div class="bio-detail-container">
+        <div class="bio-detail-photo">
+            <img id="m-image" src="" alt="">
+        </div>
+        <div class="bio-detail-info">
+            <h2 id="m-codename"></h2>
+            <ul class="bio-table">
+                <li><span class="label">Name</span><span class="value" id="m-name"></span></li>
+                <li><span class="label">Birthday</span><span class="value" id="m-birthday"></span></li>
+                <li><span class="label">Position</span><span class="value" id="m-position"></span></li>
             </ul>
         </div>
     </div>
 </div>
 
+<footer>
+    <div class="copyright">
+        Copyright &copy; Kiss-U JAPAN. All Rights Reserved.
+    </div>
+</footer>
+
 <script src="data.js"></script>
 <script>
-    // URLからどのメンバーかを取得 (?id=1chika など)
     const params = new URLSearchParams(window.location.search);
     const memberId = params.get('id');
     const data = memberData[memberId];
 
     if (data) {
+        document.getElementById('m-codename').innerText = data.codename;
         document.getElementById('m-name').innerText = data.name;
         document.getElementById('m-birthday').innerText = data.birthday;
         document.getElementById('m-position').innerText = data.position;
         document.getElementById('m-image').src = data.image;
-        document.title = `${data.name} - Kiss-U Biography`;
+        document.title = `${data.codename} - Kiss-U Biography`;
     }
 </script>
 </body>
