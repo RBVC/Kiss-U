@@ -1,101 +1,100 @@
-/* --- フォント設定 --- */
-@font-face {
-    font-family: 'Aprila';
-    src: url('./fonts/Aprila-Bold.otf') format('opentype');
-    font-weight: bold;
+/* --- カスタムプレーヤー (見本再現版) --- */
+.player-wrapper {
+    background: #1b1111; /* チョコより一段濃い色 */
+    border: 1px solid #3a2a2a;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 40px;
 }
 
-html { scroll-behavior: smooth; }
-
-/* 全体の背景を強制的にチョコ色に */
-body {
-    margin: 0;
-    background-color: #2b1a1a !important; 
-    color: #d8c8c8;
-    font-family: 'Shippori Mincho', serif;
-    -webkit-font-smoothing: antialiased;
+/* 上部：メイン操作パネル */
+.player-top {
+    padding: 30px;
+    background: linear-gradient(to bottom, #2b1a1a, #1b1111);
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-}
-
-header {
-    position: fixed;
-    top: 0; width: 100%;
-    height: 70px;
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 0 25px;
-    box-sizing: border-box;
-    background: rgba(43, 26, 26, 0.98); 
-    z-index: 1000;
-    border-bottom: 1px solid #3a2a2a;
 }
 
-.logo { font-family: 'Aprila'; font-size: 1.5rem; text-decoration: none; color: #fff; padding-top: 5px; }
-.nav-links { display: flex; list-style: none; margin: 0; padding: 0; }
-.nav-links li { margin-left: 20px; }
-.nav-links a { color: #fff; text-decoration: none; font-family: 'Aprila'; font-size: 0.85rem; }
-
-/* メインビジュアル */
-.hero {
+.player-info-row {
+    display: flex;
     width: 100%;
-    height: 75vh;
-    background: #ffffff url('./images/main.jpg') no-repeat center center;
-    background-size: contain;
-    margin-top: 70px;
-    position: relative;
-}
-.hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; width: 100%; height: 150px;
-    background: linear-gradient(to bottom, rgba(255,255,255,0), #2b1a1a);
-}
-
-.section { padding: 80px 20px; max-width: 1000px; margin: 0 auto; width: 100%; box-sizing: border-box; }
-.section-title {
-    font-family: 'Aprila';
-    font-size: 2.2rem;
-    border-bottom: 1px solid #4a3a3a;
-    padding-bottom: 15px;
-    margin-bottom: 40px;
-    color: #fff;
-    text-align: center;
-}
-
-/* ニュース */
-.news-list { border-top: 1px solid #3a2a2a; }
-.news-item { display: flex; align-items: center; padding: 25px 10px; border-bottom: 1px solid #3a2a2a; text-decoration: none; color: #b8a8a8; }
-.news-date { font-family: 'Aprila'; width: 130px; color: #8a6a6a; flex-shrink: 0; }
-
-/* メンバー・ジャケ写グリッド（巨大化防止） */
-.grid-nav {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
+    align-items: center;
+    margin-bottom: 20px;
 }
-.grid-item { text-decoration: none; color: #fff; text-align: center; max-width: 100%; }
-.photo-box {
-    width: 100%;
-    aspect-ratio: 3/4; /* メンバー用 */
-    background: #3a2a2a;
-    overflow: hidden;
+
+.player-jacket-small {
+    width: 80px; height: 80px;
     border: 1px solid #4a3a3a;
+    flex-shrink: 0;
 }
-/* ジャケ写用（正方形に強制） */
-.photo-box.square { aspect-ratio: 1/1 !important; }
+.player-jacket-small img { width: 100%; height: 100%; object-fit: cover; }
 
-.photo-box img { width: 100%; height: 100%; object-fit: cover; }
-.grid-item span { font-family: 'Aprila'; font-size: 0.9rem; margin-top: 10px; display: block; }
+.player-text-meta { flex-grow: 1; overflow: hidden; }
+.player-text-meta h2 { font-family: 'Aprila'; font-size: 1.2rem; color: #fff; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.player-text-meta p { font-size: 0.8rem; color: #8a6a6a; margin: 5px 0 0; }
 
-/* フッター */
-footer { background-color: #1b1111; text-align: center; padding: 40px 20px; border-top: 1px solid #3a2a2a; margin-top: auto; }
-.copyright { font-size: 0.75rem; color: #8a6a6a; letter-spacing: 1px; }
+/* プログレスバー（シークバー） */
+.seek-container { width: 100%; margin-bottom: 20px; }
+.time-labels { display: flex; justify-content: space-between; font-family: 'Aprila'; font-size: 0.7rem; color: #8a6a6a; margin-bottom: 5px; }
+
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    background: #3a2a2a;
+    height: 4px;
+    border-radius: 2px;
+    outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px; height: 12px;
+    background: #8a6a6a;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* 操作ボタン（見本風） */
+.player-btns {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-size: 1.5rem;
+    color: #fff;
+}
+.p-btn { cursor: pointer; transition: 0.2s; user-select: none; }
+.p-btn:hover { color: #8a6a6a; }
+.play-main { font-size: 2.5rem; }
+
+/* 下部：トラックリスト */
+.player-list {
+    background: #fff; /* 見本に合わせてリストは明るく、またはチョコ色に変更可能 */
+    color: #333;
+}
+/* リストをチョコ色にする場合は以下（今回はKiss-Uに合わせてチョコ版にします） */
+.player-list {
+    background: #241818;
+    color: #d8c8c8;
+}
+
+.track-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #3a2a2a;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.track-item:hover { background: rgba(255,255,255,0.05); }
+.track-item.active { background: rgba(138, 106, 106, 0.1); border-left: 4px solid #8a6a6a; }
+
+.track-img { width: 40px; height: 40px; background: #3a2a2a; margin-right: 15px; }
+.track-img img { width: 100%; height: 100%; object-fit: cover; }
+.track-name-small { flex-grow: 1; font-family: 'Aprila'; font-size: 0.9rem; }
+.track-icon-right { color: #5a4a4a; font-size: 0.8rem; } /* 三本線アイコン風 */
 
 @media (max-width: 768px) {
-    .grid-nav { grid-template-columns: repeat(2, 1fr); }
-    .hero { height: 50vh; }
-    .news-item { flex-direction: column; align-items: flex-start; }
+    header { padding: 0 15px; }
+    .player-btns { gap: 20px; }
 }

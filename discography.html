@@ -5,80 +5,150 @@
     <title>Discography - Kiss-U</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=1.2">
 </head>
 <body>
+
 <header>
     <a href="index.html" class="logo">Kiss-U</a>
     <nav><ul class="nav-links">
         <li><a href="index.html#news">News</a></li>
-        <li><a href="index.html#biography">Biography</a></li>
-        <li><a href="index.html#discography">Discography</a></li>
+        <li><a href="#biography">Biography</a></li>
+        <li><a href="#discography">Discography</a></li>
     </ul></nav>
 </header>
+
 <div class="section" style="margin-top: 70px;">
-    <div class="detail-container">
-        <div class="detail-photo"><img id="d-jacket" src=""></div>
-        <div class="detail-info">
-            <h2 id="d-title"></h2>
-            <p id="d-release" style="font-family: 'Aprila'; color: #8a6a6a;"></p>
-            
-            <!-- カスタムプレーヤー本体 -->
-            <div class="custom-audio-player">
-                <span id="player-track-name" style="font-family: 'Aprila'; font-size: 1rem; display: block; margin-bottom: 15px;">Select Track</span>
-                <div class="player-controls">
-                    <button class="play-pause-btn" id="play-btn">▶</button>
-                    <div class="progress-container" id="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
-                    <div class="time-display"><span id="curr-time">0:00</span> / <span id="dur-time">0:00</span></div>
+    <h2 class="section-title">Discography</h2>
+    
+    <div class="player-wrapper">
+        <!-- 上部：操作パネル -->
+        <div class="player-top">
+            <div class="player-info-row">
+                <div class="player-jacket-small"><img id="p-jacket" src=""></div>
+                <div class="player-text-meta">
+                    <h2 id="p-title">Song Title</h2>
+                    <p id="p-album">Album Name</p>
                 </div>
-                <audio id="hidden-audio"></audio>
+            </div>
+
+            <div class="seek-container">
+                <div class="time-labels">
+                    <span id="curr-time">0:00</span>
+                    <span id="dur-time">0:00</span>
+                </div>
+                <input type="range" id="seek-bar" value="0">
+            </div>
+
+            <div class="player-btns">
+                <div class="p-btn" id="prev-btn">⏮</div>
+                <div class="p-btn play-main" id="play-btn">▶</div>
+                <div class="p-btn" id="next-btn">⏭</div>
             </div>
         </div>
+
+        <!-- 下部：トラックリスト -->
+        <div class="player-list" id="track-list">
+            <!-- JSで生成 -->
+        </div>
     </div>
-    <div style="margin-top: 60px;">
-        <h3 style="font-family: 'Aprila'; border-bottom: 1px solid #3a2a2a; padding-bottom: 10px;">Track List</h3>
-        <div id="track-list-container"></div>
-    </div>
+
+    <!-- 隠しオーディオ要素 -->
+    <audio id="audio-engine"></audio>
 </div>
+
 <footer><div class="copyright">Copyright &copy; Kiss-U JAPAN. All Rights Reserved.</div></footer>
 
 <script src="data.js"></script>
 <script>
-    const data = discoData[new URLSearchParams(window.location.search).get('id')];
-    const audio = document.getElementById('hidden-audio');
+    const params = new URLSearchParams(window.location.search);
+    const data = discoData[params.get('id') || 'fly-by'];
+    const audio = document.getElementById('audio-engine');
     const playBtn = document.getElementById('play-btn');
-    const progressBar = document.getElementById('progress-bar');
-    const progressContainer = document.getElementById('progress-container');
+    const seekBar = document.getElementById('seek-bar');
+    let currentTrackIdx = 0;
 
     if (data) {
-        document.getElementById('d-title').innerText = data.title;
-        document.getElementById('d-release').innerText = data.release;
-        document.getElementById('d-jacket').src = data.jacket;
+        document.getElementById('p-album').innerText = data.title;
+        document.getElementById('p-jacket').src = data.jacket;
 
+        // リスト生成
+        const listContainer = document.getElementById('track-list');
         data.tracks.forEach((track, i) => {
-            const item = document.createElement('div');
-            item.className = 'track-list-item';
-            item.innerHTML = `<span>${track.num}. ${track.name}</span><span>PLAY</span>`;
-            item.onclick = () => {
-                audio.src = track.file;
-                audio.play();
-                playBtn.innerText = 'II';
-                document.getElementById('player-track-name').innerText = track.name;
-            };
-            document.getElementById('track-list-container').appendChild(item);
-            if(i===0) { audio.src = track.file; document.getElementById('player-track-name').innerText = track.name; }
+            const div = document.createElement('div');
+            div.className = 'track-item';
+            div.id = `item-${i}`;
+            div.innerHTML = `
+                <div class="track-img"><img src="${data.jacket}"></div>
+                <div class="track-name-small">${track.name}</div>
+                <div class="track-icon-right">≡</div>
+            `;
+            div.onclick = () => loadTrack(i, true);
+            listContainer.appendChild(div);
         });
+
+        loadTrack(0, false);
     }
 
-    playBtn.onclick = () => { if(audio.paused) { audio.play(); playBtn.innerText = 'II'; } else { audio.pause(); playBtn.innerText = '▶'; } };
-    audio.ontimeupdate = () => {
-        const percent = (audio.currentTime / audio.duration) * 100;
-        progressBar.style.width = percent + '%';
-        document.getElementById('curr-time').innerText = formatTime(audio.currentTime);
-        document.getElementById('dur-time').innerText = formatTime(audio.duration);
+    function loadTrack(idx, shouldPlay) {
+        const track = data.tracks[idx];
+        currentTrackIdx = idx;
+        audio.src = track.file;
+        document.getElementById('p-title').innerText = track.name;
+        
+        // アクティブ表示の切り替え
+        document.querySelectorAll('.track-item').forEach(el => el.classList.remove('active'));
+        document.getElementById(`item-${idx}`).classList.add('active');
+
+        if (shouldPlay) {
+            audio.play();
+            playBtn.innerText = 'II';
+        }
+    }
+
+    playBtn.onclick = () => {
+        if (audio.paused) {
+            audio.play();
+            playBtn.innerText = 'II';
+        } else {
+            audio.pause();
+            playBtn.innerText = '▶';
+        }
     };
-    progressContainer.onclick = (e) => { audio.currentTime = (e.offsetX / progressContainer.clientWidth) * audio.duration; };
-    function formatTime(s) { if(isNaN(s)) return "0:00"; const m = Math.floor(s/60); const sec = Math.floor(s%60); return m + ":" + (sec < 10 ? "0" : "") + sec; }
+
+    document.getElementById('next-btn').onclick = () => {
+        let next = (currentTrackIdx + 1) % data.tracks.length;
+        loadTrack(next, true);
+    };
+
+    document.getElementById('prev-btn').onclick = () => {
+        let prev = (currentTrackIdx - 1 + data.tracks.length) % data.tracks.length;
+        loadTrack(prev, true);
+    };
+
+    // シークバー連動
+    audio.ontimeupdate = () => {
+        if (!isNaN(audio.duration)) {
+            const pct = (audio.currentTime / audio.duration) * 100;
+            seekBar.value = pct;
+            document.getElementById('curr-time').innerText = formatTime(audio.currentTime);
+            document.getElementById('dur-time').innerText = formatTime(audio.duration);
+        }
+    };
+
+    seekBar.oninput = () => {
+        const time = (seekBar.value / 100) * audio.duration;
+        audio.currentTime = time;
+    };
+
+    function formatTime(s) {
+        const m = Math.floor(s / 60);
+        const sec = Math.floor(s % 60);
+        return m + ":" + (sec < 10 ? "0" : "") + sec;
+    }
+    
+    // 曲が終わったら次へ
+    audio.onended = () => document.getElementById('next-btn').click();
 </script>
 </body>
 </html>
