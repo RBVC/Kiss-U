@@ -21,10 +21,9 @@
 </header>
 
 <div class="section" style="margin-top: 70px;">
+    <!-- メンバーメイン詳細 -->
     <div class="bio-detail-container">
-        <div class="bio-detail-photo">
-            <img id="m-image" src="" alt="">
-        </div>
+        <div class="bio-detail-photo"><img id="m-image" src="" alt=""></div>
         <div class="bio-detail-info">
             <h2 id="m-codename"></h2>
             <ul class="bio-table">
@@ -34,12 +33,21 @@
             </ul>
         </div>
     </div>
+
+    <!-- ILLIT風クイックナビ (5個並び) -->
+    <div class="member-quick-nav">
+        <div class="member-quick-nav-list">
+            <a href="biography.html?id=1chika" class="quick-nav-item"><div class="photo"><img src="./images/1chika.png"></div><span>1chika</span></a>
+            <a href="biography.html?id=3tuba" class="quick-nav-item"><div class="photo"><img src="./images/3tuba.png"></div><span>3tuba</span></a>
+            <a href="biography.html?id=5ma" class="quick-nav-item"><div class="photo"><img src="./images/5ma.png"></div><span>5ma</span></a>
+            <a href="biography.html?id=na7o" class="quick-nav-item"><div class="photo"><img src="./images/na7o.png"></div><span>na7o</span></a>
+            <a href="biography.html?id=ku9" class="quick-nav-item"><div class="photo"><img src="./images/ku9.png"></div><span>ku9</span></a>
+        </div>
+    </div>
 </div>
 
 <footer>
-    <div class="copyright">
-        Copyright &copy; Kiss-U JAPAN. All Rights Reserved.
-    </div>
+    <div class="copyright">Copyright &copy; Kiss-U JAPAN. All Rights Reserved.</div>
 </footer>
 
 <script src="data.js"></script>
@@ -47,7 +55,6 @@
     const params = new URLSearchParams(window.location.search);
     const memberId = params.get('id');
     const data = memberData[memberId];
-
     if (data) {
         document.getElementById('m-codename').innerText = data.codename;
         document.getElementById('m-name').innerText = data.name;
