@@ -1,66 +1,64 @@
-/* --- EP (Album) Layout --- */
-.ep-block {
-    display: flex;
-    gap: 40px;
-    background: rgba(255, 255, 255, 0.02);
-    padding: 40px;
-    border: 1px solid #3a2a2a;
-    margin-bottom: 80px;
-}
+@font-face { font-family: 'Aprila'; src: url('./fonts/Aprila-Bold.otf') format('opentype'); font-weight: bold; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background-color: #2b1a1a; color: #d8c8c8; font-family: 'Shippori Mincho', serif; -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; min-height: 100vh; }
 
-.ep-jacket {
-    width: 300px;
-    flex-shrink: 0;
-}
-.ep-jacket img {
-    width: 100%;
-    aspect-ratio: 1/1;
-    border: 1px solid #4a3a3a;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
+header { position: fixed; top: 0; width: 100%; height: 70px; display: flex; justify-content: space-between; align-items: center; padding: 0 25px; box-sizing: border-box; background: rgba(43, 26, 26, 0.95); z-index: 1000; border-bottom: 1px solid #3a2a2a; }
+.logo { font-family: 'Aprila'; font-size: 1.5rem; text-decoration: none; color: #fff; padding-top: 5px; }
+.nav-links { display: flex; list-style: none; margin: 0; padding: 0; }
+.nav-links li { margin-left: 20px; }
+.nav-links a { color: #fff; text-decoration: none; font-family: 'Aprila'; font-size: 0.85rem; }
 
-.ep-details {
-    flex-grow: 1;
-}
+.hero { width: 100%; height: 80vh; background: #fff url('./images/main.jpg') no-repeat center center; background-size: contain; margin-top: 70px; position: relative; }
+.hero::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 150px; background: linear-gradient(to bottom, rgba(255,255,255,0), #2b1a1a); }
 
-.ep-title {
-    font-family: 'Aprila';
-    font-size: 2rem;
-    color: #fff;
-    margin-bottom: 5px;
-    display: block;
-}
-.ep-meta {
-    font-size: 0.8rem;
-    color: #8a6a6a;
-    margin-bottom: 30px;
-}
+.section { padding: 80px 20px; max-width: 1000px; margin: 0 auto; width: 100%; box-sizing: border-box; }
+.section-title { font-family: 'Aprila'; font-size: 2.2rem; border-bottom: 1px solid #4a3a3a; padding-bottom: 15px; margin-bottom: 40px; color: #fff; text-align: center; }
+
+/* News */
+.news-list { border-top: 1px solid #3a2a2a; }
+.news-item { display: flex; align-items: center; padding: 25px 10px; border-bottom: 1px solid #3a2a2a; text-decoration: none; color: #b8a8a8; }
+.news-date { font-family: 'Aprila'; width: 130px; color: #8a6a6a; flex-shrink: 0; }
+
+/* Biography / Discography Grid */
+.grid-nav { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; }
+.grid-item { text-decoration: none; color: #fff; text-align: center; }
+.photo-box { width: 100%; aspect-ratio: 3/4; background: #3a2a2a; overflow: hidden; border: 1px solid #4a3a3a; transition: 0.3s; }
+.grid-item:hover .photo-box { border-color: #8a6a6a; transform: translateY(-5px); }
+.photo-box img { width: 100%; height: 100%; object-fit: cover; }
+.grid-item span { font-family: 'Aprila'; font-size: 0.9rem; margin-top: 10px; display: block; }
+
+/* 詳細ページ用 */
+.detail-container { display: flex; gap: 40px; margin-top: 40px; }
+.detail-photo { width: 45%; }
+.detail-photo img { width: 100%; border: 1px solid #4a3a3a; }
+.detail-info { width: 55%; }
+.detail-info h2 { font-family: 'Aprila'; font-size: 3rem; margin: 0 0 20px; color: #fff; }
+.detail-table { list-style: none; padding: 0; border-top: 1px solid #3a2a2a; }
+.detail-table li { display: flex; padding: 20px 0; border-bottom: 1px solid #3a2a2a; }
+.detail-table .label { width: 100px; color: #8a6a6a; font-weight: bold; font-size: 0.8rem; }
+.detail-table .value { flex: 1; color: #fff; }
+
+/* --- 独自カスタムプレーヤーのデザイン --- */
+.custom-audio-player { background: #1b1111; padding: 20px; border: 1px solid #3a2a2a; margin-top: 20px; text-align: center; }
+.player-controls { display: flex; align-items: center; justify-content: center; gap: 20px; }
+.play-pause-btn { background: none; border: 1px solid #fff; color: #fff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1rem; transition: 0.3s; }
+.play-pause-btn:hover { background: #fff; color: #2b1a1a; }
+.progress-container { flex-grow: 1; height: 4px; background: #3a2a2a; cursor: pointer; position: relative; margin: 0 15px; }
+.progress-bar { height: 100%; background: #8a6a6a; width: 0%; }
+.time-display { font-family: 'Aprila'; font-size: 0.7rem; color: #8a6a6a; width: 80px; }
 
 /* トラックリスト */
-.track-list {
-    list-style: none;
-    padding: 0;
-}
-.track-item {
-    padding: 15px 0;
-    border-bottom: 1px solid #3a2a2a;
-}
-.track-name {
-    font-family: 'Aprila';
-    font-size: 1rem;
-    color: #d8c8c8;
-    margin-bottom: 8px;
-    display: block;
-}
+.track-list-item { display: flex; justify-content: space-between; padding: 15px 10px; border-bottom: 1px solid #3a2a2a; cursor: pointer; font-family: 'Aprila'; }
+.track-list-item:hover { background: rgba(255,255,255,0.03); }
 
-/* オーディオプレーヤーの色調整 */
-audio {
-    width: 100%;
-    height: 30px;
-    filter: invert(1) hue-rotate(180deg) brightness(0.8);
-}
+/* フッター */
+footer { background-color: #1b1111; text-align: center; padding: 40px 20px; border-top: 1px solid #3a2a2a; margin-top: auto; }
+.copyright { font-size: 0.75rem; color: #8a6a6a; letter-spacing: 1px; }
 
 @media (max-width: 768px) {
-    .ep-block { flex-direction: column; align-items: center; padding: 20px; }
-    .ep-jacket { width: 100%; max-width: 300px; }
+    .nav-links a { font-size: 0.7rem; }
+    .grid-nav { grid-template-columns: repeat(2, 1fr); }
+    .quick-nav { grid-template-columns: repeat(5, 1fr) !important; }
+    .detail-container { flex-direction: column; }
+    .detail-photo, .detail-info { width: 100%; }
 }
