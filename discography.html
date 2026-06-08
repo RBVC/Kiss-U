@@ -1,3 +1,4 @@
+<!-- 他の部分は同じなので、スクリプトのリピート部分だけ特に注目してください -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -6,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=9.0">
+    <link rel="stylesheet" href="style.css?v=fresh_10">
 </head>
 <body>
 <header>
@@ -17,51 +18,42 @@
         <li><a href="index.html#discography">Discography</a></li>
     </ul></nav>
 </header>
-
 <div class="section">
     <h2 class="section-title">Discography</h2>
-    
-    <div class="detail-flex">
+    <div class="detail-flex fade-in">
         <div class="detail-left"><img id="d-jacket" src=""></div>
         <div class="detail-right">
             <div class="player-box">
                 <div class="player-top-controls">
                     <div class="p-meta">
-                        <h2 id="p-title">読み込み中...</h2>
+                        <h2 id="p-title">Loading...</h2>
                         <p id="p-album"></p>
                     </div>
                     <div class="seek-bar-container">
                         <div class="time-info"><span id="curr-time">0:00</span><span id="dur-time">0:00</span></div>
                         <input type="range" id="seek-bar" value="0">
                     </div>
-
-                    <!-- 3ブロック構成のコントロール -->
                     <div class="player-controls-grid">
-                        <!-- 左：音量 -->
                         <div class="grid-left">
                             <i class="fa-solid fa-volume-low" id="mute-btn"></i>
                             <input type="range" id="volume-bar" min="0" max="1" step="0.1" value="0.7">
                         </div>
-                        <!-- 中：再生系 -->
                         <div class="grid-center">
                             <i class="fa-solid fa-backward-step ctrl-icon" id="prev-btn"></i>
                             <i class="fa-solid fa-play ctrl-icon play-btn-main" id="play-btn"></i>
                             <i class="fa-solid fa-forward-step ctrl-icon" id="next-btn"></i>
                         </div>
-                        <!-- 右：特殊系 -->
                         <div class="grid-right">
                             <i class="fa-solid fa-shuffle ctrl-icon" id="shuffle-btn"></i>
                             <i class="fa-solid fa-repeat ctrl-icon" id="repeat-btn"></i>
                         </div>
                     </div>
                 </div>
-                <!-- 曲リスト（三を削除） -->
                 <div class="player-track-list" id="track-container"></div>
             </div>
         </div>
     </div>
 </div>
-
 <footer><div class="copyright">Copyright &copy; Kiss-U JAPAN. All Rights Reserved.</div></footer>
 
 <script src="data.js"></script>
@@ -87,7 +79,7 @@
             const row = document.createElement('div');
             row.className = 'track-row';
             row.id = `t-${i}`;
-            row.innerHTML = `<span>${t.num}. ${t.name}</span>`; // 三を削除
+            row.innerHTML = `<span>${t.num}. ${t.name}</span>`;
             row.onclick = () => loadTrack(i, true);
             container.appendChild(row);
         });
@@ -110,10 +102,12 @@
     };
 
     shuffleBtn.onclick = () => { isShuffle = !isShuffle; shuffleBtn.classList.toggle('active', isShuffle); };
+    
     repeatBtn.onclick = () => {
         repeatMode = (repeatMode + 1) % 3;
         repeatBtn.classList.toggle('active', repeatMode > 0);
-        repeatBtn.innerHTML = repeatMode === 2 ? '<span style="font-size:9px; position:absolute; margin-top:10px; margin-left:-7px; font-weight:bold;">1</span>' : '';
+        // 1曲リピートの時だけ ❶ を表示
+        repeatBtn.innerHTML = repeatMode === 2 ? '<span style="font-size:11px; position:absolute; top:-10px; right:-8px; font-weight:bold;">❶</span>' : '';
     };
 
     document.getElementById('next-btn').onclick = () => {
