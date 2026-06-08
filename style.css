@@ -9,35 +9,42 @@ html { scroll-behavior: smooth; }
 
 body {
     margin: 0;
-    background-color: #2b1a1a; /* チョコブラウン */
+    background-color: #2b1a1a;
     color: #d8c8c8;
     font-family: 'Shippori Mincho', serif;
     -webkit-font-smoothing: antialiased;
 }
 
-/* --- ヘッダー --- */
+/* --- ヘッダー（配置の修正） --- */
 header {
     position: fixed;
     top: 0; width: 100%;
+    height: 70px;
     display: flex;
-    justify-content: space-between; /* ロゴとボタンを両端に */
-    align-items: center;           /* 垂直中央 */
-    padding: 0 20px;               /* 左右の余白 */
+    justify-content: space-between; /* これで左(logo)と右(header-right)に分かれる */
+    align-items: center;
+    padding: 0 25px;
     box-sizing: border-box;
     background: rgba(43, 26, 26, 0.98); 
     z-index: 1000;
-    height: 70px;                  /* 高さを固定して安定させる */
 }
 
+/* ロゴの垂直中央調整 */
 .logo { 
     font-family: 'Aprila'; 
     font-size: 1.6rem; 
     text-decoration: none; 
     color: #fff; 
-    z-index: 1100;
     display: flex;
     align-items: center;
-    padding-top: 6px; /* Aprilaフォントが上に寄るのを防ぐ微調整 */
+    padding-top: 10px; /* 文字を枠のど真ん中に押し下げる */
+    line-height: 1;
+}
+
+/* 右側のまとめ */
+.header-right {
+    display: flex;
+    align-items: center;
 }
 
 /* デスクトップ用メニュー */
@@ -52,16 +59,17 @@ header {
     text-decoration: none;
     font-family: 'Aprila';
     font-size: 0.9rem;
+    padding-top: 5px;
+    display: block;
 }
 
-/* ハンバーガーボタン（右端固定） */
+/* ハンバーガーボタン */
 .hamburger {
-    display: none;
+    display: none; /* デスクトップでは隠す */
     cursor: pointer;
-    z-index: 1100;
     background: none; border: none;
     padding: 10px;
-    margin-right: 0;
+    margin-right: -10px; /* 右端にぴったり寄せる調整 */
 }
 .hamburger span {
     display: block;
@@ -71,20 +79,19 @@ header {
     transition: 0.3s;
 }
 
-/* --- メインビジュアル (Hero) --- */
+/* --- メインビジュアル --- */
 .hero {
     width: 100%;
     height: 85vh;
     position: relative;
     background: #ffffff url('./images/main.jpg') no-repeat center center;
     background-size: contain;
-    margin-top: 70px; /* ヘッダーの高さ分下げる */
+    margin-top: 70px;
 }
-/* 白からチョコ色への長いグラデーション */
 .hero::after {
     content: '';
     position: absolute;
-    bottom: 0; left: 0; width: 100%; height: 250px;
+    bottom: 0; left: 0; width: 100%; height: 200px;
     background: linear-gradient(to bottom, rgba(255,255,255,0), #2b1a1a);
 }
 
@@ -101,23 +108,20 @@ header {
 }
 
 /* --- News --- */
-.news-list { border-top: 1px solid #3a2a2a; }
 .news-item {
     display: block;
     padding: 25px 10px;
     border-bottom: 1px solid #3a2a2a;
     text-decoration: none;
     color: #b8a8a8;
-    transition: 0.3s;
 }
-.news-item:hover { background: rgba(255,255,255,0.02); color: #fff; }
 .news-date { font-family: 'Aprila'; font-size: 0.9rem; color: #8a6a6a; display: block; margin-bottom: 8px; }
 .news-text { font-size: 1rem; line-height: 1.5; }
 
-/* --- Biography (スマホ2列/PC5列) --- */
+/* --- Biography --- */
 .member-nav {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* スマホは2列 */
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
 }
 .member-thumb { text-decoration: none; color: #fff; text-align: center; }
@@ -125,24 +129,16 @@ header {
     width: 100%; aspect-ratio: 3/4; 
     background: #3a2a2a; margin-bottom: 12px;
     overflow: hidden; border: 1px solid #4a3a3a;
-    transition: 0.4s;
 }
-.photo-box img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.2); transition: 0.5s; }
-.member-thumb:hover .photo-box { transform: translateY(-8px); border-color: #8a6a6a; }
-.member-thumb span { font-family: 'Aprila'; font-size: 1.1rem; letter-spacing: 1px; }
+.photo-box img { width: 100%; height: 100%; object-fit: cover; }
+.member-thumb span { font-family: 'Aprila'; font-size: 1.1rem; }
 
 /* --- フッター --- */
-footer { 
-    text-align: center; 
-    padding: 80px 20px; 
-    font-size: 0.75rem; 
-    color: #6a5a5a; 
-    letter-spacing: 1px;
-}
+footer { text-align: center; padding: 80px 20px; font-size: 0.75rem; color: #6a5a5a; }
 
 /* --- スマホ専用設定 --- */
 @media (max-width: 768px) {
-    .hamburger { display: block; }
+    .hamburger { display: block; } /* スマホでボタンを表示 */
     
     .nav-links {
         position: fixed;
@@ -152,8 +148,7 @@ footer {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+        transition: 0.4s ease;
     }
     .nav-links.active { right: 0; }
     .nav-links li { margin: 20px 0; margin-left: 0; }
@@ -164,9 +159,8 @@ footer {
     .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 }
 
-/* PCでは5列 */
 @media (min-width: 769px) {
     .member-nav { grid-template-columns: repeat(5, 1fr); }
     .news-item { display: flex; align-items: baseline; }
-    .news-date { width: 130px; margin-bottom: 0; }
+    .news-date { width: 130px; }
 }
