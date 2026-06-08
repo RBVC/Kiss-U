@@ -4,11 +4,10 @@ html { scroll-behavior: smooth; }
 
 body {
     margin: 0;
-    background-color: #2b1a1a !important; /* 強制的にチョコ色 */
+    background-color: #2b1a1a !important;
     color: #d8c8c8;
     font-family: 'Shippori Mincho', serif;
     -webkit-font-smoothing: antialiased;
-    min-height: 100vh;
 }
 
 /* ヘッダー */
@@ -27,52 +26,68 @@ header {
 .section { padding: 100px 20px 60px; max-width: 1000px; margin: 0 auto; width: 100%; box-sizing: border-box; }
 .section-title { font-family: 'Aprila'; font-size: 2.2rem; border-bottom: 1px solid #4a3a3a; padding-bottom: 15px; margin-bottom: 40px; color: #fff; text-align: center; }
 
-/* --- Discography詳細レイアウト (PC:横並び) --- */
+/* --- index / profile：メンバー・ジャケ写グリッド修正 --- */
+.grid-nav {
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr) !important; /* PCで必ず5列 */
+    gap: 20px;
+    width: 100%;
+}
+.grid-item { text-decoration: none; color: #fff; text-align: center; display: block; }
+.photo-box {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: #3a2a2a;
+    overflow: hidden;
+    border: 1px solid #4a3a3a;
+}
+.photo-box.square { aspect-ratio: 1/1 !important; }
+.photo-box img { width: 100%; height: 100%; object-fit: cover; }
+.grid-item span { font-family: 'Aprila'; font-size: 0.9rem; margin-top: 10px; display: block; color: #d8c8c8; }
+
+/* --- Discography詳細レイアウト --- */
 .disco-flex-row {
     display: flex;
-    gap: 40px;
-    align-items: flex-start;
+    gap: 20px;
+    align-items: stretch; /* 左と右の高さを揃える */
 }
 .disco-jacket-side {
-    width: 35%; /* 左側：ジャケ写 */
+    width: 40%;
     flex-shrink: 0;
 }
 .disco-jacket-side img {
     width: 100%;
-    aspect-ratio: 1/1;
+    height: 100%; /* 高さを揃えるために100% */
+    object-fit: cover;
     border: 1px solid #4a3a3a;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 .disco-player-side {
-    width: 65%; /* 右側：プレーヤー */
-}
-
-/* プレーヤー内部のデザイン */
-.player-container {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* 内部パーツを上下に広げる */
     background: #1b1111;
     border: 1px solid #3a2a2a;
     padding: 30px;
-    border-radius: 8px;
+    box-sizing: border-box;
 }
-.p-meta h2 { font-family: 'Aprila'; font-size: 1.8rem; color: #fff; margin: 0; }
-.p-meta p { font-size: 0.9rem; color: #8a6a6a; margin: 10px 0 20px; }
 
-.seek-area { margin-bottom: 25px; }
-.time-box { display: flex; justify-content: space-between; font-family: 'Aprila'; font-size: 0.75rem; color: #8a6a6a; margin-bottom: 8px; }
-input[type="range"] { -webkit-appearance: none; width: 100%; background: #3a2a2a; height: 4px; outline: none; }
-input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; background: #8a6a6a; border-radius: 50%; cursor: pointer; }
+/* プレーヤー内フォントをAprilaへ */
+.p-meta h2 { font-family: 'Aprila'; font-size: 2rem; color: #fff; margin: 0; }
+.p-meta p { font-family: 'Aprila'; font-size: 0.9rem; color: #8a6a6a; margin: 5px 0 20px; }
+.time-box, .t-name { font-family: 'Aprila' !important; }
 
-.control-btns { display: flex; justify-content: center; align-items: center; gap: 40px; font-size: 1.8rem; color: #fff; }
-.c-btn { cursor: pointer; transition: 0.2s; }
-.c-btn:hover { color: #8a6a6a; }
-.play-main { font-size: 3rem; }
-
-/* リスト */
+/* トラックリスト */
 .track-list-box { margin-top: 40px; border-top: 1px solid #3a2a2a; }
 .t-item { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #3a2a2a; cursor: pointer; transition: 0.2s; }
 .t-item:hover { background: rgba(255,255,255,0.03); }
-.t-item.active { background: rgba(138, 106, 106, 0.15); border-left: 4px solid #8a6a6a; }
-.t-name { flex-grow: 1; font-family: 'Aprila'; font-size: 1rem; }
+.t-item.active { background: rgba(138, 106, 106, 0.2); border-left: 4px solid #8a6a6a; }
+.t-name { flex-grow: 1; font-size: 1rem; color: #fff; }
+
+/* ニュース */
+.news-item { display: flex; padding: 20px 10px; border-bottom: 1px solid #3a2a2a; text-decoration: none; align-items: center; }
+.news-date { font-family: 'Aprila'; width: 130px; color: #8a6a6a; flex-shrink: 0; }
+.news-text { color: #b8a8a8; }
 
 /* フッター */
 footer { background: #1b1111; text-align: center; padding: 40px 20px; border-top: 1px solid #3a2a2a; margin-top: auto; }
@@ -80,8 +95,8 @@ footer { background: #1b1111; text-align: center; padding: 40px 20px; border-top
 
 /* スマホ対応 */
 @media (max-width: 768px) {
-    .disco-flex-row { flex-direction: column; align-items: center; }
-    .disco-jacket-side { width: 100%; max-width: 300px; }
-    .disco-player-side { width: 100%; }
-    .control-btns { gap: 25px; }
+    .grid-nav { grid-template-columns: repeat(2, 1fr) !important; } /* スマホは2列 */
+    .disco-flex-row { flex-direction: column; }
+    .disco-jacket-side, .disco-player-side { width: 100%; }
+    .disco-player-side { padding: 20px; }
 }
