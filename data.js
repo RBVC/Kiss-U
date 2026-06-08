@@ -14,7 +14,7 @@ const discoData = {
     },
     "awe": {
         title: "3rd EP \"AWE\"", release: "2026.11.15",
-        jacket: "https://images.genius.com/8fa0c7a2791bfb16e25e4e23f4dd7a45.1000x563x1.jpg",
+        jacket: "https://img.imageimg.net/artist/xg/img/product_1037894.png",
         tracks: [
             { num: "01", name: "IYKYK", file: "./music/awe/01_iykyk.m4a" },
             { num: "02", name: "Something Ain't Right", file: "./music/awe/02_something_aint_right.m4a" },
