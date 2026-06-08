@@ -1,31 +1,15 @@
-/* --- フォント設定 --- */
-@font-face {
-    font-family: 'Aprila';
-    src: url('./fonts/Aprila-Bold.otf') format('opentype');
-    font-weight: bold;
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-    margin: 0;
-    background-color: #2b1a1a;
-    color: #d8c8c8;
-    font-family: 'Shippori Mincho', serif;
-    -webkit-font-smoothing: antialiased;
-}
-
-/* --- ヘッダー & ハンバーガーメニュー --- */
+/* --- ヘッダー修正 --- */
 header {
     position: fixed;
     top: 0; width: 100%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 40px;
+    justify-content: space-between; /* 両端に広げる */
+    align-items: center;           /* 垂直方向に中央 */
+    padding: 10px 20px;            /* 上下を少し詰め、左右の余白を調整 */
     box-sizing: border-box;
     background: rgba(43, 26, 26, 0.98); 
     z-index: 1000;
+    height: 70px;                  /* ヘッダーの高さを固定すると安定します */
 }
 
 .logo { 
@@ -34,128 +18,25 @@ header {
     text-decoration: none; 
     color: #fff; 
     z-index: 1100;
-}
-
-/* デスクトップ用ナビ */
-.nav-links {
+    
+    /* 文字が上に見えるのを防ぐための微調整 */
     display: flex;
-    list-style: none;
-    margin: 0; padding: 0;
-}
-.nav-links li { margin-left: 30px; }
-.nav-links a {
-    color: #fff;
-    text-decoration: none;
-    font-family: 'Aprila';
-    font-size: 0.9rem;
-    transition: 0.3s;
+    align-items: center;
+    padding-top: 8px; /* フォントのクセに合わせて少し下に押し下げる */
 }
 
-/* ハンバーガーボタン（初期状態は隠す） */
 .hamburger {
     display: none;
     cursor: pointer;
     z-index: 1100;
     background: none; border: none;
-}
-.hamburger span {
-    display: block;
-    width: 25px; height: 2px;
-    background: #fff;
-    margin: 5px 0;
-    transition: 0.3s;
+    padding: 10px;      /* 押しやすくするために余白を追加 */
+    margin-right: -10px; /* 右端に寄せるための調整 */
 }
 
-/* --- メインビジュアル --- */
-.hero {
-    width: 100%;
-    height: 80vh;
-    position: relative;
-    background: #fff url('./images/main.jpg') no-repeat center center;
-    background-size: contain;
-    margin-top: 60px;
-}
-.hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; width: 100%; height: 200px;
-    background: linear-gradient(to bottom, rgba(255,255,255,0), #2b1a1a);
-}
-
-/* --- セクション共通 --- */
-.section { padding: 80px 20px; max-width: 1000px; margin: 0 auto; }
-.section-title {
-    font-family: 'Aprila';
-    font-size: clamp(2rem, 8vw, 2.8rem);
-    border-bottom: 1px solid #4a3a3a;
-    padding-bottom: 15px;
-    margin-bottom: 50px;
-    color: #fff;
-    text-align: center;
-}
-
-/* --- News：スマホで見やすく改善 --- */
-.news-list { border-top: 1px solid #3a2a2a; }
-.news-item {
-    display: block; /* スマホでは縦並びに */
-    padding: 20px 10px;
-    border-bottom: 1px solid #3a2a2a;
-    text-decoration: none;
-    color: #b8a8a8;
-}
-.news-date { font-family: 'Aprila'; font-size: 0.9rem; color: #8a6a6a; display: block; margin-bottom: 5px; }
-.news-text { font-size: 0.95rem; line-height: 1.4; }
-
-/* --- Biography：スマホ2列対応 --- */
-.member-nav {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 基本2列 */
-    gap: 20px;
-}
-.member-thumb { text-decoration: none; color: #fff; text-align: center; }
-.photo-box { 
-    width: 100%; aspect-ratio: 3/4; 
-    background: #3a2a2a; margin-bottom: 10px;
-    overflow: hidden; border: 1px solid #4a3a3a;
-}
-.photo-box img { width: 100%; height: 100%; object-fit: cover; }
-.member-thumb span { font-family: 'Aprila'; font-size: 1rem; letter-spacing: 1px; }
-
-/* --- フッター --- */
-footer { 
-    text-align: center; 
-    padding: 60px 20px; 
-    font-size: 0.75rem; 
-    color: #6a5a5a; 
-}
-
-/* --- メディアクエリ：スマホ専用設定 --- */
+/* スマホ版の時の表示設定を上書き */
 @media (max-width: 768px) {
-    .hamburger { display: block; }
-    
-    .nav-links {
-        position: fixed;
-        top: 0; right: -100%; /* 右に隠す */
-        width: 100%; height: 100vh;
-        background: rgba(43, 26, 26, 0.98);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        transition: 0.4s;
+    .hamburger {
+        display: block; /* スマホの時だけ表示 */
     }
-    .nav-links.active { right: 0; } /* 表示状態 */
-    .nav-links li { margin: 20px 0; }
-    .nav-links a { font-size: 1.5rem; }
-
-    /* ハンバーガーを×にするアニメーション */
-    .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.active span:nth-child(2) { opacity: 0; }
-    .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-}
-
-/* PCではメンバーを5列にする */
-@media (min-width: 769px) {
-    .member-nav { grid-template-columns: repeat(5, 1fr); }
-    .news-item { display: flex; align-items: baseline; }
-    .news-date { width: 120px; margin-bottom: 0; }
 }
