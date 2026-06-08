@@ -1,178 +1,187 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kiss-U Official Site</title>
-    <!-- 日本語用の細い明朝体（Aprilaと相性が良い） -->
+    <meta charset="utf-8" />
+    <title>Kiss-U Japan Official Site</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
-    
     <style>
-        /* --- フォントの設定 --- */
+        /* --- フォント設定 --- */
         @font-face {
             font-family: 'Aprila';
             src: url('./fonts/Aprila-Bold.otf') format('opentype');
             font-weight: bold;
         }
-        @font-face {
-            font-family: 'Aprila';
-            src: url('./fonts/Aprila-Regular.otf') format('opentype');
-            font-weight: normal;
-        }
 
-        /* --- 全体のスタイル --- */
         body {
             margin: 0;
-            background-color: #050505; /* より深い黒 */
-            color: #d1d1d1;
-            font-family: 'Shippori Mincho', serif;
-            line-height: 1.8;
-            overflow-x: hidden;
-        }
-
-        /* 背景：少し不気味なグラデーション */
-        .bg-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, #1a0a1a 0%, #050505 100%);
-            z-index: -1;
-        }
-
-        /* 見出し：Aprilaを適用 */
-        h1, h2, .member-name, .nav-link {
-            font-family: 'Aprila', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
+            background-color: #000;
             color: #fff;
+            font-family: 'Shippori Mincho', serif;
+            -webkit-font-smoothing: antialiased;
         }
 
+        /* 共通：頭文字だけ大文字のスタイル */
+        .title-case {
+            font-family: 'Aprila', sans-serif;
+            text-transform: none; /* そのまま表示（HTML側で頭文字だけ大文字にする） */
+            letter-spacing: 0.05em;
+        }
+
+        /* ヘッダー */
         header {
             position: fixed;
             top: 0; width: 100%;
-            padding: 30px 0;
-            text-align: center;
-            z-index: 100;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            box-sizing: border-box;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
         }
+
+        .logo { font-family: 'Aprila'; font-size: 1.5rem; text-decoration: none; color: #fff; }
 
         nav a {
             color: #fff;
-            margin: 0 20px;
             text-decoration: none;
-            font-size: 0.8rem;
-            transition: 0.3s;
-            opacity: 0.7;
+            margin-left: 30px;
+            font-size: 0.9rem;
+            font-family: 'Aprila';
+            transition: opacity 0.3s;
         }
-        nav a:hover { opacity: 1; text-shadow: 0 0 10px #fff; }
+        nav a:hover { opacity: 0.6; }
 
-        section {
-            padding: 120px 20px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        /* TOP：メインビジュアル */
+        /* メインビジュアル（KIOF風スライダー想定） */
         .hero {
+            width: 100%;
             height: 100vh;
+            background: #111; /* 本来はここにメイン画像が入る */
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
-        }
-        .hero h1 {
-            font-size: clamp(4rem, 15vw, 8rem); /* 画面サイズで可変 */
-            margin: 0;
-            line-height: 1;
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.2));
-        }
-        .hero p { font-size: 1rem; letter-spacing: 0.3em; margin-top: 10px; color: #888; }
-
-        /* PROFILE：カードスタイル */
-        .member-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .member-card {
-            position: relative;
-            background: rgba(255,255,255,0.03);
-            padding: 40px 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             overflow: hidden;
+            position: relative;
         }
-        .member-card:hover {
-            background: rgba(255,255,255,0.07);
-            border-color: rgba(255,255,255,0.3);
-            transform: translateY(-5px);
-        }
+        .hero h1 { font-size: 8vw; font-family: 'Aprila'; margin: 0; }
 
-        /* メンバーカラーの装飾（左端の線） */
-        .member-card::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 0; width: 4px; height: 100%;
-        }
-        .m-ichika::before { background: #d0454f; }
-        .m-mitsuha::before { background: #b3ca6f; }
-        .m-goma::before { background: #e5ba5f; }
-        .m-nanao::before { background: #a894b2; }
-        .m-kuku::before { background: #eb7992; }
-
-        .member-name { font-size: 1.8rem; display: block; margin-bottom: 15px; }
-        .member-meta { font-size: 0.8rem; color: #aaa; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px;}
-        .member-desc { font-size: 0.9rem; color: #ccc; }
-
-        /* NEWS & DISCO */
-        .news-list { list-style: none; padding: 0; }
-        .news-item { padding: 15px 0; border-bottom: 1px solid #222; font-size: 0.9rem; }
-        .date { font-family: 'Aprila'; margin-right: 20px; color: #666; }
-
-        footer {
-            text-align: center;
-            padding: 100px 20px 50px;
+        /* セクション共通 */
+        .section { padding: 80px 50px; max-width: 1200px; margin: 0 auto; }
+        .section-title {
             font-family: 'Aprila';
-            font-size: 0.7rem;
-            letter-spacing: 0.2em;
-            opacity: 0.4;
+            font-size: 2.5rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
         }
 
-        /* スムーズスクロール */
-        html { scroll-behavior: smooth; }
+        /* ニュースリスト */
+        .news-item {
+            display: flex;
+            padding: 20px 0;
+            border-bottom: 1px solid #222;
+            text-decoration: none;
+            color: #ccc;
+            transition: color 0.3s;
+        }
+        .news-item:hover { color: #fff; }
+        .news-date { font-family: 'Aprila'; width: 150px; color: #666; }
+
+        /* ボタン */
+        .btn-more {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 40px;
+            border: 1px solid #fff;
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Aprila';
+            font-size: 0.8rem;
+            transition: 0.3s;
+        }
+        .btn-more:hover { background: #fff; color: #000; }
+
+        /* プロフィール（サムネイル並列） */
+        .member-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .member-thumb {
+            text-decoration: none;
+            color: #fff;
+            text-align: center;
+        }
+        .member-thumb img { width: 100%; filter: grayscale(1); transition: 0.5s; }
+        .member-thumb:hover img { filter: grayscale(0); transform: scale(1.05); }
+        .member-thumb span { display: block; margin-top: 15px; font-family: 'Aprila'; }
+
+        footer { text-align: center; padding: 100px 0 50px; font-size: 0.7rem; color: #444; }
     </style>
 </head>
 <body>
 
-<div class="bg-overlay"></div>
-
 <header>
+    <a href="index.html" class="logo">Kiss-U</a>
     <nav>
-        <a href="#top" class="nav-link">TOP</a>
-        <a href="#news" class="nav-link">NEWS</a>
-        <a href="#profile" class="nav-link">PROFILE</a>
-        <a href="#disco" class="nav-link">DISCO</a>
+        <a href="news.html">News</a>
+        <a href="biography.html">Biography</a>
+        <a href="discography.html">Discography</a>
+        <a href="#sns">Sns</a>
     </nav>
 </header>
 
-<section id="top" class="hero">
+<div class="hero">
     <h1>Kiss-U</h1>
-    <p>Project-U Official Site</p>
+</div>
+
+<section class="section">
+    <h2 class="section-title">News</h2>
+    <a href="#" class="news-item">
+        <span class="news-date">2026.06.08</span>
+        <span class="news-text">Kiss-U Official Site Open</span>
+    </a>
+    <a href="#" class="news-item">
+        <span class="news-date">2026.07.01</span>
+        <span class="news-text">Debut Single "Phantom Flower" Release</span>
+    </a>
+    <a href="news.html" class="btn-more">View More</a>
 </section>
 
-<section id="news">
-    <h2>NEWS</h2>
-    <div class="news-list">
-        <div class="news-item"><span class="date">2026.06.08</span>公式サイトを公開しました。</div>
-        <div class="news-item"><span class="date">2026.07.01</span>Debut Single "Phantom Flower" リリース決定。</div>
+<section class="section">
+    <h2 class="section-title">Biography</h2>
+    <div class="member-nav">
+        <!-- 各メンバーへのリンク -->
+        <a href="biography.html#ichika" class="member-thumb">
+            <div style="aspect-ratio: 3/4; background: #222;"></div> <!-- ここに画像を入れる -->
+            <span>Ichika Hibiscus</span>
+        </a>
+        <a href="biography.html#mitsuha" class="member-thumb">
+            <div style="aspect-ratio: 3/4; background: #222;"></div>
+            <span>Mitsuha Trifolium</span>
+        </a>
+        <a href="biography.html#goma" class="member-thumb">
+            <div style="aspect-ratio: 3/4; background: #222;"></div>
+            <span>Goma Freesia</span>
+        </a>
+        <a href="biography.html#nanao" class="member-thumb">
+            <div style="aspect-ratio: 3/4; background: #222;"></div>
+            <span>Nanao Pixy-delight</span>
+        </a>
+        <a href="biography.html#kuku" class="member-thumb">
+            <div style="aspect-ratio: 3/4; background: #222;"></div>
+            <span>Kuku Blossom</span>
+        </a>
     </div>
 </section>
 
-<section id="profile">
-    <h2>PROFILE</h2>
-    <div class="member-grid">
-        <!-- メンバー1 -->
-        <div class="member-card m-ichika">
-            <span class="me
+<footer id="sns">
+    <p>Follow Us</p>
+    <!-- SNSアイコンなど -->
+    <p>&copy; Kiss-U / Project-U ANYCOLOR Inc.</p>
+</footer>
+
+</body>
+</html>
