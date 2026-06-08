@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
-<!-- 他の部分は同じですが、ヘッダーのここだけ修正してください -->
+<head>
+    <meta charset="utf-8" />
+    <title>Discography - Kiss-U</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
+    <!-- ?v=...をつけてCSSの更新を強制する -->
+    <link rel="stylesheet" href="style.css?v=2.0">
+</head>
+<body>
+
 <header>
     <a href="index.html" class="logo">Kiss-U</a>
     <nav><ul class="nav-links">
@@ -9,50 +18,46 @@
         <li><a href="index.html#discography">Discography</a></li>
     </ul></nav>
 </header>
-    <a href="index.html" class="logo">Kiss-U</a>
-    <nav><ul class="nav-links">
-        <li><a href="index.html#news">News</a></li>
-        <li><a href="#biography">Biography</a></li>
-        <li><a href="#discography">Discography</a></li>
-    </ul></nav>
-</header>
 
-<div class="section" style="margin-top: 70px;">
+<div class="section">
     <h2 class="section-title">Discography</h2>
     
-    <div class="player-wrapper">
-        <!-- 上部：操作パネル -->
-        <div class="player-top">
-            <div class="player-info-row">
-                <div class="player-jacket-small"><img id="p-jacket" src=""></div>
-                <div class="player-text-meta">
-                    <h2 id="p-title">Song Title</h2>
+    <div class="disco-flex-row">
+        <!-- 左側：ジャケ写 -->
+        <div class="disco-jacket-side">
+            <img id="p-jacket" src="" alt="Jacket">
+        </div>
+
+        <!-- 右側：プレーヤー本体 -->
+        <div class="disco-player-side">
+            <div class="player-container">
+                <div class="p-meta">
+                    <h2 id="p-title">Select Track</h2>
                     <p id="p-album">Album Name</p>
                 </div>
-            </div>
 
-            <div class="seek-container">
-                <div class="time-labels">
-                    <span id="curr-time">0:00</span>
-                    <span id="dur-time">0:00</span>
+                <div class="seek-area">
+                    <div class="time-box">
+                        <span id="curr-time">0:00</span>
+                        <span id="dur-time">0:00</span>
+                    </div>
+                    <input type="range" id="seek-bar" value="0">
                 </div>
-                <input type="range" id="seek-bar" value="0">
+
+                <div class="control-btns">
+                    <div class="c-btn" id="prev-btn">⏮</div>
+                    <div class="c-btn play-main" id="play-btn">▶</div>
+                    <div class="c-btn" id="next-btn">⏭</div>
+                </div>
             </div>
 
-            <div class="player-btns">
-                <div class="p-btn" id="prev-btn">⏮</div>
-                <div class="p-btn play-main" id="play-btn">▶</div>
-                <div class="p-btn" id="next-btn">⏭</div>
+            <!-- 下：リスト -->
+            <div class="track-list-box" id="track-list">
+                <!-- JS生成 -->
             </div>
-        </div>
-
-        <!-- 下部：トラックリスト -->
-        <div class="player-list" id="track-list">
-            <!-- JSで生成 -->
         </div>
     </div>
-
-    <!-- 隠しオーディオ要素 -->
+    
     <audio id="audio-engine"></audio>
 </div>
 
@@ -65,88 +70,51 @@
     const audio = document.getElementById('audio-engine');
     const playBtn = document.getElementById('play-btn');
     const seekBar = document.getElementById('seek-bar');
-    let currentTrackIdx = 0;
+    let currentIdx = 0;
 
     if (data) {
         document.getElementById('p-album').innerText = data.title;
         document.getElementById('p-jacket').src = data.jacket;
 
-        // リスト生成
-        const listContainer = document.getElementById('track-list');
+        const list = document.getElementById('track-list');
         data.tracks.forEach((track, i) => {
-            const div = document.createElement('div');
-            div.className = 'track-item';
-            div.id = `item-${i}`;
-            div.innerHTML = `
-                <div class="track-img"><img src="${data.jacket}"></div>
-                <div class="track-name-small">${track.name}</div>
-                <div class="track-icon-right">≡</div>
-            `;
-            div.onclick = () => loadTrack(i, true);
-            listContainer.appendChild(div);
+            const item = document.createElement('div');
+            item.className = 't-item';
+            item.id = `t-${i}`;
+            item.innerHTML = `<div class="t-name">${track.num}. ${track.name}</div><div style="font-size:0.7rem; color:#5a4a4a;">≡</div>`;
+            item.onclick = () => loadTrack(i, true);
+            list.appendChild(item);
         });
-
         loadTrack(0, false);
     }
 
-    function loadTrack(idx, shouldPlay) {
-        const track = data.tracks[idx];
-        currentTrackIdx = idx;
-        audio.src = track.file;
-        document.getElementById('p-title').innerText = track.name;
-        
-        // アクティブ表示の切り替え
-        document.querySelectorAll('.track-item').forEach(el => el.classList.remove('active'));
-        document.getElementById(`item-${idx}`).classList.add('active');
-
-        if (shouldPlay) {
-            audio.play();
-            playBtn.innerText = 'II';
-        }
+    function loadTrack(i, play) {
+        currentIdx = i;
+        const t = data.tracks[i];
+        audio.src = t.file;
+        document.getElementById('p-title').innerText = t.name;
+        document.querySelectorAll('.t-item').forEach(el => el.classList.remove('active'));
+        document.getElementById(`t-${i}`).classList.add('active');
+        if (play) { audio.play(); playBtn.innerText = 'II'; }
     }
 
     playBtn.onclick = () => {
-        if (audio.paused) {
-            audio.play();
-            playBtn.innerText = 'II';
-        } else {
-            audio.pause();
-            playBtn.innerText = '▶';
-        }
+        if (audio.paused) { audio.play(); playBtn.innerText = 'II'; }
+        else { audio.pause(); playBtn.innerText = '▶'; }
     };
 
-    document.getElementById('next-btn').onclick = () => {
-        let next = (currentTrackIdx + 1) % data.tracks.length;
-        loadTrack(next, true);
-    };
+    document.getElementById('next-btn').onclick = () => loadTrack((currentIdx + 1) % data.tracks.length, true);
+    document.getElementById('prev-btn').onclick = () => loadTrack((currentIdx - 1 + data.tracks.length) % data.tracks.length, true);
 
-    document.getElementById('prev-btn').onclick = () => {
-        let prev = (currentTrackIdx - 1 + data.tracks.length) % data.tracks.length;
-        loadTrack(prev, true);
-    };
-
-    // シークバー連動
     audio.ontimeupdate = () => {
         if (!isNaN(audio.duration)) {
-            const pct = (audio.currentTime / audio.duration) * 100;
-            seekBar.value = pct;
+            seekBar.value = (audio.currentTime / audio.duration) * 100;
             document.getElementById('curr-time').innerText = formatTime(audio.currentTime);
             document.getElementById('dur-time').innerText = formatTime(audio.duration);
         }
     };
-
-    seekBar.oninput = () => {
-        const time = (seekBar.value / 100) * audio.duration;
-        audio.currentTime = time;
-    };
-
-    function formatTime(s) {
-        const m = Math.floor(s / 60);
-        const sec = Math.floor(s % 60);
-        return m + ":" + (sec < 10 ? "0" : "") + sec;
-    }
-    
-    // 曲が終わったら次へ
+    seekBar.oninput = () => audio.currentTime = (seekBar.value / 100) * audio.duration;
+    function formatTime(s) { const m = Math.floor(s/60); const sec = Math.floor(s%60); return m + ":" + (sec < 10 ? "0" : "") + sec; }
     audio.onended = () => document.getElementById('next-btn').click();
 </script>
 </body>

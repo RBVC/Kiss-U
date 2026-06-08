@@ -1,100 +1,87 @@
-/* --- カスタムプレーヤー (見本再現版) --- */
-.player-wrapper {
-    background: #1b1111; /* チョコより一段濃い色 */
-    border: 1px solid #3a2a2a;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-top: 40px;
+/* --- フォント設定 --- */
+@font-face { font-family: 'Aprila'; src: url('./fonts/Aprila-Bold.otf') format('opentype'); font-weight: bold; }
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    background-color: #2b1a1a !important; /* 強制的にチョコ色 */
+    color: #d8c8c8;
+    font-family: 'Shippori Mincho', serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
 }
 
-/* 上部：メイン操作パネル */
-.player-top {
-    padding: 30px;
-    background: linear-gradient(to bottom, #2b1a1a, #1b1111);
+/* ヘッダー */
+header {
+    position: fixed; top: 0; width: 100%; height: 70px;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 25px; box-sizing: border-box;
+    background: rgba(43, 26, 26, 0.98); z-index: 1000; border-bottom: 1px solid #3a2a2a;
+}
+.logo { font-family: 'Aprila'; font-size: 1.5rem; text-decoration: none; color: #fff; padding-top: 5px; }
+.nav-links { display: flex; list-style: none; margin: 0; padding: 0; }
+.nav-links li { margin-left: 20px; }
+.nav-links a { color: #fff; text-decoration: none; font-family: 'Aprila'; font-size: 0.85rem; }
+
+/* 共通セクション */
+.section { padding: 100px 20px 60px; max-width: 1000px; margin: 0 auto; width: 100%; box-sizing: border-box; }
+.section-title { font-family: 'Aprila'; font-size: 2.2rem; border-bottom: 1px solid #4a3a3a; padding-bottom: 15px; margin-bottom: 40px; color: #fff; text-align: center; }
+
+/* --- Discography詳細レイアウト (PC:横並び) --- */
+.disco-flex-row {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    gap: 40px;
+    align-items: flex-start;
 }
-
-.player-info-row {
-    display: flex;
-    width: 100%;
-    gap: 20px;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.player-jacket-small {
-    width: 80px; height: 80px;
-    border: 1px solid #4a3a3a;
+.disco-jacket-side {
+    width: 35%; /* 左側：ジャケ写 */
     flex-shrink: 0;
 }
-.player-jacket-small img { width: 100%; height: 100%; object-fit: cover; }
-
-.player-text-meta { flex-grow: 1; overflow: hidden; }
-.player-text-meta h2 { font-family: 'Aprila'; font-size: 1.2rem; color: #fff; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.player-text-meta p { font-size: 0.8rem; color: #8a6a6a; margin: 5px 0 0; }
-
-/* プログレスバー（シークバー） */
-.seek-container { width: 100%; margin-bottom: 20px; }
-.time-labels { display: flex; justify-content: space-between; font-family: 'Aprila'; font-size: 0.7rem; color: #8a6a6a; margin-bottom: 5px; }
-
-input[type="range"] {
-    -webkit-appearance: none;
+.disco-jacket-side img {
     width: 100%;
-    background: #3a2a2a;
-    height: 4px;
-    border-radius: 2px;
-    outline: none;
+    aspect-ratio: 1/1;
+    border: 1px solid #4a3a3a;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
-input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 12px; height: 12px;
-    background: #8a6a6a;
-    border-radius: 50%;
-    cursor: pointer;
+.disco-player-side {
+    width: 65%; /* 右側：プレーヤー */
 }
 
-/* 操作ボタン（見本風） */
-.player-btns {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    font-size: 1.5rem;
-    color: #fff;
+/* プレーヤー内部のデザイン */
+.player-container {
+    background: #1b1111;
+    border: 1px solid #3a2a2a;
+    padding: 30px;
+    border-radius: 8px;
 }
-.p-btn { cursor: pointer; transition: 0.2s; user-select: none; }
-.p-btn:hover { color: #8a6a6a; }
-.play-main { font-size: 2.5rem; }
+.p-meta h2 { font-family: 'Aprila'; font-size: 1.8rem; color: #fff; margin: 0; }
+.p-meta p { font-size: 0.9rem; color: #8a6a6a; margin: 10px 0 20px; }
 
-/* 下部：トラックリスト */
-.player-list {
-    background: #fff; /* 見本に合わせてリストは明るく、またはチョコ色に変更可能 */
-    color: #333;
-}
-/* リストをチョコ色にする場合は以下（今回はKiss-Uに合わせてチョコ版にします） */
-.player-list {
-    background: #241818;
-    color: #d8c8c8;
-}
+.seek-area { margin-bottom: 25px; }
+.time-box { display: flex; justify-content: space-between; font-family: 'Aprila'; font-size: 0.75rem; color: #8a6a6a; margin-bottom: 8px; }
+input[type="range"] { -webkit-appearance: none; width: 100%; background: #3a2a2a; height: 4px; outline: none; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; background: #8a6a6a; border-radius: 50%; cursor: pointer; }
 
-.track-item {
-    display: flex;
-    align-items: center;
-    padding: 15px 20px;
-    border-bottom: 1px solid #3a2a2a;
-    cursor: pointer;
-    transition: 0.2s;
-}
-.track-item:hover { background: rgba(255,255,255,0.05); }
-.track-item.active { background: rgba(138, 106, 106, 0.1); border-left: 4px solid #8a6a6a; }
+.control-btns { display: flex; justify-content: center; align-items: center; gap: 40px; font-size: 1.8rem; color: #fff; }
+.c-btn { cursor: pointer; transition: 0.2s; }
+.c-btn:hover { color: #8a6a6a; }
+.play-main { font-size: 3rem; }
 
-.track-img { width: 40px; height: 40px; background: #3a2a2a; margin-right: 15px; }
-.track-img img { width: 100%; height: 100%; object-fit: cover; }
-.track-name-small { flex-grow: 1; font-family: 'Aprila'; font-size: 0.9rem; }
-.track-icon-right { color: #5a4a4a; font-size: 0.8rem; } /* 三本線アイコン風 */
+/* リスト */
+.track-list-box { margin-top: 40px; border-top: 1px solid #3a2a2a; }
+.t-item { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #3a2a2a; cursor: pointer; transition: 0.2s; }
+.t-item:hover { background: rgba(255,255,255,0.03); }
+.t-item.active { background: rgba(138, 106, 106, 0.15); border-left: 4px solid #8a6a6a; }
+.t-name { flex-grow: 1; font-family: 'Aprila'; font-size: 1rem; }
 
+/* フッター */
+footer { background: #1b1111; text-align: center; padding: 40px 20px; border-top: 1px solid #3a2a2a; margin-top: auto; }
+.copyright { font-size: 0.75rem; color: #8a6a6a; letter-spacing: 1px; }
+
+/* スマホ対応 */
 @media (max-width: 768px) {
-    header { padding: 0 15px; }
-    .player-btns { gap: 20px; }
+    .disco-flex-row { flex-direction: column; align-items: center; }
+    .disco-jacket-side { width: 100%; max-width: 300px; }
+    .disco-player-side { width: 100%; }
+    .control-btns { gap: 25px; }
 }
