@@ -5,7 +5,7 @@
     <title>Profile - Kiss-U</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=3.0">
+    <link rel="stylesheet" href="style.css?v=4.0">
 </head>
 <body>
 <header>
@@ -16,20 +16,23 @@
         <li><a href="index.html#discography">Discography</a></li>
     </ul></nav>
 </header>
+
 <div class="section" style="margin-top: 70px;">
-    <div class="detail-container" style="display:flex; gap:40px; margin-top:40px;">
-        <div class="detail-photo" style="width:45%;"><img id="m-image" src="" style="width:100%; border:1px solid #4a3a3a;"></div>
-        <div class="detail-info" style="width:55%;">
-            <h2 id="m-codename" style="font-family:'Aprila'; font-size:3.5rem; margin:0 0 20px; color:#fff;"></h2>
-            <ul class="detail-table">
+    <!-- 左：立ち絵 / 右：詳細表 -->
+    <div class="detail-flex fade-in">
+        <div class="detail-left"><img id="m-image" src=""></div>
+        <div class="detail-right profile-info">
+            <h2 id="m-codename"></h2>
+            <ul class="profile-table">
                 <li><span class="label">Name</span><span class="value" id="m-name"></span></li>
                 <li><span class="label">Birthday</span><span class="value" id="m-birthday"></span></li>
                 <li><span class="label">Position</span><span class="value" id="m-position"></span></li>
             </ul>
         </div>
     </div>
-    <!-- クイックナビ（巨大化防止） -->
-    <div class="grid-nav" style="margin-top: 80px; padding-top: 40px; border-top: 1px solid #3a2a2a;">
+
+    <!-- 下：クイックナビ（5列並び） -->
+    <div class="grid-nav quick-nav" style="margin-top: 80px; padding-top: 40px; border-top: 1px solid #3a2a2a;">
         <a href="profile.html?id=1chika" class="grid-item"><div class="photo-box square"><img src="./images/1chika.png"></div><span>1chika</span></a>
         <a href="profile.html?id=3tuba" class="grid-item"><div class="photo-box square"><img src="./images/3tuba.png"></div><span>3tuba</span></a>
         <a href="profile.html?id=5ma" class="grid-item"><div class="photo-box square"><img src="./images/5ma.png"></div><span>5ma</span></a>
@@ -37,7 +40,9 @@
         <a href="profile.html?id=ku9" class="grid-item"><div class="photo-box square"><img src="./images/ku9.png"></div><span>ku9</span></a>
     </div>
 </div>
+
 <footer><div class="copyright">Copyright &copy; Kiss-U JAPAN. All Rights Reserved.</div></footer>
+
 <script src="data.js"></script>
 <script>
     const data = memberData[new URLSearchParams(window.location.search).get('id')];
