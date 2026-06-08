@@ -5,7 +5,7 @@
     <title>Discography - Kiss-U</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=4.0">
+    <link rel="stylesheet" href="style.css?v=5.0">
 </head>
 <body>
 <header>
@@ -17,37 +17,45 @@
     </ul></nav>
 </header>
 
-<div class="section" style="margin-top: 70px;">
+<div class="section">
     <h2 class="section-title">Discography</h2>
     
-    <!-- 左：ジャケ写 / 右：プレーヤー（高さを揃える） -->
-    <div class="detail-flex fade-in">
+    <div class="detail-flex">
+        <!-- 左：ジャケ写 -->
         <div class="detail-left">
             <img id="d-jacket" src="">
         </div>
+
+        <!-- 右：プレーヤー（操作 ＋ 曲リストを合体） -->
         <div class="detail-right">
             <div class="player-box">
-                <div class="p-meta">
-                    <h2 id="p-title">Select Track</h2>
-                    <p id="p-album">Album Name</p>
-                </div>
-                <div class="seek-bar-container">
-                    <div class="time-info">
-                        <span id="curr-time">0:00</span>
-                        <span id="dur-time">0:00</span>
+                <!-- プレーヤー上部：操作系 -->
+                <div class="player-top-controls">
+                    <div class="p-meta">
+                        <h2 id="p-title">Select Track</h2>
+                        <p id="p-album">Album Name</p>
                     </div>
-                    <input type="range" id="seek-bar" value="0">
+                    <div class="seek-bar-container">
+                        <div class="time-info">
+                            <span id="curr-time">0:00</span>
+                            <span id="dur-time">0:00</span>
+                        </div>
+                        <input type="range" id="seek-bar" value="0">
+                    </div>
+                    <div class="player-btns">
+                        <div class="control-btn" id="prev-btn">⏮</div>
+                        <div class="control-btn play-btn-main" id="play-btn">▶</div>
+                        <div class="control-btn" id="next-btn">⏭</div>
+                    </div>
                 </div>
-                <div class="player-controls">
-                    <div class="control-btn" id="prev-btn">⏮</div>
-                    <div class="control-btn play-btn-main" id="play-btn">▶</div>
-                    <div class="control-btn" id="next-btn">⏭</div>
+
+                <!-- プレーヤー下部：曲リスト内蔵 -->
+                <div class="player-track-list" id="track-container">
+                    <!-- JSでここに曲リストが入ります -->
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="track-list" id="track-container"></div>
 </div>
 
 <footer><div class="copyright">Copyright &copy; Kiss-U JAPAN. All Rights Reserved.</div></footer>
@@ -68,7 +76,7 @@
             const row = document.createElement('div');
             row.className = 'track-row';
             row.id = `t-${i}`;
-            row.innerHTML = `<span>${t.num}. ${t.name}</span><div style="font-size:0.7rem; color:#5a4a4a;">≡</div>`;
+            row.innerHTML = `<span>${t.num}. ${t.name}</span><div style="font-size:0.7rem; color:#4a3a3a;">≡</div>`;
             row.onclick = () => loadTrack(i, true);
             container.appendChild(row);
         });
