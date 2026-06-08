@@ -1,104 +1,65 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="utf-8" />
-    <title>Kiss-U Japan Official Site</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body id="top">
-
-<header>
-    <!-- 左側：ロゴ -->
-    <a href="#top" class="logo">Kiss-U</a>
-    
-    <!-- 右側：ナビゲーションとボタンをまとめる -->
-    <div class="header-right">
-        <nav id="js-nav">
-            <ul class="nav-links">
-                <li><a href="#news">News</a></li>
-                <li><a href="#biography">Biography</a></li>
-                <li><a href="#discography">Discography</a></li>
-            </ul>
-        </nav>
-
-        <button class="hamburger" id="js-hamburger">
-            <span></span><span></span><span></span>
-        </button>
-    </div>
-</header>
-
-<div class="hero"></div>
-
-<section id="news" class="section">
-    <h2 class="section-title">News</h2>
-    <div class="news-list">
-        <a href="#" class="news-item">
-            <span class="news-date">2026.06.08</span>
-            <span class="news-text">Kiss-U Official Site Open</span>
-        </a>
-        <a href="#" class="news-item">
-            <span class="news-date">2026.07.01</span>
-            <span class="news-text">Debut Single "Phantom Flower" Release</span>
-        </a>
-    </div>
-</section>
-
+<!-- Biography Section -->
 <section id="biography" class="section">
     <h2 class="section-title">Biography</h2>
+    
+    <!-- サムネイル（クリックすると下の詳細に飛ぶ） -->
     <div class="member-nav">
-        <a href="#profile-1chika" class="member-thumb">
+        <a href="#pro-1chika" class="member-thumb">
             <div class="photo-box"><img src="./images/1chika.png" alt="1chika"></div>
             <span>1chika</span>
         </a>
-        <a href="#profile-3tuba" class="member-thumb">
+        <a href="#pro-3tuba" class="member-thumb">
             <div class="photo-box"><img src="./images/3tuba.png" alt="3tuba"></div>
             <span>3tuba</span>
         </a>
-        <a href="#profile-5ma" class="member-thumb">
+        <a href="#pro-5ma" class="member-thumb">
             <div class="photo-box"><img src="./images/5ma.png" alt="5ma"></div>
             <span>5ma</span>
         </a>
-        <a href="#profile-na7o" class="member-thumb">
+        <a href="#pro-na7o" class="member-thumb">
             <div class="photo-box"><img src="./images/na7o.png" alt="na7o"></div>
             <span>na7o</span>
         </a>
-        <a href="#profile-ku9" class="member-thumb">
+        <a href="#pro-ku9" class="member-thumb">
             <div class="photo-box"><img src="./images/ku9.png" alt="ku9"></div>
             <span>ku9</span>
         </a>
     </div>
-</section>
 
-<section id="discography" class="section">
-    <h2 class="section-title">Discography</h2>
-    <div style="opacity: 0.4; font-family: 'Aprila'; letter-spacing: 2px; text-align: center;">
-        Coming soon...
+    <!-- 詳細表示エリア -->
+    <div class="profile-details">
+        
+        <!-- 1chikaの詳細 -->
+        <div id="pro-1chika" class="member-detail-block">
+            <div class="detail-container">
+                <div class="detail-photo"><img src="./images/1chika.png" alt="1chika"></div>
+                <div class="detail-info">
+                    <h3>1chika</h3>
+                    <ul class="info-list">
+                        <li><span class="info-label">Birthday</span><span class="info-value">1月5日 (22歳)</span></li>
+                        <li><span class="info-label">Position</span><span class="info-value">メインボーカル</span></li>
+                        <li><span class="info-label">Nickname</span><span class="info-value">いーちゃん</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3tubaの詳細 -->
+        <div id="pro-3tuba" class="member-detail-block">
+            <div class="detail-container">
+                <div class="detail-photo"><img src="./images/3tuba.png" alt="3tuba"></div>
+                <div class="detail-info">
+                    <h3>3tuba</h3>
+                    <ul class="info-list">
+                        <li><span class="info-label">Birthday</span><span class="info-value">3月8日 (18歳)</span></li>
+                        <li><span class="info-label">Position</span><span class="info-value">マンネ / メインダンサー / メインラッパー</span></li>
+                        <li><span class="info-label">Nickname</span><span class="info-value">みっちゃん</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 同様に他のメンバー分(5ma, na7o, ku9)も作成 -->
+
     </div>
 </section>
-
-<footer>
-    <p>Copyright &copy; Kiss-U JAPAN. All Rights Reserved.</p>
-</footer>
-
-<script>
-    const hamburger = document.getElementById('js-hamburger');
-    const navLinks = document.querySelector('.nav-links');
-    const links = document.querySelectorAll('.nav-links a');
-
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navLinks.classList.toggle('active');
-    });
-
-    links.forEach(link => {
-        link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navLinks.classList.remove('active');
-        });
-    });
-</script>
-
-</body>
-</html>
