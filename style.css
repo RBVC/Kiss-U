@@ -37,19 +37,17 @@ header {
 .detail-left img { width: 100%; height: 100%; object-fit: cover; border: 1px solid #4a3a3a; }
 .detail-right { width: 55%; display: flex; flex-direction: column; }
 
-/* --- バーのデザイン修正 (見やすく、はっきりと) --- */
+/* --- バーのデザイン：塗りつぶし感が出るように修正 --- */
 input[type="range"] {
     -webkit-appearance: none; width: 100%; background: transparent; cursor: pointer; outline: none; margin: 0;
 }
-/* トラック（溝） */
 input[type="range"]::-webkit-slider-runnable-track {
-    width: 100%; height: 6px; background: #3a2a2a; border-radius: 3px;
+    width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px;
 }
-/* ツマミ（丸） */
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none; height: 16px; width: 16px; background: #eb7992; 
-    border-radius: 50%; border: 2px solid #fff; margin-top: -5px; /* (溝6px - ツマミ16px)/2 */
-    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    border-radius: 50%; border: 2px solid #fff; margin-top: -5px; 
+    box-shadow: 0 0 8px rgba(0,0,0,0.5);
 }
 
 /* プレーヤー */
@@ -58,19 +56,15 @@ input[type="range"]::-webkit-slider-thumb {
 .p-meta h2 { font-size: 1.4rem; color: #fff !important; margin: 0; font-weight: bold; }
 .p-meta p { font-size: 0.8rem; color: #8a6a6a !important; margin: 5px 0 20px; }
 
-/* 3分割コントロール（配置を固定） */
+/* 3分割コントロール */
 .player-controls-grid { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 15px; }
-
-/* 左：音量 (ボタンを大きく) */
 .grid-left { width: 30%; display: flex; align-items: center; gap: 12px; }
-.grid-left i { font-size: 1.1rem; color: #8a6a6a; min-width: 20px; text-align: center; }
+.grid-left i { font-size: 1.1rem; color: #8a6a6a; min-width: 20px; text-align: center; cursor: pointer; }
 .grid-left input { flex-grow: 1; max-width: 80px; }
 
-/* 中：再生系 (センター固定) */
 .grid-center { width: 40%; display: flex; justify-content: center; align-items: center; gap: 20px; color: #fff !important; }
-.play-btn-main { font-size: 3rem !important; }
+.play-btn-main { font-size: 3rem !important; cursor: pointer; }
 
-/* 右：特殊系 */
 .grid-right { width: 30%; display: flex; justify-content: flex-end; align-items: center; gap: 15px; }
 
 .ctrl-icon { cursor: pointer; transition: 0.3s; opacity: 0.5; font-size: 1.2rem; position: relative; }
@@ -81,6 +75,11 @@ input[type="range"]::-webkit-slider-thumb {
 .player-track-list { flex-grow: 1; overflow-y: auto; background: #241818; max-height: 200px; }
 .track-row { padding: 12px 20px; border-bottom: 1px solid #1b1111; cursor: pointer; font-size: 0.85rem; }
 .track-row.active { background: rgba(235, 121, 146, 0.1); border-left: 3px solid #eb7992; color: #fff !important; }
+
+/* ❶ アイコンの微調整 */
+#repeat-indicator {
+    font-size: 11px; position: absolute; top: -14px; right: -8px; font-weight: bold; color: #eb7992;
+}
 
 /* フッター */
 footer { background: #1b1111; text-align: center; padding: 40px 20px; border-top: 1px solid #3a2a2a; margin-top: auto; }
