@@ -1,20 +1,117 @@
-/* --- News View More Button --- */
-.view-more-btn {
-    display: inline-block;
-    padding: 10px 40px;
-    border: 1px solid #8a6a6a;
-    color: #fff !important;
-    text-decoration: none;
-    font-family: 'Aprila';
-    font-size: 0.8rem;
-    letter-spacing: 2px;
-    transition: 0.3s;
-    background: rgba(255,255,255,0.02);
-}
-.view-more-btn:hover {
-    background: #8a6a6a;
-    color: #1b1111 !important;
+/* --- フォント設定 --- */
+@font-face { font-family: 'Aprila'; src: url('./fonts/Aprila-Bold.otf') format('opentype'); font-weight: bold; }
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0 !important;
+    background: radial-gradient(circle at 50% 50%, #352323 0%, #1b1111 100%) !important;
+    background-attachment: fixed !important;
+    color: #d8c8c8 !important;
+    font-family: 'Shippori Mincho', serif !important;
+    -webkit-font-smoothing: antialiased;
+    display: flex; flex-direction: column; min-height: 100vh; position: relative;
 }
 
-/* ニュースリストの枠線を少し調整 */
-.news-list { border-top: 1px solid #3a2a2a; margin-top: 20px; }
+/* 質感ノイズ */
+body::after {
+    content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.04; pointer-events: none; z-index: 9999;
+}
+
+/* ヘッダー */
+header {
+    position: fixed; top: 0; width: 100%; height: 70px;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 25px; box-sizing: border-box;
+    background: rgba(43, 26, 26, 0.95) !important; z-index: 1000; border-bottom: 1px solid #3a2a2a;
+}
+.logo { font-family: 'Aprila' !important; font-size: 1.5rem; text-decoration: none; color: #fff !important; padding-top: 8px; }
+.nav-links { display: flex; list-style: none; margin: 0; padding: 0; }
+.nav-links li { margin-left: 20px; }
+.nav-links a { color: #fff !important; text-decoration: none; font-family: 'Aprila' !important; font-size: 0.85rem; }
+
+/* TOP Hero */
+.hero {
+    width: 100% !important; height: 85vh !important; position: relative !important;
+    background-color: #ffffff !important;
+    background-image: url('./images/main.jpg') !important;
+    background-size: contain !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    margin-top: 70px !important;
+    display: block !important;
+}
+.hero::after {
+    content: '' !important; position: absolute; bottom: 0; left: 0; width: 100%; height: 200px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), #2b1a1a) !important;
+}
+
+/* セクション設定 */
+.section { padding: 120px 20px 60px !important; max-width: 1100px; margin: 0 auto; width: 100%; box-sizing: border-box; }
+.section-title { font-family: 'Aprila' !important; font-size: 2.5rem; border-bottom: 1px solid #4a3a3a; padding-bottom: 15px; margin: 0 0 40px !important; color: #fff !important; text-align: center; }
+
+/* ニュースアイテム */
+.news-item { display: flex; align-items: center; padding: 25px 10px; border-bottom: 1px solid #3a2a2a; text-decoration: none !important; color: #d8c8c8 !important; transition: 0.3s; }
+.news-item:hover { background: rgba(255,255,255,0.02); }
+.news-date { font-family: 'Aprila' !important; width: 140px; color: #8a6a6a !important; flex-shrink: 0; }
+
+/* View Moreボタン */
+.view-more-btn { display: inline-block; padding: 10px 40px; border: 1px solid #8a6a6a; color: #fff !important; text-decoration: none; font-family: 'Aprila'; font-size: 0.8rem; letter-spacing: 2px; transition: 0.3s; margin-top: 30px; }
+.view-more-btn:hover { background: #8a6a6a; color: #1b1111 !important; }
+
+/* グリッド */
+.grid-nav { display: grid !important; grid-template-columns: repeat(5, 1fr) !important; gap: 15px; width: 100%; }
+.grid-item { text-decoration: none; color: #fff !important; text-align: center; }
+.photo-box { width: 100%; aspect-ratio: 3/4; background: #3a2a2a; border: 1px solid #4a3a3a; overflow: hidden; }
+.photo-box.square { aspect-ratio: 1/1 !important; }
+.photo-box img { width: 100%; height: 100%; object-fit: cover; }
+.grid-item span { font-family: 'Aprila' !important; font-size: 0.8rem; display: block; margin-top: 10px; }
+
+/* プレーヤー */
+.detail-flex { display: flex; gap: 40px; align-items: stretch; margin-top: 40px; }
+.detail-left { width: 45%; flex-shrink: 0; }
+.detail-left img { width: 100%; height: 100%; object-fit: cover; border: 1px solid #4a3a3a; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+.detail-right { width: 55%; display: flex; flex-direction: column; }
+
+.player-box { background: #1b1111; border: 1px solid #3a2a2a; display: flex; flex-direction: column; height: 100%; border-radius: 8px; overflow: hidden; }
+.player-top-controls { padding: 25px; background: linear-gradient(to bottom, #2b1a1a, #1b1111); }
+.p-meta h2 { font-size: 1.3rem; color: #fff !important; margin: 0; font-weight: bold; line-height: 1.4; word-break: break-all; }
+.p-meta p { font-size: 0.8rem; color: #8a6a6a !important; margin: 5px 0 15px; }
+
+.time-info { display: flex; justify-content: space-between; font-size: 11px; color: #8a6a6a; margin-bottom: 5px; font-family: 'Aprila'; }
+input[type="range"] { -webkit-appearance: none; width: 100%; background: transparent; cursor: pointer; }
+input[type="range"]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: #3a2a2a; border-radius: 2px; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; height: 14px; width: 14px; background: #eb7992; border-radius: 50%; border: 2px solid #fff; margin-top: -5px; }
+
+.player-controls-grid { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 15px; }
+.grid-left { width: 25%; display: flex; align-items: center; gap: 8px; }
+.grid-left i { font-size: 1.1rem; color: #8a6a6a; cursor: pointer; }
+.grid-left input { width: 50px; }
+.grid-center { width: 50%; display: flex; justify-content: center; align-items: center; gap: 20px; color: #fff !important; }
+.play-btn-main { font-size: 2.8rem !important; cursor: pointer; }
+.grid-right { width: 25%; display: flex; justify-content: flex-end; align-items: center; gap: 15px; }
+.ctrl-icon { cursor: pointer; transition: 0.3s; opacity: 0.5; font-size: 1.1rem; position: relative; }
+.ctrl-icon.active { opacity: 1; color: #eb7992 !important; }
+#repeat-indicator { font-size: 11px; position: absolute; top: -14px; right: -8px; font-weight: bold; color: #eb7992; }
+
+.player-track-list { flex-grow: 1; overflow-y: auto; background: #241818; max-height: 220px; }
+.track-row { padding: 12px 20px; border-bottom: 1px solid #1b1111; cursor: pointer; font-size: 0.85rem; }
+.track-row.active { background: rgba(235, 121, 146, 0.1); border-left: 3px solid #eb7992; color: #fff !important; }
+
+/* フッター */
+footer { background: #1b1111; text-align: center; padding: 40px 20px; border-top: 1px solid #3a2a2a; margin-top: auto; }
+.copyright { font-size: 0.75rem; color: #8a6a6a !important; }
+
+/* アニメーション */
+.fade-in { animation: fadeIn 1s ease forwards; opacity: 0; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 768px) {
+    .section { padding-top: 100px !important; }
+    .detail-flex { flex-direction: column; }
+    .detail-left, .detail-right { width: 100%; }
+    .grid-nav { grid-template-columns: repeat(2, 1fr) !important; }
+    .quick-nav { grid-template-columns: repeat(4, 1fr) !important; }
+    .hero { height: 60vh !important; }
+}

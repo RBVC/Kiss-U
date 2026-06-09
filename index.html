@@ -1,27 +1,60 @@
-<!-- News Section -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <title>Kiss-U Japan Official Site</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=final_update">
+</head>
+<body id="top">
+<header>
+    <a href="#top" class="logo">Kiss-U</a>
+    <nav><ul class="nav-links">
+        <li><a href="news.html">News</a></li>
+        <li><a href="profile.html?id=1chika">Profile</a></li>
+        <li><a href="index.html#discography">Discography</a></li>
+    </ul></nav>
+</header>
+
+<div class="hero"></div>
+
 <section id="news" class="section fade-in">
     <h2 class="section-title">News</h2>
-    <div id="top-news-container">
-        <!-- JSで最新1件が入ります -->
-    </div>
-    <div style="text-align: center; margin-top: 30px;">
-        <a href="news.html" class="view-more-btn">View More</a>
+    <div id="top-news-container"></div>
+    <div style="text-align: center;"><a href="news.html" class="view-more-btn">View More</a></div>
+</section>
+
+<section id="profile" class="section fade-in">
+    <h2 class="section-title">Profile</h2>
+    <div class="grid-nav">
+        <a href="profile.html?id=1chika" class="grid-item"><div class="photo-box"><img src="./images/1chika.png"></div><span>1chika</span></a>
+        <a href="profile.html?id=3tuba" class="grid-item"><div class="photo-box"><img src="./images/3tuba.png"></div><span>3tuba</span></a>
+        <a href="profile.html?id=5ma" class="grid-item"><div class="photo-box"><img src="./images/5ma.png"></div><span>5ma</span></a>
+        <a href="profile.html?id=na7o" class="grid-item"><div class="photo-box"><img src="./images/na7o.png"></div><span>na7o</span></a>
+        <a href="profile.html?id=ku9" class="grid-item"><div class="photo-box"><img src="./images/ku9.png"></div><span>ku9</span></a>
     </div>
 </section>
 
-<!-- ... 他のセクションはそのまま ... -->
+<section id="discography" class="section fade-in">
+    <h2 class="section-title">Discography</h2>
+    <div class="grid-nav">
+        <a href="discography.html?id=come-over" class="grid-item"><div class="photo-box square"><img src="https://ih1.redbubble.net/image.5809651142.3212/fposter,small,wall_texture,square_product,600x600.jpg"></div><span>Come Over</span></a>
+        <a href="discography.html?id=awe" class="grid-item"><div class="photo-box square"><img src="https://img.imageimg.net/artist/xg/img/product_1037894.png"></div><span>AWE</span></a>
+        <a href="discography.html?id=the-aend" class="grid-item"><div class="photo-box square"><img src="https://images.genius.com/b47591b4de032d8e9ffaecba356b43db.1000x1000x1.png"></div><span>the a(e)nd</span></a>
+        <a href="discography.html?id=fly-by" class="grid-item"><div class="photo-box square"><img src="https://images.genius.com/a16644bd336d84437e195572f9ae309f.1000x1000x1.png"></div><span>FLY-BY</span></a>
+    </div>
+</section>
+
+<footer><div class="copyright">Copyright &copy; Kiss-U JAPAN. All Rights Reserved.</div></footer>
 
 <script src="data.js"></script>
 <script>
-    // TOPページ用に最新1件だけを表示
     const newsContainer = document.getElementById('top-news-container');
     if (newsData.length > 0) {
-        const topNews = newsData[0];
-        newsContainer.innerHTML = `
-            <a href="${topNews.link}" class="news-item">
-                <span class="news-date">${topNews.date}</span>
-                <span class="news-text">${topNews.text}</span>
-            </a>
-        `;
+        const top = newsData[0];
+        newsContainer.innerHTML = `<a href="${top.link}" class="news-item"><span class="news-date">${top.date}</span><span class="news-text">${top.text}</span></a>`;
     }
 </script>
+</body>
+</html>
