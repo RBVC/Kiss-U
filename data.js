@@ -1,4 +1,4 @@
-// --- メンバーデータ (indexのグリッド等で使用) ---
+// --- メンバーデータ ---
 const memberData = {
     "1chika": { codename: "1chika", name: "イチカ・ハイビスカス", birthday: "1月5日 (22歳)", position: "メインボーカル", image: "./images/1chika.png" },
     "3tuba": { codename: "3tuba", name: "ミツバ・トリフォリウム", birthday: "3月8日 (18歳)", position: "マンネ / メインダンサー / メインラッパー", image: "./images/3tuba.png" },
@@ -7,7 +7,7 @@ const memberData = {
     "ku9": { codename: "ku9", name: "クク・ブロッサム", birthday: "9月9日 (19歳)", position: "サブボーカル / サブラッパー", image: "./images/ku9.png" }
 };
 
-// --- ニュースデータ ---
+// --- ニュースデータ (最新が一番上) ---
 const newsData = [
     { date: "2027.01.05", text: "Digital Single \"Come Over\" リリース決定", link: "discography.html?id=come-over" },
     { date: "2026.11.15", text: "3rd EP \"AWE\" リリース決定", link: "discography.html?id=awe" },

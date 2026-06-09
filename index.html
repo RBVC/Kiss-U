@@ -5,26 +5,23 @@
     <title>Kiss-U Japan Official Site</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=final_update">
+    <link rel="stylesheet" href="style.css?v=fresh_all">
 </head>
 <body id="top">
 <header>
-    <a href="#top" class="logo">Kiss-U</a>
+    <a href="index.html" class="logo">Kiss-U</a>
     <nav><ul class="nav-links">
         <li><a href="news.html">News</a></li>
-        <li><a href="profile.html?id=1chika">Profile</a></li>
+        <li><a href="index.html#profile">Profile</a></li>
         <li><a href="index.html#discography">Discography</a></li>
     </ul></nav>
 </header>
-
 <div class="hero"></div>
-
 <section id="news" class="section fade-in">
     <h2 class="section-title">News</h2>
     <div id="top-news-container"></div>
-    <div style="text-align: center;"><a href="news.html" class="view-more-btn">View More</a></div>
+    <div style="text-align: center; margin-top: 30px;"><a href="news.html" style="display:inline-block; padding:10px 40px; border:1px solid #8a6a6a; color:#fff; text-decoration:none; font-family:'Aprila'; font-size:0.8rem; letter-spacing:2px; transition:0.3s;">View More</a></div>
 </section>
-
 <section id="profile" class="section fade-in">
     <h2 class="section-title">Profile</h2>
     <div class="grid-nav">
@@ -35,7 +32,6 @@
         <a href="profile.html?id=ku9" class="grid-item"><div class="photo-box"><img src="./images/ku9.png"></div><span>ku9</span></a>
     </div>
 </section>
-
 <section id="discography" class="section fade-in">
     <h2 class="section-title">Discography</h2>
     <div class="grid-nav">
@@ -45,15 +41,11 @@
         <a href="discography.html?id=fly-by" class="grid-item"><div class="photo-box square"><img src="https://images.genius.com/a16644bd336d84437e195572f9ae309f.1000x1000x1.png"></div><span>FLY-BY</span></a>
     </div>
 </section>
-
 <footer><div class="copyright">Copyright &copy; Kiss-U JAPAN. All Rights Reserved.</div></footer>
-
 <script src="data.js"></script>
 <script>
-    const newsContainer = document.getElementById('top-news-container');
     if (newsData.length > 0) {
-        const top = newsData[0];
-        newsContainer.innerHTML = `<a href="${top.link}" class="news-item"><span class="news-date">${top.date}</span><span class="news-text">${top.text}</span></a>`;
+        document.getElementById('top-news-container').innerHTML = `<a href="${newsData[0].link}" style="display:flex; align-items:center; padding:25px 10px; border-top:1px solid #3a2a2a; border-bottom:1px solid #3a2a2a; text-decoration:none; color:#d8c8c8;"><span style="font-family:'Aprila'; width:140px; color:#8a6a6a; flex-shrink:0;">${newsData[0].date}</span><span>${newsData[0].text}</span></a>`;
     }
 </script>
 </body>
