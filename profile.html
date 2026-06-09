@@ -2,12 +2,10 @@
 <html lang="ja">
 <head>
     <meta charset="utf-8" />
-    <title>Kiss-U Japan Official Site</title>
+    <title>Profile - Kiss-U</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Google Fonts（Noto）のリンクを消し、これだけにする -->
-    <link rel="stylesheet" href="style.css?v=fresh_gothic">
-    <!-- アイコン素材（Discography.htmlのみ必要） -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=final_grid">
 </head>
 <body>
 <div id="common-header"></div>
@@ -24,12 +22,13 @@
             </ul>
         </div>
     </div>
-    <div class="grid-nav quick-nav" style="margin-top: 80px; padding-top: 40px; border-top: 1px solid #3a2a2a;">
-        <a href="profile.html?id=1chika" class="grid-item"><div class="photo-box square"><img src="./images/1chika.png"></div><span>1chika</span></a>
-        <a href="profile.html?id=3tuba" class="grid-item"><div class="photo-box square"><img src="./images/3tuba.png"></div><span>3tuba</span></a>
-        <a href="profile.html?id=5ma" class="grid-item"><div class="photo-box square"><img src="./images/5ma.png"></div><span>5ma</span></a>
-        <a href="profile.html?id=na7o" class="grid-item"><div class="photo-box square"><img src="./images/na7o.png"></div><span>na7o</span></a>
-        <a href="profile.html?id=ku9" class="grid-item"><div class="photo-box square"><img src="./images/ku9.png"></div><span>ku9</span></a>
+    <!-- 文字なしクイックナビ（5列） -->
+    <div class="grid-nav nav-5col" style="margin-top: 80px; padding-top: 40px; border-top: 1px solid #3a2a2a;">
+        <a href="profile.html?id=1chika" class="grid-item"><div class="photo-box square"><img src="./images/1chika.png"></div></a>
+        <a href="profile.html?id=3tuba" class="grid-item"><div class="photo-box square"><img src="./images/3tuba.png"></div></a>
+        <a href="profile.html?id=5ma" class="grid-item"><div class="photo-box square"><img src="./images/5ma.png"></div></a>
+        <a href="profile.html?id=na7o" class="grid-item"><div class="photo-box square"><img src="./images/na7o.png"></div></a>
+        <a href="profile.html?id=ku9" class="grid-item"><div class="photo-box square"><img src="./images/ku9.png"></div></a>
     </div>
 </div>
 <div id="common-footer"></div>
@@ -43,6 +42,7 @@
         document.getElementById('m-birthday').innerText = data.birthday;
         document.getElementById('m-position').innerText = data.position;
         document.getElementById('m-image').src = data.image;
+        document.title = `${data.codename} - Profile | Kiss-U`;
     }
 </script>
 </body>

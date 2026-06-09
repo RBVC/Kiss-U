@@ -2,7 +2,7 @@
 @font-face { font-family: 'Aprila'; src: url('./fonts/Aprila-Font/Aprila-Bold.otf') format('opentype'); font-weight: bold; }
 @font-face { font-family: 'MainGothic'; src: url('./fonts/GlowSansSC-Compressed-v0.93/GlowSansSC-Compressed-Regular.otf') format('opentype'); font-weight: normal; }
 
-* { box-sizing: border-box; } /* はみ出し防止 */
+* { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
 body {
@@ -30,60 +30,68 @@ header {
 .section { padding: 120px 20px 60px !important; max-width: 1100px; margin: 0 auto; width: 100%; flex-grow: 1; }
 .section-title { font-family: 'Aprila' !important; font-size: 2.5rem; border-bottom: 1px solid #4a3a3a; padding-bottom: 15px; margin: 0 0 40px !important; color: #fff !important; text-align: center; }
 
-/* プレーヤー */
-.player-box { background: #1b1111; border: 1px solid #3a2a2a; display: flex; flex-direction: column; border-radius: 8px; overflow: hidden; width: 100%; }
-.player-top-controls { padding: 25px; background: linear-gradient(to bottom, #2b1a1a, #1b1111); }
-.p-meta h2 { font-size: 1.3rem; color: #fff !important; margin: 0; font-weight: bold; line-height: 1.4; }
-.p-meta p { font-size: 0.8rem; color: #8a6a6a !important; margin: 5px 0 15px; }
+/* 詳細レイアウト（左画像・右詳細）の配列を固定 */
+.detail-flex { display: flex; gap: 40px; align-items: stretch; margin-top: 20px; width: 100%; }
+.detail-left { width: 45%; flex-shrink: 0; }
+.detail-left img { width: 100%; height: 100%; object-fit: cover; border: 1px solid #4a3a3a; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+.detail-right { width: 55%; display: flex; flex-direction: column; }
 
-/* タイムとバー */
-.time-info { display: flex; justify-content: space-between; width: 100%; font-size: 11px; color: #8a6a6a; margin-bottom: 5px; }
-input[type="range"] { -webkit-appearance: none; width: 100%; background: transparent; cursor: pointer; outline: none; }
-input[type="range"]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: #3a2a2a; border-radius: 2px; }
+/* プロフィール表 */
+.profile-info h2 { font-family: 'Aprila' !important; font-size: 3.5rem; margin: 0 0 10px; color: #fff !important; line-height: 1.1; }
+.profile-table { list-style: none; padding: 0; border-top: 1px solid #3a2a2a; }
+.profile-table li { display: flex; padding: 15px 0; border-bottom: 1px solid #3a2a2a; align-items: center; }
+.label { width: 100px; color: #8a6a6a !important; font-family: 'Aprila' !important; font-size: 0.8rem; }
+.value { flex: 1; color: #fff !important; font-size: 1rem; }
+
+/* プレーヤー */
+.player-box { background: #1b1111; border: 1px solid #3a2a2a; display: flex; flex-direction: column; height: 100%; border-radius: 8px; overflow: hidden; }
+.player-top-controls { padding: 25px; background: linear-gradient(to bottom, #2b1a1a, #1b1111); }
+.p-meta h2 { font-size: 1.3rem; color: #fff !important; margin: 0; font-weight: bold; line-height: 1.4; word-break: break-all; }
+.p-meta p { font-size: 0.8rem; color: #8a6a6a !important; margin: 5px 0 20px; }
+.time-info { display: flex; justify-content: space-between; font-size: 11px; color: #8a6a6a; margin-bottom: 5px; font-family: 'Aprila' !important; }
+
+input[type="range"] { -webkit-appearance: none; width: 100%; background: transparent; cursor: pointer; }
+input[type="range"]::-webkit-slider-runnable-track { width: 100%; height: 5px; background: #3a2a2a; border-radius: 3px; }
 input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; height: 14px; width: 14px; background: #eb7992; border-radius: 50%; border: 2px solid #fff; margin-top: -5px; }
 
-/* コントロール配置の固定 */
 .player-controls-grid { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 15px; }
 .grid-left { width: 30%; display: flex; align-items: center; gap: 8px; }
-.grid-left i { font-size: 1rem; color: #8a6a6a; width: 15px; }
-.grid-left input { width: 60px; flex-shrink: 0; }
+.grid-left input { width: 60px; }
 .grid-center { width: 40%; display: flex; justify-content: center; align-items: center; gap: 20px; color: #fff !important; }
-.grid-right { width: 30%; display: flex; justify-content: flex-end; align-items: center; gap: 12px; }
 .play-btn-main { font-size: 2.8rem !important; cursor: pointer; }
-.ctrl-icon { cursor: pointer; transition: 0.3s; opacity: 0.5; font-size: 1rem; position: relative; }
+.grid-right { width: 30%; display: flex; justify-content: flex-end; align-items: center; gap: 15px; }
+.ctrl-icon { cursor: pointer; transition: 0.3s; opacity: 0.5; font-size: 1.1rem; position: relative; }
 .ctrl-icon.active { opacity: 1; color: #eb7992 !important; }
-#repeat-indicator { font-size: 10px; position: absolute; top: -12px; right: -5px; font-weight: bold; color: #eb7992; }
+#repeat-indicator { font-size: 11px; position: absolute; top: -14px; right: -8px; font-weight: bold; color: #eb7992; }
 
-/* リスト */
-.player-track-list { flex-grow: 1; overflow-y: auto; background: #241818; max-height: 220px; }
+.player-track-list { flex-grow: 1; overflow-y: auto; background: #241818; max-height: 200px; }
 .track-row { padding: 12px 20px; border-bottom: 1px solid #1b1111; cursor: pointer; font-size: 0.85rem; }
 .track-row.active { background: rgba(235, 121, 146, 0.1); border-left: 3px solid #eb7992; color: #fff !important; }
 
-/* フッター：中央揃えと背景色の修正 */
-footer {
-    background-color: #1b1111 !important;
-    text-align: center !important;
-    padding: 40px 20px !important;
-    border-top: 1px solid #3a2a2a;
-    width: 100%;
-}
-.copyright { 
-    font-size: 0.75rem; 
-    color: #8a6a6a !important; 
-    text-align: center !important;
-    display: block;
-}
+/* クイックナビ：写真のみのグリッド */
+.grid-nav { display: grid !important; gap: 15px; margin-top: 20px; width: 100%; }
+.grid-item { text-decoration: none; display: block; transition: 0.3s; }
+.grid-item:hover { transform: translateY(-5px); }
+.grid-item span { display: none !important; } /* 文字を強制非表示 */
 
-/* Profile詳細用 */
-.profile-info h2 { font-family: 'Aprila' !important; font-size: 3rem; margin: 0 0 10px; color: #fff !important; }
-.profile-table { list-style: none; padding: 0; border-top: 1px solid #3a2a2a; }
-.profile-table li { display: flex; padding: 15px 0; border-bottom: 1px solid #3a2a2a; align-items: center; }
-.label { width: 100px; color: #8a6a6a !important; font-family: 'Aprila' !important; font-size: 0.85rem; flex-shrink: 0; }
-.value { flex: 1; color: #fff !important; font-size: 0.95rem; }
+/* 5人並び (Member用) */
+.nav-5col { grid-template-columns: repeat(5, 1fr) !important; }
+/* 4人並び (Disco用) */
+.nav-4col { grid-template-columns: repeat(4, 1fr) !important; }
 
-/* その他グリッド */
-.grid-nav { display: grid !important; grid-template-columns: repeat(5, 1fr) !important; gap: 15px; margin-top: 20px; }
-.grid-item { text-decoration: none; color: #fff !important; text-align: center; }
 .photo-box { width: 100%; aspect-ratio: 3/4; background: #3a2a2a; border: 1px solid #4a3a3a; overflow: hidden; }
 .photo-box.square { aspect-ratio: 1/1 !important; }
 .photo-box img { width: 100%; height: 100%; object-fit: cover; }
+
+footer { background: #1b1111; text-align: center; padding: 40px 20px; border-top: 1px solid #3a2a2a; margin-top: auto; }
+.copyright { font-size: 0.75rem; color: #8a6a6a !important; }
+
+.fade-in { animation: fadeIn 1s ease forwards; opacity: 0; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 768px) {
+    .detail-flex { flex-direction: column; }
+    .detail-left, .detail-right { width: 100%; }
+    .nav-5col { grid-template-columns: repeat(5, 1fr) !important; } /* スマホでも5列維持 */
+    .nav-4col { grid-template-columns: repeat(4, 1fr) !important; } /* スマホでも4列維持 */
+}

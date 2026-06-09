@@ -5,15 +5,14 @@
     <title>Discography - Kiss-U</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
-    <!-- ↓ このリンクが重要です ↓ -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=final_rev2">
+    <link rel="stylesheet" href="style.css?v=final_grid">
 </head>
 <body>
 <div id="common-header"></div>
 <div class="section">
     <h2 class="section-title">Discography</h2>
-    <div class="detail-flex">
+    <div class="detail-flex fade-in">
         <div class="detail-left"><img id="d-jacket" src=""></div>
         <div class="detail-right">
             <div class="player-box">
@@ -24,35 +23,24 @@
                         <input type="range" id="seek-bar" value="0">
                     </div>
                     <div class="player-controls-grid">
-                        <div class="grid-left">
-                            <i class="fa-solid fa-volume-low" id="mute-btn"></i>
-                            <input type="range" id="volume-bar" min="0" max="1" step="0.05" value="0.7">
-                        </div>
-                        <div class="grid-center">
-                            <i class="fa-solid fa-backward-step ctrl-icon" id="prev-btn"></i>
-                            <i class="fa-solid fa-play ctrl-icon play-btn-main" id="play-btn"></i>
-                            <i class="fa-solid fa-forward-step ctrl-icon" id="next-btn"></i>
-                        </div>
-                        <div class="grid-right">
-                            <i class="fa-solid fa-shuffle ctrl-icon" id="shuffle-btn"></i>
-                            <div style="position:relative; display:inline-block;">
-                                <i class="fa-solid fa-repeat ctrl-icon" id="repeat-btn"></i>
-                                <span id="repeat-indicator"></span>
-                            </div>
-                        </div>
+                        <div class="grid-left"><i class="fa-solid fa-volume-low" id="mute-btn"></i><input type="range" id="volume-bar" min="0" max="1" step="0.05" value="0.7"></div>
+                        <div class="grid-center"><i class="fa-solid fa-backward-step ctrl-icon" id="prev-btn"></i><i class="fa-solid fa-play ctrl-icon play-btn-main" id="play-btn"></i><i class="fa-solid fa-forward-step ctrl-icon" id="next-btn"></i></div>
+                        <div class="grid-right"><i class="fa-solid fa-shuffle ctrl-icon" id="shuffle-btn"></i><div style="position:relative; display:inline-block;"><i class="fa-solid fa-repeat ctrl-icon" id="repeat-btn"></i><span id="repeat-indicator"></span></div></div>
                     </div>
                 </div>
                 <div class="player-track-list" id="track-container"></div>
             </div>
         </div>
     </div>
-    <div class="grid-nav" id="disco-quick-nav" style="margin-top: 80px; padding-top: 40px; border-top: 1px solid #3a2a2a;"></div>
+    <!-- 文字なしクイックナビ（4列） -->
+    <div class="grid-nav nav-4col" id="disco-quick-nav" style="margin-top: 80px; padding-top: 40px; border-top: 1px solid #3a2a2a;"></div>
 </div>
 <div id="common-footer"></div>
 <script src="data.js"></script>
 <script src="common.js"></script>
 <script>
-    const data = discoData[new URLSearchParams(window.location.search).get('id') || 'fly-by'];
+    const discoId = new URLSearchParams(window.location.search).get('id') || 'fly-by';
+    const data = discoData[discoId];
     const audio = new Audio();
     const playBtn = document.getElementById('play-btn');
     const seekBar = document.getElementById('seek-bar');
@@ -65,19 +53,18 @@
         const container = document.getElementById('track-container');
         data.tracks.forEach((t, i) => {
             const row = document.createElement('div'); row.className = 'track-row'; row.id = `t-${i}`;
-            row.innerHTML = `<span>${t.num}. ${t.name}</span>`; // 三を削除
+            row.innerHTML = `<span>${t.num}. ${t.name}</span>`;
             row.onclick = () => loadTrack(i, true); container.appendChild(row);
         });
         loadTrack(0, false);
     }
-    // クイックナビ生成
+    // 文字なしでナビ生成
     const nav = document.getElementById('disco-quick-nav');
     Object.keys(discoData).forEach(key => {
         const item = discoData[key]; const a = document.createElement('a'); a.href = `discography.html?id=${key}`;
-        a.className = 'grid-item'; a.innerHTML = `<div class="photo-box square"><img src="${item.jacket}"></div><span>${item.title.split('"')[1] || item.title}</span>`;
+        a.className = 'grid-item'; a.innerHTML = `<div class="photo-box square"><img src="${item.jacket}"></div>`;
         nav.appendChild(a);
     });
-
     function loadTrack(i, play) {
         currentIdx = i; audio.src = data.tracks[i].file; document.getElementById('p-title').innerText = data.tracks[i].name;
         document.querySelectorAll('.track-row').forEach(el => el.classList.remove('active'));
