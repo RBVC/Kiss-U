@@ -4,18 +4,11 @@
     <meta charset="utf-8" />
     <title>Profile - Kiss-U</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=fresh_all">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=fresh_system">
 </head>
 <body>
-<header>
-    <a href="index.html" class="logo">Kiss-U</a>
-    <nav><ul class="nav-links">
-        <li><a href="index.html#news">News</a></li>
-        <li><a href="index.html#profile">Profile</a></li>
-        <li><a href="index.html#discography">Discography</a></li>
-    </ul></nav>
-</header>
+<div id="common-header"></div>
 <div class="section">
     <h2 class="section-title">Profile</h2>
     <div class="detail-flex fade-in">
@@ -37,8 +30,9 @@
         <a href="profile.html?id=ku9" class="grid-item"><div class="photo-box square"><img src="./images/ku9.png"></div><span>ku9</span></a>
     </div>
 </div>
-<footer><div class="copyright">Copyright &copy; Kiss-U JAPAN. All Rights Reserved.</div></footer>
+<div id="common-footer"></div>
 <script src="data.js"></script>
+<script src="common.js"></script>
 <script>
     const data = memberData[new URLSearchParams(window.location.search).get('id') || '1chika'];
     if (data) {
@@ -47,7 +41,6 @@
         document.getElementById('m-birthday').innerText = data.birthday;
         document.getElementById('m-position').innerText = data.position;
         document.getElementById('m-image').src = data.image;
-        document.title = `${data.codename} - Profile | Kiss-U`;
     }
 </script>
 </body>
