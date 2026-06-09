@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=fresh_texture">
+    <link rel="stylesheet" href="style.css?v=final_ux">
 </head>
 <body>
 <header>
@@ -27,26 +27,27 @@
             <div class="player-box">
                 <div class="player-top-controls">
                     <div class="p-meta">
-                        <h2 id="p-title">Select Track</h2>
+                        <h2 id="p-title">Loading...</h2>
                         <p id="p-album"></p>
                     </div>
                     <div class="seek-bar-container" style="margin-top:20px;">
-                        <div class="time-info" style="display:flex; justify-content:space-between; margin-bottom:5px; font-size:10px; color:#8a6a6a;">
+                        <div class="time-info" style="display:flex; justify-content:space-between; margin-bottom:5px; font-size:11px; color:#8a6a6a; font-family:'Aprila';">
                             <span id="curr-time">0:00</span><span id="dur-time">0:00</span>
                         </div>
                         <input type="range" id="seek-bar" value="0">
                     </div>
+
                     <div class="player-controls-grid">
-                        <div class="grid-left" style="display:flex; align-items:center; gap:8px;">
-                            <i class="fa-solid fa-volume-low" id="mute-btn" style="font-size:12px; color:#8a6a6a;"></i>
-                            <input type="range" id="volume-bar" min="0" max="1" step="0.1" value="0.7">
+                        <div class="grid-left">
+                            <i class="fa-solid fa-volume-low" id="mute-btn"></i>
+                            <input type="range" id="volume-bar" min="0" max="1" step="0.05" value="0.7">
                         </div>
                         <div class="grid-center">
                             <i class="fa-solid fa-backward-step ctrl-icon" id="prev-btn"></i>
                             <i class="fa-solid fa-play ctrl-icon play-btn-main" id="play-btn"></i>
                             <i class="fa-solid fa-forward-step ctrl-icon" id="next-btn"></i>
                         </div>
-                        <div class="grid-right" style="display:flex; gap:12px;">
+                        <div class="grid-right">
                             <i class="fa-solid fa-shuffle ctrl-icon" id="shuffle-btn"></i>
                             <i class="fa-solid fa-repeat ctrl-icon" id="repeat-btn"></i>
                         </div>
@@ -57,10 +58,8 @@
         </div>
     </div>
 
-    <!-- 他の作品へ飛べるナビ -->
-    <div class="grid-nav quick-nav" id="disco-quick-nav" style="margin-top: 80px; padding-top: 40px; border-top: 1px solid #3a2a2a;">
-        <!-- JSで生成 -->
-    </div>
+    <!-- クイックナビ（ジャケ写とタイトルのみに簡素化） -->
+    <div class="grid-nav" id="disco-quick-nav" style="margin-top: 80px; padding-top: 40px; border-top: 1px solid #3a2a2a;"></div>
 </div>
 
 <footer><div class="copyright">Copyright &copy; Kiss-U JAPAN. All Rights Reserved.</div></footer>
@@ -79,7 +78,7 @@
 
     let currentIdx = 0;
     let isShuffle = false;
-    let repeatMode = 0;
+    let repeatMode = 0; // 0:なし, 1:全曲, 2:1曲
 
     if (data) {
         document.getElementById('p-album').innerText = data.title;
@@ -96,14 +95,16 @@
         loadTrack(0, false);
     }
 
-    // クイックナビの生成
+    // クイックナビ（アルバムタイトルのみ表示）
     const navContainer = document.getElementById('disco-quick-nav');
     Object.keys(discoData).forEach(key => {
         const item = discoData[key];
+        // 1st EPなどの表記を消して引用符の中身だけ（またはそのままタイトル）を表示
+        // ここではシンプルにそのままのタイトルを表示するようにします
         const a = document.createElement('a');
         a.href = `discography.html?id=${key}`;
         a.className = 'grid-item';
-        a.innerHTML = `<div class="photo-box square"><img src="${item.jacket}"></div><span>${item.title}</span>`;
+        a.innerHTML = `<div class="photo-box square"><img src="${item.jacket}"></div><span>${item.title.split('"')[1] || item.title}</span>`;
         navContainer.appendChild(a);
     });
 
@@ -123,10 +124,11 @@
     };
 
     shuffleBtn.onclick = () => { isShuffle = !isShuffle; shuffleBtn.classList.toggle('active', isShuffle); };
+    
     repeatBtn.onclick = () => {
         repeatMode = (repeatMode + 1) % 3;
         repeatBtn.classList.toggle('active', repeatMode > 0);
-        repeatBtn.innerHTML = repeatMode === 2 ? '<span style="font-size:10px; position:absolute; top:-10px; right:-8px; font-weight:bold;">❶</span>' : '';
+        repeatBtn.innerHTML = repeatMode === 2 ? '<span style="font-size:10px; position:absolute; top:-12px; right:-8px; font-weight:bold;">❶</span>' : '';
     };
 
     document.getElementById('next-btn').onclick = () => {
@@ -150,7 +152,24 @@
     };
     seekBar.oninput = () => audio.currentTime = (seekBar.value / 100) * audio.duration;
     function formatTime(s) { const m = Math.floor(s/60); const sec = Math.floor(s%60); return m + ":" + (sec < 10 ? "0" : "") + sec; }
-    audio.onended = () => { if (repeatMode === 2) loadTrack(currentIdx, true); else if (repeatMode === 1 || currentIdx < data.tracks.length - 1) document.getElementById('next-btn').click(); };
+
+    // リピート不具合の修正：repeatMode を正しく判定
+    audio.onended = () => {
+        if (repeatMode === 2) { 
+            // 1曲リピート
+            loadTrack(currentIdx, true); 
+        } else if (repeatMode === 1) {
+            // 全曲リピート：最後なら最初に戻る
+            document.getElementById('next-btn').click();
+        } else if (repeatMode === 0) {
+            // リピートなし：最後なら止まる、そうでなければ次へ
+            if (currentIdx < data.tracks.length - 1) {
+                document.getElementById('next-btn').click();
+            } else {
+                playBtn.className = 'fa-solid fa-play ctrl-icon play-btn-main';
+            }
+        }
+    };
 </script>
 </body>
 </html>
