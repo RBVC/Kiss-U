@@ -1,5 +1,24 @@
-/* --- フォント設定 --- */
-@font-face { font-family: 'Aprila'; src: url('./fonts/Aprila-Bold.otf') format('opentype'); font-weight: bold; }
+/* --- フォント設定：Aprila --- */
+@font-face {
+    font-family: 'Aprila';
+    src: url('./fonts/Aprila-Font/Aprila-Bold.otf') format('opentype');
+    font-weight: bold;
+}
+
+/* --- フォント設定：角ゴシック (GlowSans) --- */
+/* 一番細い Thin を本文メインに設定 */
+@font-face {
+    font-family: 'MainGothic';
+    src: url('./fonts/GlowSansSC-Compressed-v0.93/GlowSansSC-Compressed-Thin.otf') format('opentype');
+    font-weight: normal;
+}
+/* 少し太めの Regular も読み込んでおきます（強調用） */
+@font-face {
+    font-family: 'MainGothic';
+    src: url('./fonts/GlowSansSC-Compressed-v0.93/GlowSansSC-Compressed-Regular.otf') format('opentype');
+    font-weight: bold;
+}
+
 html { scroll-behavior: smooth; }
 
 body {
@@ -7,7 +26,8 @@ body {
     background: radial-gradient(circle at 50% 50%, #352323 0%, #1b1111 100%) !important;
     background-attachment: fixed !important;
     color: #d8c8c8 !important;
-    font-family: 'Noto Sans JP', 'Noto Sans KR', sans-serif !important;
+    /* 本文を角ゴシックに設定 */
+    font-family: 'MainGothic', sans-serif !important;
     -webkit-font-smoothing: antialiased;
     display: flex; flex-direction: column; min-height: 100vh; position: relative;
 }
@@ -19,24 +39,31 @@ body::after {
     opacity: 0.04; pointer-events: none; z-index: 9999;
 }
 
+/* ヘッダー */
 header {
-    position: fixed; top: 0; width: 100%; height: 70px; display: flex; justify-content: space-between; align-items: center;
-    padding: 0 25px; box-sizing: border-box; background: rgba(43, 26, 26, 0.95) !important; z-index: 1000; border-bottom: 1px solid #3a2a2a;
+    position: fixed; top: 0; width: 100%; height: 70px;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 25px; box-sizing: border-box;
+    background: rgba(43, 26, 26, 0.95) !important; z-index: 1000; border-bottom: 1px solid #3a2a2a;
 }
 .logo { font-family: 'Aprila' !important; font-size: 1.5rem; text-decoration: none; color: #fff !important; padding-top: 8px; }
 .nav-links { display: flex; list-style: none; margin: 0; padding: 0; }
 .nav-links li { margin-left: 20px; }
 .nav-links a { color: #fff !important; text-decoration: none; font-family: 'Aprila' !important; font-size: 0.85rem; }
 
+/* セクション */
 .section { padding: 120px 20px 60px !important; max-width: 1100px; margin: 0 auto; width: 100%; box-sizing: border-box; }
 .section-title { font-family: 'Aprila' !important; font-size: 2.5rem; border-bottom: 1px solid #4a3a3a; padding-bottom: 15px; margin: 0 0 40px !important; color: #fff !important; text-align: center; }
 
+/* TOP Hero */
 .hero { width: 100% !important; height: 85vh !important; position: relative !important; background-color: #ffffff !important; background-image: url('./images/main.jpg') !important; background-size: contain !important; background-position: center !important; background-repeat: no-repeat !important; margin-top: 70px !important; }
 .hero::after { content: '' !important; position: absolute; bottom: 0; left: 0; width: 100%; height: 200px; background: linear-gradient(to bottom, rgba(255,255,255,0), #2b1a1a) !important; }
 
+/* ニュース */
 .news-item { display: flex; align-items: center; padding: 25px 10px; border-bottom: 1px solid #3a2a2a; text-decoration: none !important; color: #d8c8c8 !important; }
 .news-date { font-family: 'Aprila' !important; width: 140px; color: #8a6a6a !important; flex-shrink: 0; }
 
+/* 5列グリッド */
 .grid-nav { display: grid !important; grid-template-columns: repeat(5, 1fr) !important; gap: 15px; margin-top: 20px; width: 100%; }
 .grid-item { text-decoration: none; color: #fff !important; text-align: center; }
 .photo-box { width: 100%; aspect-ratio: 3/4; background: #3a2a2a; border: 1px solid #4a3a3a; overflow: hidden; }
@@ -44,11 +71,13 @@ header {
 .photo-box img { width: 100%; height: 100%; object-fit: cover; }
 .grid-item span { font-family: 'Aprila' !important; font-size: 0.8rem; display: block; margin-top: 10px; }
 
+/* 詳細レイアウト */
 .detail-flex { display: flex; gap: 40px; align-items: stretch; margin-top: 20px; }
 .detail-left { width: 45%; flex-shrink: 0; }
 .detail-left img { width: 100%; height: 100%; object-fit: cover; border: 1px solid #4a3a3a; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 .detail-right { width: 55%; display: flex; flex-direction: column; }
 
+/* Profile詳細 */
 .profile-info h2 { font-family: 'Aprila' !important; font-size: 3.5rem; margin: 0 0 10px; color: #fff !important; line-height: 1.1; }
 .profile-table { list-style: none; padding: 0; border-top: 1px solid #3a2a2a; }
 .profile-table li { display: flex; padding: 15px 0; border-bottom: 1px solid #3a2a2a; align-items: center; }
@@ -73,11 +102,11 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; height: 14
 .grid-right { width: 30%; display: flex; justify-content: flex-end; align-items: center; gap: 15px; }
 .ctrl-icon { cursor: pointer; transition: 0.3s; opacity: 0.5; font-size: 1.1rem; position: relative; }
 .ctrl-icon.active { opacity: 1; color: #eb7992 !important; }
-#repeat-indicator { font-size: 11px; position: absolute; top: -14px; right: -8px; font-weight: bold; color: #eb7992; }
+#repeat-indicator { font-size: 11px; position: absolute; top: -14px; right: -8px; font-weight: bold; color: #eb7992; font-family: 'MainGothic', sans-serif !important; }
 
 .player-track-list { flex-grow: 1; overflow-y: auto; background: #241818; max-height: 200px; }
 .track-row { padding: 12px 20px; border-bottom: 1px solid #1b1111; cursor: pointer; font-size: 0.85rem; }
-.track-row.active { background: rgba(235, 121, 146, 0.1); border-left: 3px solid #eb7992; color: #fff !important; }
+.track-row.active { background: rgba(235, 121, 146, 0.1); border-left: 4px solid #eb7992; color: #fff !important; }
 
 footer { background: #1b1111; text-align: center; padding: 40px 20px; border-top: 1px solid #3a2a2a; margin-top: auto; }
 .copyright { font-size: 0.75rem; color: #8a6a6a !important; }
