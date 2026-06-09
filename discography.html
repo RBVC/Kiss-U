@@ -6,35 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=final_fix">
+    <link rel="stylesheet" href="style.css?v=final_update">
 </head>
 <body>
 <header>
     <a href="index.html" class="logo">Kiss-U</a>
     <nav><ul class="nav-links">
-        <li><a href="index.html#news">News</a></li>
+        <li><a href="news.html">News</a></li>
         <li><a href="profile.html?id=1chika">Profile</a></li>
         <li><a href="index.html#discography">Discography</a></li>
     </ul></nav>
 </header>
-
 <div class="section">
     <h2 class="section-title">Discography</h2>
-    
     <div class="detail-flex fade-in">
         <div class="detail-left"><img id="d-jacket" src=""></div>
         <div class="detail-right">
             <div class="player-box">
                 <div class="player-top-controls">
-                    <div class="p-meta">
-                        <h2 id="p-title">Loading...</h2>
-                        <p id="p-album"></p>
-                    </div>
+                    <div class="p-meta"><h2 id="p-title">Loading...</h2><p id="p-album"></p></div>
                     <div class="seek-bar-container" style="margin-top:20px;">
-                        <div class="time-info">
-                            <span id="curr-time">0:00</span>
-                            <span id="dur-time">0:00</span>
-                        </div>
+                        <div class="time-info"><span id="curr-time">0:00</span><span id="dur-time">0:00</span></div>
                         <input type="range" id="seek-bar" value="0">
                     </div>
                     <div class="player-controls-grid">
@@ -60,14 +52,9 @@
             </div>
         </div>
     </div>
-
-    <!-- クイックナビ：グリッドを固定 -->
-    <div class="grid-nav quick-nav" id="disco-quick-nav" style="margin-top: 80px; padding-top: 40px; border-top: 1px solid #3a2a2a;">
-    </div>
+    <div class="grid-nav quick-nav" id="disco-quick-nav" style="margin-top: 80px; padding-top: 40px; border-top: 1px solid #3a2a2a;"></div>
 </div>
-
 <footer><div class="copyright">Copyright &copy; Kiss-U JAPAN. All Rights Reserved.</div></footer>
-
 <script src="data.js"></script>
 <script>
     const discoId = new URLSearchParams(window.location.search).get('id') || 'fly-by';
@@ -80,92 +67,44 @@
     const repeatIndicator = document.getElementById('repeat-indicator');
     const volBar = document.getElementById('volume-bar');
     const muteBtn = document.getElementById('mute-btn');
-
-    let currentIdx = 0;
-    let isShuffle = false;
-    let repeatMode = 0; // 0:なし, 1:全, 2:1曲
+    let currentIdx = 0; let isShuffle = false; let repeatMode = 0;
 
     if (data) {
         document.getElementById('p-album').innerText = data.title;
         document.getElementById('d-jacket').src = data.jacket;
         const container = document.getElementById('track-container');
         data.tracks.forEach((t, i) => {
-            const row = document.createElement('div');
-            row.className = 'track-row';
-            row.id = `t-${i}`;
+            const row = document.createElement('div'); row.className = 'track-row'; row.id = `t-${i}`;
             row.innerHTML = `<span>${t.num}. ${t.name}</span>`;
-            row.onclick = () => loadTrack(i, true);
-            container.appendChild(row);
+            row.onclick = () => loadTrack(i, true); container.appendChild(row);
         });
         loadTrack(0, false);
     }
-
-    // クイックナビ修正
     const navContainer = document.getElementById('disco-quick-nav');
     Object.keys(discoData).forEach(key => {
-        const item = discoData[key];
-        const a = document.createElement('a');
-        a.href = `discography.html?id=${key}`;
-        a.className = 'grid-item';
-        const simpleTitle = item.title.includes('"') ? item.title.split('"')[1] : item.title;
+        const item = discoData[key]; const a = document.createElement('a'); a.href = `discography.html?id=${key}`;
+        a.className = 'grid-item'; const simpleTitle = item.title.includes('"') ? item.title.split('"')[1] : item.title;
         a.innerHTML = `<div class="photo-box square"><img src="${item.jacket}"></div><span>${simpleTitle}</span>`;
         navContainer.appendChild(a);
     });
-
     function loadTrack(i, play) {
-        currentIdx = i;
-        audio.src = data.tracks[i].file;
+        currentIdx = i; audio.src = data.tracks[i].file;
         document.getElementById('p-title').innerText = data.tracks[i].name;
         document.querySelectorAll('.track-row').forEach(el => el.classList.remove('active'));
         document.getElementById(`t-${i}`).classList.add('active');
         if (play) { audio.play(); playBtn.className = 'fa-solid fa-pause ctrl-icon play-btn-main'; }
     }
-
-    playBtn.onclick = () => {
-        if (audio.paused) { audio.play(); playBtn.className = 'fa-solid fa-pause ctrl-icon play-btn-main'; }
-        else { audio.pause(); playBtn.className = 'fa-solid fa-play ctrl-icon play-btn-main'; }
-    };
-
+    playBtn.onclick = () => { if (audio.paused) { audio.play(); playBtn.className = 'fa-solid fa-pause ctrl-icon play-btn-main'; } else { audio.pause(); playBtn.className = 'fa-solid fa-play ctrl-icon play-btn-main'; } };
     shuffleBtn.onclick = () => { isShuffle = !isShuffle; shuffleBtn.classList.toggle('active', isShuffle); };
-    
-    repeatBtn.onclick = () => {
-        repeatMode = (repeatMode + 1) % 3;
-        if (repeatMode === 0) { repeatBtn.classList.remove('active'); repeatIndicator.innerText = ''; }
-        else if (repeatMode === 1) { repeatBtn.classList.add('active'); repeatIndicator.innerText = ''; }
-        else { repeatBtn.classList.add('active'); repeatIndicator.innerText = '❶'; }
-    };
-
-    document.getElementById('next-btn').onclick = () => {
-        let next = isShuffle ? Math.floor(Math.random() * data.tracks.length) : (currentIdx + 1) % data.tracks.length;
-        loadTrack(next, true);
-    };
-    document.getElementById('prev-btn').onclick = () => {
-        let prev = (currentIdx - 1 + data.tracks.length) % data.tracks.length;
-        loadTrack(prev, true);
-    };
-
+    repeatBtn.onclick = () => { repeatMode = (repeatMode + 1) % 3; if (repeatMode === 0) { repeatBtn.classList.remove('active'); repeatIndicator.innerText = ''; } else if (repeatMode === 1) { repeatBtn.classList.add('active'); repeatIndicator.innerText = ''; } else { repeatBtn.classList.add('active'); repeatIndicator.innerText = '❶'; } };
+    document.getElementById('next-btn').onclick = () => { let next = isShuffle ? Math.floor(Math.random() * data.tracks.length) : (currentIdx + 1) % data.tracks.length; loadTrack(next, true); };
+    document.getElementById('prev-btn').onclick = () => { let prev = (currentIdx - 1 + data.tracks.length) % data.tracks.length; loadTrack(prev, true); };
     volBar.oninput = () => { audio.volume = volBar.value; muteBtn.className = audio.volume === 0 ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-low'; };
     muteBtn.onclick = () => { audio.muted = !audio.muted; muteBtn.className = audio.muted ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-low'; };
-
-    audio.ontimeupdate = () => {
-        if(!isNaN(audio.duration)) {
-            seekBar.value = (audio.currentTime / audio.duration) * 100;
-            document.getElementById('curr-time').innerText = formatTime(audio.currentTime);
-            document.getElementById('dur-time').innerText = formatTime(audio.duration);
-        }
-    };
+    audio.ontimeupdate = () => { if(!isNaN(audio.duration)) { seekBar.value = (audio.currentTime / audio.duration) * 100; document.getElementById('curr-time').innerText = formatTime(audio.currentTime); document.getElementById('dur-time').innerText = formatTime(audio.duration); } };
     seekBar.oninput = () => audio.currentTime = (seekBar.value / 100) * audio.duration;
     function formatTime(s) { const m = Math.floor(s/60); const sec = Math.floor(s%60); return m + ":" + (sec < 10 ? "0" : "") + sec; }
-
-    // 【重要：リピートなしの時、1曲終わるごとに止める修正】
-    audio.onended = () => {
-        if (repeatMode === 2) { loadTrack(currentIdx, true); }
-        else if (repeatMode === 1) { document.getElementById('next-btn').click(); }
-        else { 
-            // リピートなし：再生を止めて再生ボタンの形を戻す
-            playBtn.className = 'fa-solid fa-play ctrl-icon play-btn-main';
-        }
-    };
+    audio.onended = () => { if (repeatMode === 2) loadTrack(currentIdx, true); else if (repeatMode === 1) document.getElementById('next-btn').click(); else { if (currentIdx < data.tracks.length - 1) document.getElementById('next-btn').click(); else { playBtn.className = 'fa-solid fa-play ctrl-icon play-btn-main'; } } };
 </script>
 </body>
 </html>
