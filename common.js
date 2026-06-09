@@ -1,4 +1,3 @@
-// 全ページ共通のヘッダーを注入
 const headerArea = document.getElementById('common-header');
 if (headerArea) {
     headerArea.innerHTML = `
@@ -15,7 +14,6 @@ if (headerArea) {
     `;
 }
 
-// 全ページ共通のフッターを注入
 const footerArea = document.getElementById('common-footer');
 if (footerArea) {
     footerArea.innerHTML = `
