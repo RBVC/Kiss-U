@@ -18,6 +18,7 @@ body::after {
     opacity: 0.04; pointer-events: none; z-index: 9999;
 }
 
+/* ヘッダー */
 header {
     position: fixed; top: 0; width: 100%; height: 70px; display: flex; justify-content: space-between; align-items: center;
     padding: 0 25px; box-sizing: border-box; background: rgba(43, 26, 26, 0.95) !important; z-index: 1000; border-bottom: 1px solid #3a2a2a;
@@ -27,16 +28,42 @@ header {
 .nav-links li { margin-left: 20px; }
 .nav-links a { color: #fff !important; text-decoration: none; font-family: 'Aprila' !important; font-size: 0.85rem; }
 
+/* セクション */
 .section { padding: 120px 20px 60px !important; max-width: 1100px; margin: 0 auto; width: 100%; flex-grow: 1; }
 .section-title { font-family: 'Aprila' !important; font-size: 2.5rem; border-bottom: 1px solid #4a3a3a; padding-bottom: 15px; margin: 0 0 40px !important; color: #fff !important; text-align: center; }
 
-/* 詳細レイアウト（左画像・右詳細）の配列を固定 */
+/* TOP Hero */
+.hero { width: 100% !important; height: 85vh !important; position: relative !important; background-color: #ffffff !important; background-image: url('./images/main.jpg') !important; background-size: contain !important; background-position: center !important; background-repeat: no-repeat !important; margin-top: 70px !important; }
+.hero::after { content: '' !important; position: absolute; bottom: 0; left: 0; width: 100%; height: 200px; background: linear-gradient(to bottom, rgba(255,255,255,0), #2b1a1a) !important; }
+
+/* ニュースアイテム */
+.news-item { display: flex; align-items: center; padding: 25px 10px; border-bottom: 1px solid #3a2a2a; text-decoration: none !important; color: #d8c8c8 !important; }
+.news-date { font-family: 'Aprila' !important; width: 140px; color: #8a6a6a !important; flex-shrink: 0; }
+.view-more-btn { display: inline-block; padding: 10px 40px; border: 1px solid #8a6a6a; color: #fff !important; text-decoration: none; font-family: 'Aprila'; font-size: 0.8rem; letter-spacing: 2px; transition: 0.3s; margin-top: 30px; }
+.view-more-btn:hover { background: #8a6a6a; color: #1b1111 !important; }
+
+/* グリッドレイアウト */
+.grid-nav { display: grid !important; gap: 15px; margin-top: 20px; width: 100%; }
+.nav-5col { grid-template-columns: repeat(5, 1fr) !important; }
+.nav-4col { grid-template-columns: repeat(4, 1fr) !important; }
+
+.grid-item { text-decoration: none; color: #fff !important; text-align: center; transition: 0.3s; }
+.grid-item:hover { transform: translateY(-5px); }
+.photo-box { width: 100%; aspect-ratio: 3/4; background: #3a2a2a; border: 1px solid #4a3a3a; overflow: hidden; }
+.photo-box.square { aspect-ratio: 1/1 !important; }
+.photo-box img { width: 100%; height: 100%; object-fit: cover; }
+.grid-item span { font-size: 0.8rem; display: block; margin-top: 10px; }
+
+/* クイックナビ（写真のみ）用：spanを消す */
+.quick-nav .grid-item span { display: none !important; }
+
+/* 詳細ページ共通（左右） */
 .detail-flex { display: flex; gap: 40px; align-items: stretch; margin-top: 20px; width: 100%; }
 .detail-left { width: 45%; flex-shrink: 0; }
 .detail-left img { width: 100%; height: 100%; object-fit: cover; border: 1px solid #4a3a3a; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 .detail-right { width: 55%; display: flex; flex-direction: column; }
 
-/* プロフィール表 */
+/* Profileテキスト */
 .profile-info h2 { font-family: 'Aprila' !important; font-size: 3.5rem; margin: 0 0 10px; color: #fff !important; line-height: 1.1; }
 .profile-table { list-style: none; padding: 0; border-top: 1px solid #3a2a2a; }
 .profile-table li { display: flex; padding: 15px 0; border-bottom: 1px solid #3a2a2a; align-items: center; }
@@ -46,52 +73,30 @@ header {
 /* プレーヤー */
 .player-box { background: #1b1111; border: 1px solid #3a2a2a; display: flex; flex-direction: column; height: 100%; border-radius: 8px; overflow: hidden; }
 .player-top-controls { padding: 25px; background: linear-gradient(to bottom, #2b1a1a, #1b1111); }
-.p-meta h2 { font-size: 1.3rem; color: #fff !important; margin: 0; font-weight: bold; line-height: 1.4; word-break: break-all; }
-.p-meta p { font-size: 0.8rem; color: #8a6a6a !important; margin: 5px 0 20px; }
-.time-info { display: flex; justify-content: space-between; font-size: 11px; color: #8a6a6a; margin-bottom: 5px; font-family: 'Aprila' !important; }
-
-input[type="range"] { -webkit-appearance: none; width: 100%; background: transparent; cursor: pointer; }
-input[type="range"]::-webkit-slider-runnable-track { width: 100%; height: 5px; background: #3a2a2a; border-radius: 3px; }
-input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; height: 14px; width: 14px; background: #eb7992; border-radius: 50%; border: 2px solid #fff; margin-top: -5px; }
-
 .player-controls-grid { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 15px; }
 .grid-left { width: 30%; display: flex; align-items: center; gap: 8px; }
-.grid-left input { width: 60px; }
 .grid-center { width: 40%; display: flex; justify-content: center; align-items: center; gap: 20px; color: #fff !important; }
-.play-btn-main { font-size: 2.8rem !important; cursor: pointer; }
 .grid-right { width: 30%; display: flex; justify-content: flex-end; align-items: center; gap: 15px; }
-.ctrl-icon { cursor: pointer; transition: 0.3s; opacity: 0.5; font-size: 1.1rem; position: relative; }
+.play-btn-main { font-size: 2.8rem !important; cursor: pointer; }
+.ctrl-icon { cursor: pointer; transition: 0.3s; opacity: 0.5; font-size: 1.1rem; }
 .ctrl-icon.active { opacity: 1; color: #eb7992 !important; }
-#repeat-indicator { font-size: 11px; position: absolute; top: -14px; right: -8px; font-weight: bold; color: #eb7992; }
 
-.player-track-list { flex-grow: 1; overflow-y: auto; background: #241818; max-height: 200px; }
-.track-row { padding: 12px 20px; border-bottom: 1px solid #1b1111; cursor: pointer; font-size: 0.85rem; }
-.track-row.active { background: rgba(235, 121, 146, 0.1); border-left: 3px solid #eb7992; color: #fff !important; }
-
-/* クイックナビ：写真のみのグリッド */
-.grid-nav { display: grid !important; gap: 15px; margin-top: 20px; width: 100%; }
-.grid-item { text-decoration: none; display: block; transition: 0.3s; }
-.grid-item:hover { transform: translateY(-5px); }
-.grid-item span { display: none !important; } /* 文字を強制非表示 */
-
-/* 5人並び (Member用) */
-.nav-5col { grid-template-columns: repeat(5, 1fr) !important; }
-/* 4人並び (Disco用) */
-.nav-4col { grid-template-columns: repeat(4, 1fr) !important; }
-
-.photo-box { width: 100%; aspect-ratio: 3/4; background: #3a2a2a; border: 1px solid #4a3a3a; overflow: hidden; }
-.photo-box.square { aspect-ratio: 1/1 !important; }
-.photo-box img { width: 100%; height: 100%; object-fit: cover; }
-
+/* フッター */
 footer { background: #1b1111; text-align: center; padding: 40px 20px; border-top: 1px solid #3a2a2a; margin-top: auto; }
 .copyright { font-size: 0.75rem; color: #8a6a6a !important; }
 
-.fade-in { animation: fadeIn 1s ease forwards; opacity: 0; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+/* アニメーション実装 */
+.fade-in { animation: fadeIn 1.2s ease forwards; opacity: 0; }
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(20px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
 
 @media (max-width: 768px) {
+    .section { padding-top: 100px !important; }
+    .grid-nav { grid-template-columns: repeat(2, 1fr) !important; }
+    .nav-5col { grid-template-columns: repeat(5, 1fr) !important; }
+    .nav-4col { grid-template-columns: repeat(4, 1fr) !important; }
     .detail-flex { flex-direction: column; }
     .detail-left, .detail-right { width: 100%; }
-    .nav-5col { grid-template-columns: repeat(5, 1fr) !important; } /* スマホでも5列維持 */
-    .nav-4col { grid-template-columns: repeat(4, 1fr) !important; } /* スマホでも4列維持 */
 }

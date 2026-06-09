@@ -2,16 +2,14 @@
 <html lang="ja">
 <head>
     <meta charset="utf-8" />
-    <title>Kiss-U Japan Official Site</title>
+    <title>News - Kiss-U</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Google Fonts（Noto）のリンクを消し、これだけにする -->
-    <link rel="stylesheet" href="style.css?v=fresh_gothic">
-    <!-- アイコン素材（Discography.htmlのみ必要） -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=final_news">
 </head>
 <body>
 <div id="common-header"></div>
-<div class="section">
+<div class="section fade-in">
     <h2 class="section-title">News</h2>
     <div id="full-news-list"></div>
 </div>
@@ -21,8 +19,7 @@
 <script>
     const fullNewsList = document.getElementById('full-news-list');
     newsData.forEach(item => {
-        const a = document.createElement('a'); a.href = item.link;
-        a.className = 'news-item';
+        const a = document.createElement('a'); a.href = item.link; a.className = 'news-item';
         a.innerHTML = `<span class="news-date">${item.date}</span><span>${item.text}</span>`;
         fullNewsList.appendChild(a);
     });
