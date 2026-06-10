@@ -1,3 +1,4 @@
+// 共通パーツの注入
 const headerArea = document.getElementById('common-header');
 if (headerArea) {
     headerArea.innerHTML = `
@@ -24,3 +25,13 @@ if (footerArea) {
     </footer>
     `;
 }
+
+// ローディング画面の制御
+window.addEventListener('load', () => {
+    const loader = document.getElementById('loading');
+    if (loader) {
+        setTimeout(() => {
+            loader.classList.add('loaded');
+        }, 800); // 0.8秒だけ見せてから消す
+    }
+});
