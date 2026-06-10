@@ -4,45 +4,38 @@
     <meta charset="utf-8" />
     <title>Profile - Kiss-U</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css?v=final_set">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤎</text></svg>">
+    <link rel="stylesheet" href="style.css?v=final_all">
 </head>
 <body>
-<div id="common-header"></div>
-<div class="section">
-    <h2 class="section-title">Profile</h2>
-    <div class="detail-flex fade-in">
-        <div class="detail-left"><img id="m-image" src=""></div>
-        <div class="detail-right profile-info">
-            <h2 id="m-codename"></h2>
-            <ul class="profile-table">
-                <li><span class="label">Name</span><span class="value" id="m-name"></span></li>
-                <li><span class="label">Birthday</span><span class="value" id="m-birthday"></span></li>
-                <li><span class="label">Position</span><span class="value" id="m-position"></span></li>
-            </ul>
+    <div id="loading"><div class="loading-logo">Kiss-U</div></div>
+    <div id="common-header"></div>
+    <div class="section">
+        <h2 class="section-title">Profile</h2>
+        <div class="detail-flex fade-in">
+            <div class="detail-left"><img id="m-image" src=""></div>
+            <div class="detail-right profile-info">
+                <h2 id="m-codename"></h2>
+                <ul class="profile-table">
+                    <li><span class="label">Name</span><span class="value" id="m-name"></span></li>
+                    <li><span class="label">Birthday</span><span class="value" id="m-birthday"></span></li>
+                    <li><span class="label">Position</span><span class="value" id="m-position"></span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="grid-nav nav-5col quick-nav" style="margin-top: 80px; padding-top: 40px; border-top: 1px solid #3a2a2a;">
+            <a href="profile.html?id=1chika" class="grid-item"><div class="photo-box square"><img src="./images/1chika.png"></div></a>
+            <a href="profile.html?id=3tuba" class="grid-item"><div class="photo-box square"><img src="./images/3tuba.png"></div></a>
+            <a href="profile.html?id=5ma" class="grid-item"><div class="photo-box square"><img src="./images/5ma.png"></div></a>
+            <a href="profile.html?id=na7o" class="grid-item"><div class="photo-box square"><img src="./images/na7o.png"></div></a>
+            <a href="profile.html?id=ku9" class="grid-item"><div class="photo-box square"><img src="./images/ku9.png"></div></a>
         </div>
     </div>
-    <!-- クイックナビ：写真のみ -->
-    <div class="grid-nav nav-5col quick-nav" style="margin-top: 80px; padding-top: 40px; border-top: 1px solid #3a2a2a;">
-        <a href="profile.html?id=1chika" class="grid-item"><div class="photo-box square"><img src="./images/1chika.png"></div></a>
-        <a href="profile.html?id=3tuba" class="grid-item"><div class="photo-box square"><img src="./images/3tuba.png"></div></a>
-        <a href="profile.html?id=5ma" class="grid-item"><div class="photo-box square"><img src="./images/5ma.png"></div></a>
-        <a href="profile.html?id=na7o" class="grid-item"><div class="photo-box square"><img src="./images/na7o.png"></div></a>
-        <a href="profile.html?id=ku9" class="grid-item"><div class="photo-box square"><img src="./images/ku9.png"></div></a>
-    </div>
-</div>
-<div id="common-footer"></div>
-<script src="data.js"></script>
-<script src="common.js"></script>
-<script>
-    const data = memberData[new URLSearchParams(window.location.search).get('id') || '1chika'];
-    if (data) {
-        document.getElementById('m-codename').innerText = data.codename;
-        document.getElementById('m-name').innerText = data.name;
-        document.getElementById('m-birthday').innerText = data.birthday;
-        document.getElementById('m-position').innerText = data.position;
-        document.getElementById('m-image').src = data.image;
-        document.title = `${data.codename} - Profile | Kiss-U`;
-    }
-</script>
+    <div id="common-footer"></div>
+    <script src="data.js"></script><script src="common.js"></script>
+    <script>
+        const d=memberData[new URLSearchParams(window.location.search).get('id')||'1chika'];
+        if(d){document.getElementById('m-codename').innerText=d.codename;document.getElementById('m-name').innerText=d.name;document.getElementById('m-birthday').innerText=d.birthday;document.getElementById('m-position').innerText=d.position;document.getElementById('m-image').src=d.image;document.title=`${d.codename} - Profile | Kiss-U`;}
+    </script>
 </body>
 </html>
