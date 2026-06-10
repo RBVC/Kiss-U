@@ -1,4 +1,4 @@
-/* --- 1. フォント設定 --- */
+/* --- 1. 自前フォント設定 --- */
 @font-face { font-family: 'Aprila'; src: url('./fonts/Aprila-Font/Aprila-Bold.otf') format('opentype'); font-weight: bold; }
 @font-face { font-family: 'MainGothic'; src: url('./fonts/GlowSansSC-Compressed-v0.93/GlowSansSC-Compressed-Regular.otf') format('opentype'); font-weight: normal; }
 
@@ -7,7 +7,8 @@
 html { scroll-behavior: smooth; }
 body {
     margin: 0 !important; background: radial-gradient(circle at 50% 50%, #352323 0%, #1b1111 100%) !important;
-    background-attachment: fixed !important; color: #d8c8c8 !important; font-family: 'MainGothic', sans-serif !important;
+    background-attachment: fixed !important; color: #d8c8c8 !important; 
+    font-family: 'MainGothic', sans-serif !important; /* 明朝体を角ゴに変更 */
     -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; min-height: 100vh; position: relative;
 }
 
@@ -22,8 +23,7 @@ body::after {
 #loading {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background-color: #1b1111; z-index: 10000;
-    display: flex; justify-content: center; align-items: center;
-    transition: opacity 1s ease;
+    display: flex; justify-content: center; align-items: center; transition: opacity 1s ease;
 }
 .loading-logo { font-family: 'Aprila'; font-size: 3rem; color: #fff; animation: pulse 1.5s infinite ease-in-out; }
 @keyframes pulse { 0%, 100% { opacity: 0.5; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } }
@@ -42,23 +42,26 @@ header {
 footer { background: #1b1111; text-align: center; padding: 40px 20px; border-top: 1px solid #3a2a2a; margin-top: auto; }
 .copyright { font-size: 0.75rem; color: #8a6a6a !important; display: block; text-align: center; }
 
-/* --- 5. セクション・大見出し --- */
+/* --- 5. セクション --- */
 .section { padding: 120px 20px 60px !important; max-width: 1100px; margin: 0 auto; width: 100%; box-sizing: border-box; }
 .section-title { font-family: 'Aprila' !important; font-size: 2.5rem; border-bottom: 1px solid #4a3a3a; padding-bottom: 15px; margin: 0 0 40px !important; color: #fff !important; text-align: center; }
 
-/* --- 6. TOP専用：Hero --- */
 .hero { width: 100% !important; height: 85vh !important; position: relative !important; background-color: #ffffff !important; background-image: url('./images/main.jpg') !important; background-size: contain !important; background-position: center !important; background-repeat: no-repeat !important; margin-top: 70px !important; }
 .hero::after { content: '' !important; position: absolute; bottom: 0; left: 0; width: 100%; height: 200px; background: linear-gradient(to bottom, rgba(255,255,255,0), #2b1a1a) !important; }
 
-/* --- 7. グリッドナビ：共通 --- */
+/* --- 6. ニュース --- */
+.news-item { display: flex; align-items: center; padding: 25px 10px; border-bottom: 1px solid #3a2a2a; text-decoration: none !important; color: #d8c8c8 !important; }
+.news-date { font-family: 'Aprila' !important; width: 140px; color: #8a6a6a !important; flex-shrink: 0; }
+.view-more-btn { display: inline-block; padding: 10px 40px; border: 1px solid #8a6a6a; color: #fff !important; text-decoration: none; font-family: 'Aprila'; font-size: 0.8rem; letter-spacing: 2px; transition: 0.3s; margin-top: 30px; }
+
+/* --- 7. グリッドナビ --- */
 .grid-nav { display: grid !important; gap: 15px; margin-top: 20px; width: 100%; }
 .nav-5col { grid-template-columns: repeat(5, 1fr) !important; }
 .nav-4col { grid-template-columns: repeat(4, 1fr) !important; }
-.grid-item { text-decoration: none; color: #fff !important; text-align: center; transition: 0.3s; }
-.photo-box { width: 100%; aspect-ratio: 3/4; background: #3a2a2a; border: 1px solid #4a3a3a; overflow: hidden; transition: 0.3s; }
+.grid-item { text-decoration: none; color: #fff !important; text-align: center; }
+.photo-box { width: 100%; aspect-ratio: 3/4; background: #3a2a2a; border: 1px solid #4a3a3a; overflow: hidden; }
 .photo-box.square { aspect-ratio: 1/1 !important; }
 .photo-box img { width: 100%; height: 100%; object-fit: cover; }
-.grid-item:hover .photo-box { border-color: #eb7992; transform: translateY(-5px); }
 .grid-item span { font-size: 0.85rem; display: block; margin-top: 10px; }
 .quick-nav .grid-item span { display: none !important; }
 
@@ -76,10 +79,11 @@ footer { background: #1b1111; text-align: center; padding: 40px 20px; border-top
 /* --- 9. プレーヤー --- */
 .player-box { background: #1b1111; border: 1px solid #3a2a2a; display: flex; flex-direction: column; height: 100%; border-radius: 8px; overflow: hidden; }
 .player-top-controls { padding: 25px; background: linear-gradient(to bottom, #2b1a1a, #1b1111); }
-.p-meta h2 { font-size: 1.3rem; color: #fff !important; margin: 0; font-weight: bold; line-height: 1.4; word-break: break-all; }
-.p-meta p { font-size: 0.8rem; color: #8a6a6a !important; margin: 5px 0 15px; }
+/* プレーヤー内テキストもしっかり角ゴ */
+.p-meta h2 { font-family: 'MainGothic' !important; font-size: 1.3rem; color: #fff !important; margin: 0; font-weight: bold; line-height: 1.4; }
+.p-meta p { font-family: 'MainGothic' !important; font-size: 0.8rem; color: #8a6a6a !important; margin: 5px 0 15px; }
 
-.time-info { display: flex; justify-content: space-between; font-size: 11px; color: #8a6a6a; margin-bottom: 5px; }
+.time-info { display: flex; justify-content: space-between; font-size: 11px; color: #8a6a6a; margin-bottom: 5px; font-family: 'Aprila' !important; }
 input[type="range"] { -webkit-appearance: none; width: 100%; background: transparent; cursor: pointer; outline: none; }
 input[type="range"]::-webkit-slider-runnable-track { width: 100%; height: 5px; background: #3a2a2a; border-radius: 3px; }
 input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; height: 14px; width: 14px; background: #eb7992; border-radius: 50%; border: 2px solid #fff; margin-top: -5px; }
@@ -95,12 +99,12 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; height: 14
 #repeat-indicator { font-size: 10px; position: absolute; top: -14px; right: -8px; font-weight: bold; color: #eb7992; }
 
 .player-track-list { flex-grow: 1; overflow-y: auto; background: #241818; max-height: 220px; }
-.track-row { padding: 12px 20px; border-bottom: 1px solid #1b1111; cursor: pointer; font-size: 0.85rem; }
+.track-row { padding: 12px 20px; border-bottom: 1px solid #1b1111; cursor: pointer; font-size: 0.85rem; font-family: 'MainGothic' !important; }
 .track-row.active { background: rgba(235, 121, 146, 0.1); border-left: 3px solid #eb7992; color: #fff !important; }
 
 /* アニメーション */
-.fade-in { animation: fadeIn 1.2s ease forwards; opacity: 0; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { animation: fadeIn 1s ease forwards; opacity: 0; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (max-width: 768px) {
     .section { padding-top: 100px !important; }

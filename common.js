@@ -1,4 +1,4 @@
-// 共通パーツの注入
+// パーツ注入
 const headerArea = document.getElementById('common-header');
 if (headerArea) {
     headerArea.innerHTML = `
@@ -19,19 +19,15 @@ const footerArea = document.getElementById('common-footer');
 if (footerArea) {
     footerArea.innerHTML = `
     <footer>
-        <div class="copyright">
-            Copyright &copy; Kiss-U JAPAN. All Rights Reserved.
-        </div>
+        <div class="copyright">Copyright &copy; Kiss-U JAPAN. All Rights Reserved.</div>
     </footer>
     `;
 }
 
-// ローディング画面の制御
+// ローディング制御
 window.addEventListener('load', () => {
     const loader = document.getElementById('loading');
     if (loader) {
-        setTimeout(() => {
-            loader.classList.add('loaded');
-        }, 800); // 0.8秒だけ見せてから消す
+        setTimeout(() => { loader.classList.add('loaded'); }, 800);
     }
 });
