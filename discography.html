@@ -4,9 +4,8 @@
     <meta charset="utf-8" />
     <title>Discography - Kiss-U</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=final_grid">
+    <link rel="stylesheet" href="style.css?v=final_set">
 </head>
 <body>
 <div id="common-header"></div>
@@ -32,8 +31,7 @@
             </div>
         </div>
     </div>
-    <!-- 文字なしクイックナビ（4列） -->
-    <div class="grid-nav nav-4col" id="disco-quick-nav" style="margin-top: 80px; padding-top: 40px; border-top: 1px solid #3a2a2a;"></div>
+    <div class="grid-nav nav-4col quick-nav" id="disco-quick-nav" style="margin-top: 80px; padding-top: 40px; border-top: 1px solid #3a2a2a;"></div>
 </div>
 <div id="common-footer"></div>
 <script src="data.js"></script>
@@ -46,7 +44,6 @@
     const seekBar = document.getElementById('seek-bar');
     const repeatIndicator = document.getElementById('repeat-indicator');
     let currentIdx = 0; let isShuffle = false; let repeatMode = 0;
-
     if (data) {
         document.getElementById('p-album').innerText = data.title;
         document.getElementById('d-jacket').src = data.jacket;
@@ -58,19 +55,13 @@
         });
         loadTrack(0, false);
     }
-    // 文字なしでナビ生成
     const nav = document.getElementById('disco-quick-nav');
     Object.keys(discoData).forEach(key => {
         const item = discoData[key]; const a = document.createElement('a'); a.href = `discography.html?id=${key}`;
         a.className = 'grid-item'; a.innerHTML = `<div class="photo-box square"><img src="${item.jacket}"></div>`;
         nav.appendChild(a);
     });
-    function loadTrack(i, play) {
-        currentIdx = i; audio.src = data.tracks[i].file; document.getElementById('p-title').innerText = data.tracks[i].name;
-        document.querySelectorAll('.track-row').forEach(el => el.classList.remove('active'));
-        document.getElementById(`t-${i}`).classList.add('active');
-        if (play) { audio.play(); playBtn.className = 'fa-solid fa-pause ctrl-icon play-btn-main'; }
-    }
+    function loadTrack(i, play) { currentIdx = i; audio.src = data.tracks[i].file; document.getElementById('p-title').innerText = data.tracks[i].name; document.querySelectorAll('.track-row').forEach(el => el.classList.remove('active')); document.getElementById(`t-${i}`).classList.add('active'); if (play) { audio.play(); playBtn.className = 'fa-solid fa-pause ctrl-icon play-btn-main'; } }
     playBtn.onclick = () => { if (audio.paused) { audio.play(); playBtn.className = 'fa-solid fa-pause ctrl-icon play-btn-main'; } else { audio.pause(); playBtn.className = 'fa-solid fa-play ctrl-icon play-btn-main'; } };
     document.getElementById('shuffle-btn').onclick = (e) => { isShuffle = !isShuffle; e.target.classList.toggle('active', isShuffle); };
     document.getElementById('repeat-btn').onclick = (e) => { repeatMode = (repeatMode + 1) % 3; e.target.classList.toggle('active', repeatMode > 0); repeatIndicator.innerText = repeatMode === 2 ? '❶' : ''; };
@@ -78,8 +69,8 @@
     document.getElementById('prev-btn').onclick = () => { let p = (currentIdx-1+data.tracks.length)%data.tracks.length; loadTrack(p, true); };
     audio.ontimeupdate = () => { if(!isNaN(audio.duration)) { seekBar.value = (audio.currentTime/audio.duration)*100; document.getElementById('curr-time').innerText = formatTime(audio.currentTime); document.getElementById('dur-time').innerText = formatTime(audio.duration); } };
     seekBar.oninput = () => audio.currentTime = (seekBar.value/100)*audio.duration;
-    function formatTime(s) { const m=Math.floor(s/60); const sec=Math.floor(s%60); return m+":"+(sec<10?"0":"")+sec; }
-    audio.onended = () => { if(repeatMode===2) loadTrack(currentIdx,true); else if(repeatMode===1) document.getElementById('next-btn').click(); else if(currentIdx < data.tracks.length-1) document.getElementById('next-btn').click(); else playBtn.className='fa-solid fa-play ctrl-icon play-btn-main'; };
+    function formatTime(s) { const m=Math.floor(s/60); const sec=Math.floor(s%60); return m+":"+(sec < 10 ? "0" : "") + sec; }
+    audio.onended = () => { if (repeatMode === 2) loadTrack(currentIdx, true); else if (repeatMode === 1) document.getElementById('next-btn').click(); else if (currentIdx < data.tracks.length - 1) document.getElementById('next-btn').click(); else playBtn.className = 'fa-solid fa-play ctrl-icon play-btn-main'; };
 </script>
 </body>
 </html>
