@@ -5,13 +5,11 @@
     <title>Kiss-U Japan Official Site</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤎</text></svg>">
-    <link rel="stylesheet" href="style.css?v=final_fresh">
+    <link rel="stylesheet" href="style.css?v=fresh_ani">
 </head>
 <body id="top">
-    <!-- トップページのみローディングあり -->
     <div id="loading"><div class="loading-logo">Kiss-U</div></div>
     <div id="common-header"></div>
-
     <div class="hero fade-in"></div>
 
     <section id="news" class="section fade-in">
@@ -23,11 +21,31 @@
     <section id="profile" class="section fade-in">
         <h2 class="section-title">Profile</h2>
         <div class="grid-nav nav-5col">
-            <a href="profile.html?id=1chika" class="grid-item"><div class="photo-box"><img src="./images/1chika.png"></div><span>1chika</span></a>
-            <a href="profile.html?id=3tuba" class="grid-item"><div class="photo-box"><img src="./images/3tuba.png"></div><span>3tuba</span></a>
-            <a href="profile.html?id=5ma" class="grid-item"><div class="photo-box"><img src="./images/5ma.png"></div><span>5ma</span></a>
-            <a href="profile.html?id=na7o" class="grid-item"><div class="photo-box"><img src="./images/na7o.png"></div><span>na7o</span></a>
-            <a href="profile.html?id=ku9" class="grid-item"><div class="photo-box"><img src="./images/ku9.png"></div><span>ku9</span></a>
+            <!-- 1chika -->
+            <a href="profile.html?id=1chika" class="grid-item">
+                <div class="photo-box"><img src="./images/1chika.png"></div>
+                <span>1chika</span>
+            </a>
+            <!-- 3tuba -->
+            <a href="profile.html?id=3tuba" class="grid-item">
+                <div class="photo-box"><img src="./images/3tuba.png"></div>
+                <span>3tuba</span>
+            </a>
+            <!-- 5ma -->
+            <a href="profile.html?id=5ma" class="grid-item">
+                <div class="photo-box"><img src="./images/5ma.png"></div>
+                <span>5ma</span>
+            </a>
+            <!-- na7o -->
+            <a href="profile.html?id=na7o" class="grid-item">
+                <div class="photo-box"><img src="./images/na7o.png"></div>
+                <span>na7o</span>
+            </a>
+            <!-- ku9 -->
+            <a href="profile.html?id=ku9" class="grid-item">
+                <div class="photo-box"><img src="./images/ku9.png"></div>
+                <span>ku9</span>
+            </a>
         </div>
     </section>
 
@@ -43,6 +61,6 @@
 
     <div id="common-footer"></div>
     <script src="data.js"></script><script src="common.js"></script>
-    <script>if(newsData.length>0){document.getElementById('top-news-container').innerHTML=`<a href="${newsData[0].link}" class="news-item"><span class="news-date">${newsData[0].date}</span><span>${newsData[0].text}</span></a>`;}</script>
+    <script>if(newsData.length>0){const top=newsData[0];document.getElementById('top-news-container').innerHTML=`<a href="${top.link}" class="news-item"><span class="news-date">${top.date}</span><span class="news-text">${top.text}</span></a>`;}</script>
 </body>
 </html>
