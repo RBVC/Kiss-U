@@ -1,4 +1,4 @@
-// パーツ注入
+// 共通ヘッダーの注入
 const headerArea = document.getElementById('common-header');
 if (headerArea) {
     headerArea.innerHTML = `
@@ -15,6 +15,7 @@ if (headerArea) {
     `;
 }
 
+// 共通フッターの注入
 const footerArea = document.getElementById('common-footer');
 if (footerArea) {
     footerArea.innerHTML = `
@@ -24,10 +25,12 @@ if (footerArea) {
     `;
 }
 
-// ローディング制御
+// ローディング画面の制御（index.htmlに要素がある場合のみ実行）
 window.addEventListener('load', () => {
     const loader = document.getElementById('loading');
     if (loader) {
-        setTimeout(() => { loader.classList.add('loaded'); }, 800);
+        setTimeout(() => {
+            loader.classList.add('loaded');
+        }, 800);
     }
 });
