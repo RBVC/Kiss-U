@@ -4,8 +4,7 @@
     <meta charset="utf-8" />
     <title>News - Kiss-U</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤎</text></svg>">
-    <link rel="stylesheet" href="style.css?v=final_fresh">
+    <link rel="stylesheet" href="style.css?v=final_ux">
 </head>
 <body>
     <div id="common-header"></div>
@@ -15,9 +14,6 @@
     </div>
     <div id="common-footer"></div>
     <script src="data.js"></script><script src="common.js"></script>
-    <script>
-        const fullNewsList=document.getElementById('full-news-list');
-        newsData.forEach(item=>{const a=document.createElement('a');a.href=item.link;a.className='news-item';a.innerHTML=`<span class="news-date">${item.date}</span><span>${item.text}</span>`;fullNewsList.appendChild(a);});
-    </script>
+    <script>const fullNewsList=document.getElementById('full-news-list');newsData.forEach(item=>{const a=document.createElement('a');a.href=item.link;a.className='news-item';a.innerHTML=`<span class="news-date">${item.date}</span><span>${item.text}</span>`;fullNewsList.appendChild(a);});</script>
 </body>
 </html>
