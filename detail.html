@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <title>Detail - Kiss-U</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css?v=final">
+</head>
+<body>
+    <div id="common-header"></div>
+    
+    <div class="section fade-in" id="detail-content">
+        <!-- JSによって、ここが「Profile」か「Discography」か「News」になります -->
+    </div>
+
+    <div id="common-footer"></div>
+
+    <script src="profile.js"></script>
+    <script src="discography.js"></script>
+    <script src="news.js"></script>
+    <script src="player.js"></script>
+    <script src="common.js"></script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const type = params.get('type');
+        const id = params.get('id');
+        const container = document.getElementById('detail-content');
+
+        if (type === 'profile' && memberData[id]) {
+            const d = memberData[id];
+            container.innerHTML = `
+                <h2 class="section-title">Profile</h2>
+                <div class="detail-flex">
+                    <div class="detail-left"><img src="${d.image}"></div>
+                    <div class="detail-right profile-info">
+                        <h2>${d.codename}</h2>
+                        <ul class="profile-table">
+                            <li><span class="label">Name</span><span class="value">${d.name}</span></li>
+                            <li><span class="label">Birthday</span><span class="value">${d.birthday}</span></li>
+                            <li><span class="label">Position</span><span class="value">${d.position}</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quick-nav-area"><div class="grid-nav nav-5col" id="q-nav"></div></div>`;
+            Object.keys(memberData).forEach(mid => { document.getElementById('q-nav').innerHTML += `<a href="detail.html?type=profile&id=${mid}" class="grid-item"><div class="photo-box square"><img src="${memberData[mid].image}"></div></a>`; });
+
+        } else if (type === 'disco' && discoData[id]) {
+            container.innerHTML = `<h2 class="section-title">Discography</h2><div class="detail-flex"><div class="detail-left"><img src="${discoData[id].jacket}"></div><div class="detail-right" id="player-mount"></div></div><div class="quick-nav-area"><div class="grid-nav nav-4col" id="q-nav"></div></div>`;
+            mountPlayer(discoData[id]);
+            Object.keys(discoData).forEach(did => { document.getElementById('q-nav').innerHTML += `<a href="detail.html?type=disco&id=${did}" class="grid-item"><div class="photo-box square"><img src="${discoData[did].jacket}"></div></a>`; });
+
+        } else if (type === 'news') {
+            container.innerHTML = `<h2 class="section-title">News</h2><div id="full-news-list"></div>`;
+            const list = document.getElementById('full-news-list');
+            newsData.forEach(n => { list.innerHTML += `<a href="${n.link}" class="news-item"><span class="news-date">${n.date}</span><span>${n.text}</span></a>`; });
+        }
+    </script>
+</body>
+</html>
