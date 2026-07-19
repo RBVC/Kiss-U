@@ -4,19 +4,23 @@
     <meta charset="utf-8" />
     <title>Kiss-U Japan Official Site</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css?v=spa_fix2">
+    <link rel="stylesheet" href="style.css?v=spa_final_fixed">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body id="top">
     <div id="loading"><div class="loading-logo">Kiss-U</div></div>
     <div id="common-header"></div>
 
+    <!-- ホーム画面 -->
     <main id="home-view" class="view active">
         <div class="hero"></div>
         <section id="news" class="section">
             <h2 class="section-title">News</h2>
             <div id="top-news-container"></div>
-            <div style="text-align: center;"><a class="view-more-btn" onclick="showView('news-view')" style="cursor:pointer;">View More</a></div>
+            <!-- View More ボタンを復活 -->
+            <div style="text-align: center;">
+                <a class="view-more-btn" onclick="showView('news-view')" style="cursor:pointer;">View More</a>
+            </div>
         </section>
         <section id="profile-anchor" class="section">
             <h2 class="section-title">Profile</h2>
@@ -28,6 +32,7 @@
         </section>
     </main>
 
+    <!-- ニュース一覧画面 -->
     <main id="news-view" class="view">
         <section class="section">
             <h2 class="section-title">News</h2>
@@ -35,6 +40,7 @@
         </section>
     </main>
 
+    <!-- プロフィール詳細画面 -->
     <main id="profile-detail-view" class="view">
         <section class="section">
             <h2 class="section-title">Profile</h2>
@@ -49,10 +55,11 @@
                     </ul>
                 </div>
             </div>
-            <div class="quick-nav-area"><div class="grid-nav nav-5col" id="profile-quick-nav"></div></div>
+            <div class="quick-nav-area"><div class="grid-nav nav-5col quick-nav" id="profile-quick-nav"></div></div>
         </section>
     </main>
 
+    <!-- 楽曲詳細画面 -->
     <main id="disco-detail-view" class="view">
         <section class="section">
             <h2 class="section-title">Discography</h2>
@@ -60,7 +67,7 @@
                 <div class="detail-left"><img id="d-jacket" src=""></div>
                 <div class="detail-right" id="player-mount"></div>
             </div>
-            <div class="quick-nav-area"><div class="grid-nav nav-4col" id="disco-quick-nav"></div></div>
+            <div class="quick-nav-area"><div class="grid-nav nav-4col quick-nav" id="disco-quick-nav"></div></div>
         </section>
     </main>
 
@@ -73,15 +80,11 @@
     <script src="common.js"></script>
 
     <script>
-        // --- データ反映処理 ---
+        // 1. ニュース生成
         const topNews = document.getElementById('top-news-container');
         const fullNews = document.getElementById('full-news-list');
-
         newsData.forEach((n, i) => {
-            // リンク先からIDを抽出する（?id=xxx の形式を想定）
-            let discoId = "";
-            if(n.link.includes('id=')) discoId = n.link.split('id=')[1];
-
+            let discoId = n.link.includes('id=') ? n.link.split('id=')[1] : "";
             const clickAction = discoId ? `onclick="openDisco('${discoId}')"` : "";
             const html = `<div class="news-item" ${clickAction} style="cursor:${discoId?'pointer':'default'};">
                             <span class="news-date">${n.date}</span>
@@ -91,36 +94,27 @@
             fullNews.innerHTML += html;
         });
 
+        // 2. プロフィールグリッド
         const pGrid = document.getElementById('main-profile-grid');
         const pQuick = document.getElementById('profile-quick-nav');
         Object.keys(memberData).forEach(id => {
-            const html = `<div class="grid-item" onclick="openProfile('${id}')">
-                            <div class="photo-box"><img src="${memberData[id].image}"></div>
-                            <span>${id}</span>
-                          </div>`;
-            const quickHtml = `<div class="grid-item" onclick="openProfile('${id}')">
-                                <div class="photo-box square"><img src="${memberData[id].image}"></div>
-                               </div>`;
+            const html = `<div class="grid-item" onclick="openProfile('${id}')"><div class="photo-box"><img src="${memberData[id].image}"></div><span>${id}</span></div>`;
+            const quick = `<div class="grid-item" onclick="openProfile('${id}')"><div class="photo-box square"><img src="${memberData[id].image}"></div></div>`;
             pGrid.innerHTML += html;
-            pQuick.innerHTML += quickHtml;
+            pQuick.innerHTML += quick;
         });
 
+        // 3. ディスコグリッド
         const dGrid = document.getElementById('main-disco-grid');
         const dQuick = document.getElementById('disco-quick-nav');
         Object.keys(discoData).forEach(id => {
             const title = discoData[id].title.includes('"') ? discoData[id].title.split('"')[1] : discoData[id].title;
-            const html = `<div class="grid-item" onclick="openDisco('${id}')">
-                            <div class="photo-box square"><img src="${discoData[id].jacket}"></div>
-                            <span>${title}</span>
-                          </div>`;
-            const quickHtml = `<div class="grid-item" onclick="openDisco('${id}')">
-                                <div class="photo-box square"><img src="${discoData[id].jacket}"></div>
-                               </div>`;
+            const html = `<div class="grid-item" onclick="openDisco('${id}')"><div class="photo-box square"><img src="${discoData[id].jacket}"></div><span>${title}</span></div>`;
+            const quick = `<div class="grid-item" onclick="openDisco('${id}')"><div class="photo-box square"><img src="${discoData[id].jacket}"></div></div>`;
             dGrid.innerHTML += html;
-            dQuick.innerHTML += quickHtml;
+            dQuick.innerHTML += quick;
         });
 
-        // --- 表示関数 ---
         function openProfile(id) {
             const d = memberData[id];
             if(!d) return;

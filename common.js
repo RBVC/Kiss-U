@@ -5,9 +5,7 @@ faviconLink.href = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' v
 document.getElementsByTagName('head')[0].appendChild(faviconLink);
 
 // --- 2. ページ（View）切り替えシステム ---
-// functionで定義することで、どこからでも確実に呼べるようにします
 function showView(viewId) {
-    console.log("Switching to view:", viewId);
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     const target = document.getElementById(viewId);
     if (target) {
@@ -24,7 +22,8 @@ if (headerArea) {
         <div class="logo" onclick="showView('home-view')" style="cursor:pointer;">Kiss-U</div>
         <nav>
             <ul class="nav-links">
-                <li><a onclick="showView('news-view')" style="cursor:pointer;">News</a></li>
+                <!-- Newsはホームの#newsに飛ばす -->
+                <li><a onclick="showView('home-view'); setTimeout(()=>document.getElementById('news').scrollIntoView({behavior:'smooth'}),100)" style="cursor:pointer;">News</a></li>
                 <li><a onclick="showView('home-view'); setTimeout(()=>document.getElementById('profile-anchor').scrollIntoView({behavior:'smooth'}),100)" style="cursor:pointer;">Profile</a></li>
                 <li><a onclick="showView('home-view'); setTimeout(()=>document.getElementById('disco-anchor').scrollIntoView({behavior:'smooth'}),100)" style="cursor:pointer;">Discography</a></li>
             </ul>
