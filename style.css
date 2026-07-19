@@ -18,25 +18,22 @@ body::after {
     opacity: 0.04; pointer-events: none; z-index: 9999;
 }
 
-/* --- 3. ページ切り替え（View）制御 --- */
-.view { display: none; opacity: 0; }
-.view.active { display: block; animation: fadeIn 0.8s ease forwards; }
-
-/* --- 4. 共通パーツ --- */
-#loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #1b1111; z-index: 10000; display: flex; justify-content: center; align-items: center; transition: opacity 1s ease; }
-.loading-logo { font-family: 'Aprila'; font-size: 3rem; color: #fff; animation: pulse 1.5s infinite ease-in-out; }
-@keyframes pulse { 0%, 100% { opacity: 0.5; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } }
-#loading.loaded { opacity: 0; pointer-events: none; }
-
-header { position: fixed; top: 0; width: 100%; height: 70px; display: flex; justify-content: space-between; align-items: center; padding: 0 25px; box-sizing: border-box; background: rgba(43, 26, 26, 0.95) !important; z-index: 1000; border-bottom: 1px solid #3a2a2a; }
-.logo { font-family: 'Aprila' !important; font-size: 1.5rem; text-decoration: none; color: #fff !important; cursor: pointer; padding-top: 8px; }
+/* --- 3. 共通パーツ --- */
+header {
+    position: fixed; top: 0; width: 100%; height: 70px; display: flex; justify-content: space-between; align-items: center;
+    padding: 0 25px; box-sizing: border-box; background: rgba(43, 26, 26, 0.95) !important; z-index: 1000; border-bottom: 1px solid #3a2a2a;
+}
+.logo { font-family: 'Aprila' !important; font-size: 1.5rem; text-decoration: none; color: #fff !important; padding-top: 8px; cursor: pointer; }
 .nav-links { display: flex; list-style: none; margin: 0; padding: 0; }
 .nav-links li { margin-left: 20px; }
-.nav-links a { color: #fff !important; text-decoration: none; font-family: 'Aprila' !important; font-size: 0.85rem; cursor: pointer; transition: 0.3s; }
-.nav-links a:hover { color: #eb7992; }
+.nav-links a { color: #fff !important; text-decoration: none; font-family: 'Aprila' !important; font-size: 0.85rem; cursor: pointer; }
 
 footer { background: #1b1111; text-align: center; padding: 40px 20px; border-top: 1px solid #3a2a2a; margin-top: auto; }
 .copyright { font-size: 0.75rem; color: #8a6a6a !important; display: block; text-align: center; }
+
+/* --- 4. ページ（View）制御 --- */
+.view { display: none; opacity: 0; }
+.view.active { display: block; animation: fadeIn 0.8s ease forwards; }
 
 /* --- 5. セクション・大見出し --- */
 .section { padding: 120px 20px 60px !important; max-width: 1100px; margin: 0 auto; width: 100%; box-sizing: border-box; }
@@ -45,29 +42,39 @@ footer { background: #1b1111; text-align: center; padding: 40px 20px; border-top
 .hero { width: 100% !important; height: 85vh !important; position: relative !important; background-color: #ffffff !important; background-image: url('./images/main.jpg') !important; background-size: contain !important; background-position: center !important; background-repeat: no-repeat !important; margin-top: 70px !important; }
 .hero::after { content: '' !important; position: absolute; bottom: 0; left: 0; width: 100%; height: 200px; background: linear-gradient(to bottom, rgba(255,255,255,0), #2b1a1a) !important; }
 
-/* --- 6. グリッド & アニメーション --- */
+/* --- 6. View More ボタン (強制適用) --- */
+.view-more-btn {
+    display: inline-block !important;
+    padding: 12px 50px !important;
+    border: 1px solid #8a6a6a !important;
+    color: #fff !important;
+    text-decoration: none !important;
+    font-family: 'Aprila' !important;
+    font-size: 0.85rem !important;
+    letter-spacing: 3px !important;
+    background: rgba(255,255,255,0.02) !important;
+    margin-top: 40px !important;
+    transition: 0.3s !important;
+    cursor: pointer !important;
+}
+.view-more-btn:hover { background: #fff !important; color: #1b1111 !important; }
+
+/* --- 7. グリッド --- */
 .grid-nav { display: grid !important; gap: 15px; margin-top: 20px; width: 100%; }
 .nav-5col { grid-template-columns: repeat(5, 1fr) !important; }
 .nav-4col { grid-template-columns: repeat(4, 1fr) !important; }
-
-.grid-item { text-decoration: none; color: #fff !important; text-align: center; transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); display: block; cursor: pointer; }
+.grid-item { text-decoration: none; color: #fff !important; text-align: center; transition: transform 0.3s; display: block; cursor: pointer; }
 .grid-item:hover { transform: translateY(-10px); }
-.grid-item:hover .photo-box { border-color: #eb7992; box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
-.grid-item:active { transform: translateY(-2px) scale(0.96); transition: 0.1s; }
-
-.photo-box { width: 100%; aspect-ratio: 3/4; background: #3a2a2a; border: 1px solid #4a3a3a; overflow: hidden; transition: 0.3s ease; }
+.photo-box { width: 100%; aspect-ratio: 3/4; background: #3a2a2a; border: 1px solid #4a3a3a; overflow: hidden; }
 .photo-box.square { aspect-ratio: 1/1 !important; }
 .photo-box img { width: 100%; height: 100%; object-fit: cover; }
 .grid-item span { font-size: 0.85rem; display: block; margin-top: 10px; }
-
-/* クイックナビ用 */
-.quick-nav-area { margin-top: 80px; padding-top: 40px; border-top: 1px solid #3a2a2a; }
 .quick-nav-area .grid-item span { display: none !important; }
 
-/* --- 7. 詳細レイアウト --- */
+/* --- 8. 詳細ページレイアウト --- */
 .detail-flex { display: flex; gap: 40px; align-items: stretch; margin-top: 20px; width: 100%; }
 .detail-left { width: 45%; flex-shrink: 0; }
-.detail-left img { width: 100%; height: 100%; object-fit: cover; border: 1px solid #4a3a3a; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+.detail-left img { width: 100%; height: 100%; object-fit: cover; border: 1px solid #4a3a3a; }
 .detail-right { width: 55%; display: flex; flex-direction: column; }
 
 .profile-info h2 { font-family: 'Aprila' !important; font-size: 3.5rem; margin: 0 0 10px; color: #fff !important; line-height: 1.1; }
@@ -75,42 +82,35 @@ footer { background: #1b1111; text-align: center; padding: 40px 20px; border-top
 .profile-table li { display: flex; padding: 15px 0; border-bottom: 1px solid #3a2a2a; align-items: center; }
 .label { width: 100px; color: #8a6a6a !important; font-family: 'Aprila' !important; font-size: 0.85rem; }
 
-/* --- 8. プレーヤー --- */
+/* --- 9. シンプルプレーヤー (音量・シャッフル・リピート削除対応) --- */
 .player-box { background: #1b1111; border: 1px solid #3a2a2a; display: flex; flex-direction: column; height: 100%; border-radius: 8px; overflow: hidden; }
 .player-top-controls { padding: 25px; background: linear-gradient(to bottom, #2b1a1a, #1b1111); }
-.p-meta h2 { font-size: 1.3rem; color: #fff !important; margin: 0; font-weight: bold; line-height: 1.4; word-break: break-all; }
+.p-meta h2 { font-size: 1.4rem; color: #fff !important; margin: 0; font-weight: bold; line-height: 1.4; word-break: break-all; }
 .p-meta p { font-size: 0.8rem; color: #8a6a6a !important; margin: 5px 0 20px; }
+
 .time-info { display: flex; justify-content: space-between; width: 100%; font-size: 11px; color: #8a6a6a; margin-bottom: 5px; font-family: 'Aprila' !important; }
 input[type="range"] { -webkit-appearance: none; width: 100%; background: transparent; cursor: pointer; outline: none; }
 input[type="range"]::-webkit-slider-runnable-track { width: 100%; height: 5px; background: #3a2a2a; border-radius: 3px; }
-input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; height: 14px; width: 14px; background: #eb7992; border-radius: 50%; border: 2px solid #fff; margin-top: -5px; box-shadow: 0 0 5px rgba(0,0,0,0.5); }
-.player-controls-grid { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 20px; }
-.grid-left { width: 30%; display: flex; align-items: center; gap: 10px; }
-.grid-left i { font-size: 1.1rem; color: #8a6a6a; cursor: pointer; }
-.grid-left input { width: 60px; }
-.grid-center { width: 40%; display: flex; justify-content: center; align-items: center; gap: 25px; color: #fff !important; }
-.play-btn-main { font-size: 3.2rem !important; cursor: pointer; transition: transform 0.2s; display: flex; align-items: center; justify-content: center; }
-.play-btn-main:active { transform: scale(0.9); }
-.ctrl-icon { cursor: pointer; transition: 0.3s; opacity: 0.5; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; position: relative; }
-.ctrl-icon.active { opacity: 1; color: #eb7992 !important; }
-#repeat-indicator { font-size: 10px; position: absolute; top: -14px; right: -8px; font-weight: bold; color: #eb7992; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; height: 14px; width: 14px; background: #eb7992; border-radius: 50%; border: 2px solid #fff; margin-top: -5px; }
+
+/* コントロール：中央のみのシンプルな配置 */
+.player-controls-grid { display: flex; justify-content: center; align-items: center; width: 100%; margin-top: 20px; }
+.grid-center { display: flex; justify-content: center; align-items: center; gap: 40px; color: #fff !important; }
+.play-btn-main { font-size: 3.5rem !important; cursor: pointer; transition: 0.2s; }
+.ctrl-icon { cursor: pointer; transition: 0.3s; opacity: 0.5; font-size: 1.3rem; }
+.ctrl-icon:hover { opacity: 1; }
+
 .player-track-list { flex-grow: 1; overflow-y: auto; background: #241818; max-height: 200px; }
-.track-row { padding: 12px 20px; border-bottom: 1px solid #1b1111; cursor: pointer; font-size: 0.85rem; transition: 0.2s; }
-.track-row:hover { background: rgba(235, 121, 146, 0.05); }
+.track-row { padding: 12px 20px; border-bottom: 1px solid #1b1111; cursor: pointer; font-size: 0.85rem; }
 .track-row.active { background: rgba(235, 121, 146, 0.1); border-left: 3px solid #eb7992; color: #fff !important; }
 
-/* --- 9. ニュース --- */
-.news-item { display: flex; align-items: center; padding: 25px 10px; border-bottom: 1px solid #3a2a2a; text-decoration: none !important; color: #d8c8c8 !important; transition: 0.3s; cursor: pointer; }
-.news-item:hover { background: rgba(255,255,255,0.03); }
-.news-date { font-family: 'Aprila' !important; width: 140px; color: #8a6a6a !important; flex-shrink: 0; }
-
+/* アニメーション */
 @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (max-width: 768px) {
     .section { padding-top: 100px !important; }
     .grid-nav { grid-template-columns: repeat(2, 1fr) !important; }
-    .nav-5col { grid-template-columns: repeat(5, 1fr) !important; }
-    .nav-4col { grid-template-columns: repeat(4, 1fr) !important; }
+    .nav-5col, .nav-4col { grid-template-columns: repeat(5, 1fr) !important; }
     .detail-flex { flex-direction: column; }
     .detail-left, .detail-right { width: 100%; }
     .hero { height: 60vh !important; }
