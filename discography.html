@@ -1,28 +1,32 @@
-<div class="section">
-    <h2 class="section-title fade-in">Discography</h2>
-    <div class="detail-flex fade-in">
-        <div class="detail-left"><img id="d-jacket" src=""></div>
-        <!-- ここにプレーヤーが自動注入されます -->
-        <div class="detail-right" id="player-mount"></div>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <title>Discography - Kiss-U</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css?v=final">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div id="common-header"></div>
+    <div class="section">
+        <h2 class="section-title fade-in">Discography</h2>
+        <div class="detail-flex fade-in">
+            <div class="detail-left"><img id="d-jacket" src=""></div>
+            <div class="detail-right" id="player-mount"></div>
+        </div>
+        <div class="grid-nav nav-4col quick-nav fade-in" id="disco-quick-nav" style="margin-top: 80px; padding-top: 40px; border-top: 1px solid #3a2a2a;"></div>
     </div>
-    <div class="grid-nav nav-4col quick-nav fade-in" id="disco-quick-nav" style="margin-top: 80px; padding-top: 40px; border-top: 1px solid #3a2a2a;"></div>
-</div>
-
-<script src="disco_data.js"></script>
-<script src="player.js"></script> <!-- プレーヤー注入システム -->
-<script src="common.js"></script>
-<script>
-    const discoId = new URLSearchParams(window.location.search).get('id') || 'fly-by';
-    const data = discoData[discoId];
-    if (data) {
-        document.getElementById('d-jacket').src = data.jacket;
-        mountPlayer(data); // プレーヤーを起動！
-    }
-    // クイックナビ生成ロジック（そのまま）
-    const nav = document.getElementById('disco-quick-nav');
-    Object.keys(discoData).forEach(key => {
-        const item = discoData[key]; const a = document.createElement('a'); a.href = `discography.html?id=${key}`;
-        a.className = 'grid-item'; a.innerHTML = `<div class="photo-box square"><img src="${item.jacket}"></div>`;
-        nav.appendChild(a);
-    });
-</script>
+    <div id="common-footer"></div>
+    <script src="discography.js"></script>
+    <script src="player.js"></script>
+    <script src="common.js"></script>
+    <script>
+        const dId=new URLSearchParams(window.location.search).get('id')||'fly-by';
+        const data=discoData[dId];
+        if(data){document.getElementById('d-jacket').src=data.jacket; mountPlayer(data);}
+        const nav=document.getElementById('disco-quick-nav');
+        Object.keys(discoData).forEach(k=>{const item=discoData[k]; const a=document.createElement('a'); a.href=`discography.html?id=${k}`; a.className='grid-item'; a.innerHTML=`<div class="photo-box square"><img src="${item.jacket}"></div>`; nav.appendChild(a);});
+    </script>
+</body>
+</html>

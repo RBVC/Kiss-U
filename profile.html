@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>Profile - Kiss-U</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css?v=final_ux">
+    <link rel="stylesheet" href="style.css?v=final">
 </head>
 <body>
     <div id="common-header"></div>
@@ -30,7 +30,8 @@
         </div>
     </div>
     <div id="common-footer"></div>
-    <script src="data.js"></script><script src="common.js"></script>
+    <script src="profile.js"></script>
+    <script src="common.js"></script>
     <script>
         const d=memberData[new URLSearchParams(window.location.search).get('id')||'1chika'];
         if(d){document.getElementById('m-codename').innerText=d.codename;document.getElementById('m-name').innerText=d.name;document.getElementById('m-birthday').innerText=d.birthday;document.getElementById('m-position').innerText=d.position;document.getElementById('m-image').src=d.image;document.title=`${d.codename} - Profile | Kiss-U`;}

@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>News - Kiss-U</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css?v=final_ux">
+    <link rel="stylesheet" href="style.css?v=final">
 </head>
 <body>
     <div id="common-header"></div>
@@ -13,7 +13,11 @@
         <div id="full-news-list"></div>
     </div>
     <div id="common-footer"></div>
-    <script src="data.js"></script><script src="common.js"></script>
-    <script>const fullNewsList=document.getElementById('full-news-list');newsData.forEach(item=>{const a=document.createElement('a');a.href=item.link;a.className='news-item';a.innerHTML=`<span class="news-date">${item.date}</span><span>${item.text}</span>`;fullNewsList.appendChild(a);});</script>
+    <script src="news.js"></script>
+    <script src="common.js"></script>
+    <script>
+        const list=document.getElementById('full-news-list');
+        newsData.forEach(item=>{const a=document.createElement('a'); a.href=item.link; a.className='news-item'; a.innerHTML=`<span class="news-date">${item.date}</span><span>${item.text}</span>`; list.appendChild(a);});
+    </script>
 </body>
 </html>
