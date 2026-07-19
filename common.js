@@ -5,28 +5,28 @@ faviconLink.href = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' v
 document.getElementsByTagName('head')[0].appendChild(faviconLink);
 
 // --- 2. ページ（View）切り替えシステム ---
-const showView = (viewId) => {
-    // 全てのViewを非表示に
+// functionで定義することで、どこからでも確実に呼べるようにします
+function showView(viewId) {
+    console.log("Switching to view:", viewId);
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-    // 指定したViewを表示
     const target = document.getElementById(viewId);
     if (target) {
         target.classList.add('active');
-        window.scrollTo(0, 0); // ページトップへ
+        window.scrollTo(0, 0); 
     }
-};
+}
 
 // ヘッダー注入
 const headerArea = document.getElementById('common-header');
 if (headerArea) {
     headerArea.innerHTML = `
     <header>
-        <div class="logo" onclick="showView('home-view')">Kiss-U</div>
+        <div class="logo" onclick="showView('home-view')" style="cursor:pointer;">Kiss-U</div>
         <nav>
             <ul class="nav-links">
-                <li><a onclick="showView('news-view')">News</a></li>
-                <li><a onclick="showView('home-view'); setTimeout(()=>document.getElementById('profile-anchor').scrollIntoView({behavior:'smooth'}),100)">Profile</a></li>
-                <li><a onclick="showView('home-view'); setTimeout(()=>document.getElementById('disco-anchor').scrollIntoView({behavior:'smooth'}),100)">Discography</a></li>
+                <li><a onclick="showView('news-view')" style="cursor:pointer;">News</a></li>
+                <li><a onclick="showView('home-view'); setTimeout(()=>document.getElementById('profile-anchor').scrollIntoView({behavior:'smooth'}),100)" style="cursor:pointer;">Profile</a></li>
+                <li><a onclick="showView('home-view'); setTimeout(()=>document.getElementById('disco-anchor').scrollIntoView({behavior:'smooth'}),100)" style="cursor:pointer;">Discography</a></li>
             </ul>
         </nav>
     </header>
